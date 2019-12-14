@@ -16,6 +16,7 @@
     "typescript": "~3.7.2"
   },
   "dependencies": {
+    "@aws-cdk/aws-s3": "^1.18.0",
     "@aws-cdk/core": "^1.18.0"
   },
   "scripts": {
