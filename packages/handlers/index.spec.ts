@@ -1,5 +1,5 @@
 describe('Handlers', () => {
   it('should work ', () => {
-    expect(true).toBe(true)
-  })
-})
+    expect(true).toBe(true);
+  });
+});

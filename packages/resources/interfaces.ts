@@ -1,9 +1,16 @@
-import { StackProps } from '@aws-cdk/core'
+import { Pipeline } from '@aws-cdk/aws-codepipeline';
+import { Bucket } from '@aws-cdk/aws-s3';
+import { StackProps } from '@aws-cdk/core';
 
-export interface IDoostrapper {}
+export interface IDoostrapper {
+  readonly artifactsBucket: Bucket;
+  readonly deployPipeline: Pipeline;
+}
 
 export interface DoostrapperProps extends StackProps {
-  artifactsBucket: ArtifactsBucketProps
+  artifactsBucketConfig: ArtifactsBucketProps;
+  pipelineConfig: PipelineProps;
+  codeDeployConfig: CodeDeployConfig;
 }
 
 /**
@@ -16,9 +23,21 @@ interface ArtifactsBucketProps {
   /**
    * @default - Cloudformation generated bucket name
    */
-  bucketName?: string
+  bucketName?: string;
+}
+
+/**
+ * @param pipelineName name of deploy pipeline
+ * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
+ */
+interface PipelineProps {
   /**
-   * @default - Default value is true
+   * @default - AWS CloudFormation generates an ID and uses that for the pipeline name
    */
-  versioned?: boolean
+  pipelineName?: string;
+  artifactsSourceKey: string;
+}
+
+interface CodeDeployConfig {
+  projectName: string;
 }
