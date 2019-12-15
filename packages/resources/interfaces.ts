@@ -1,16 +1,22 @@
 import { Pipeline } from '@aws-cdk/aws-codepipeline';
+import { Rule } from '@aws-cdk/aws-events';
 import { Bucket } from '@aws-cdk/aws-s3';
+import { Topic } from '@aws-cdk/aws-sns';
 import { StackProps } from '@aws-cdk/core';
+import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
 
 export interface IDoostrapper {
   readonly artifactsBucket: Bucket;
   readonly deployPipeline: Pipeline;
+  readonly notificationsTopic: Topic;
+  readonly notificationsRule: Rule;
 }
 
 export interface DoostrapperProps extends StackProps {
   artifactsBucketConfig: ArtifactsBucketProps;
   pipelineConfig: PipelineProps;
   codeDeployConfig: CodeDeployConfig;
+  notificationsConfig: NotificationsConfig;
 }
 
 /**
@@ -40,4 +46,23 @@ interface PipelineProps {
 
 interface CodeDeployConfig {
   projectName: string;
+}
+
+/**
+ * @param topicName Name of SNS Topic resource
+ * @param notificationsType Type of notifications to receive
+ * @param notificationsTarget  What target to notify
+ * @param cloudwatchRuleName Cloudwatch events rule name
+ */
+interface NotificationsConfig {
+  /**
+   * @default - Cloudformation generates unique resource Id and uses that as a name
+   */
+  topicName?: string;
+  notificationsType: NOTIFICATIONS_TYPE;
+  notificationsTarget: NOTIFICATIONS_TARGET;
+  /**
+   * @default - Cloudformation generates unique resource Id and uses that as a name
+   */
+  cloudwatchRuleName?: string;
 }

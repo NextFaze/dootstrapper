@@ -10,12 +10,18 @@ import {
   S3SourceAction,
   S3Trigger,
 } from '@aws-cdk/aws-codepipeline-actions';
+import { Rule } from '@aws-cdk/aws-events';
+import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Bucket } from '@aws-cdk/aws-s3';
+import { Topic } from '@aws-cdk/aws-sns';
 import { App, Stack } from '@aws-cdk/core';
+import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
 import { DoostrapperProps, IDoostrapper } from './interfaces';
 export class Doostrapper extends Stack implements IDoostrapper {
   readonly artifactsBucket: Bucket;
   readonly deployPipeline: Pipeline;
+  readonly notificationsTopic: Topic;
+  readonly notificationsRule: Rule;
   constructor(scope: App, id: string, private props: DoostrapperProps) {
     super(scope, id, props);
 
@@ -26,26 +32,18 @@ export class Doostrapper extends Stack implements IDoostrapper {
       bucketName,
       versioned: true,
     });
-
-    const {
-      codeDeployConfig: { projectName },
-    } = this.props;
-    const project = new PipelineProject(this, 'DeployProject', {
-      projectName,
-      environment: {
-        buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
-        computeType: ComputeType.SMALL,
-      },
-      badge: true,
-      description: 'Doostrapper Codepipeline Deploy Project',
-    });
-    this.deployPipeline = this._createPipeline(project);
+    this.deployPipeline = this._createPipeline();
+    this.notificationsTopic = this._createPipelineNotificationsTopic();
+    this.notificationsRule = this._createNotificationsRule(
+      this.notificationsTopic,
+      this.deployPipeline.pipelineArn
+    );
   }
 
   /**
    * Creates deploy Pipeline resource
    */
-  private _createPipeline(deployProject: PipelineProject) {
+  private _createPipeline() {
     const {
       pipelineConfig: { pipelineName },
     } = this.props;
@@ -64,9 +62,7 @@ export class Doostrapper extends Stack implements IDoostrapper {
     // Deploy stage
     pipeline.addStage({
       stageName: 'Deploy',
-      actions: [
-        this._createCDKDeployAction(deployProject, s3Source, codebuildSource),
-      ],
+      actions: [this._createCDKDeployAction(s3Source, codebuildSource)],
     });
     return pipeline;
   }
@@ -103,15 +99,72 @@ export class Doostrapper extends Stack implements IDoostrapper {
    * @param outputSource Codebuild output artifact
    */
   private _createCDKDeployAction(
-    deployProject: PipelineProject,
     inputSource: Artifact,
     outputSource: Artifact
   ) {
+    const {
+      codeDeployConfig: { projectName },
+    } = this.props;
+    const deployProject = new PipelineProject(this, 'DeployProject', {
+      projectName,
+      environment: {
+        buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
+        computeType: ComputeType.SMALL,
+      },
+      badge: true,
+      description: 'Doostrapper Codepipeline Deploy Project',
+    });
     return new CodeBuildAction({
       actionName: 'CDKDeploy',
       input: inputSource,
       outputs: [outputSource],
       project: deployProject,
+    });
+  }
+
+  private _createPipelineNotificationsTopic() {
+    const {
+      notificationsConfig: { topicName },
+    } = this.props;
+    return new Topic(this, 'PipelineNotificationsTopic', {
+      topicName,
+    });
+  }
+
+  private _createNotificationsRule(
+    notificationsTopic: Topic,
+    pipelineArn: string
+  ) {
+    const {
+      notificationsConfig: { cloudwatchRuleName, notificationsType },
+    } = this.props;
+    const snsTopic = new SnsTopic(notificationsTopic);
+
+    let detailType: string;
+    switch (notificationsType) {
+      case NOTIFICATIONS_TYPE.PIPELINE_EXECUTION: {
+        detailType = NOTIFICATIONS_DETAILS_TYPE.PIPELINE;
+        break;
+      }
+      case NOTIFICATIONS_TYPE.STAGE_EXECUTION: {
+        detailType = NOTIFICATIONS_DETAILS_TYPE.STAGE;
+        break;
+      }
+      case NOTIFICATIONS_TYPE.ACTION_EXECUTION: {
+        detailType = NOTIFICATIONS_DETAILS_TYPE.ACTION;
+        break;
+      }
+    }
+    return new Rule(this, 'PipelineNotificationsRule', {
+      targets: [snsTopic],
+      enabled: true,
+      description: 'Doostrapper Pipeline notifications Cloudwatch Rule',
+      ruleName: cloudwatchRuleName,
+      eventPattern: {
+        source: ['aws.codepipeline'],
+        detailType: [detailType],
+        resources: [pipelineArn],
+      },
     });
   }
 }
