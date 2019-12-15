@@ -7,7 +7,6 @@ export enum NOTIFICATIONS_TYPE {
 
 export enum NOTIFICATIONS_TARGET {
   EMAIL = 'email',
-  SLACK = 'slack',
 }
 
 export enum NOTIFICATIONS_DETAILS_TYPE {

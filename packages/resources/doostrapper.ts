@@ -14,7 +14,9 @@ import { Rule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
+import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
+import { EMAIL_VALIDATOR } from './../../dist/dootstrapper/packages/resources/constants';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
 import { DoostrapperProps, IDoostrapper } from './interfaces';
 export class Doostrapper extends Stack implements IDoostrapper {
@@ -38,6 +40,7 @@ export class Doostrapper extends Stack implements IDoostrapper {
       this.notificationsTopic,
       this.deployPipeline.pipelineArn
     );
+    this._createSnsSubscription();
   }
 
   /**
@@ -166,5 +169,17 @@ export class Doostrapper extends Stack implements IDoostrapper {
         resources: [pipelineArn],
       },
     });
+  }
+
+  private _createSnsSubscription() {
+    const {
+      notificationsConfig: {
+        notificationsTargetConfig: { emailAddress },
+      },
+    } = this.props;
+    if (!EMAIL_VALIDATOR.test(emailAddress.toLocaleLowerCase())) {
+      throw new Error('Invalid Email Address.');
+    }
+    return new EmailSubscription(emailAddress);
   }
 }

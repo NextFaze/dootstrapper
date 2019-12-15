@@ -51,7 +51,7 @@ interface CodeDeployConfig {
 /**
  * @param topicName Name of SNS Topic resource
  * @param notificationsType Type of notifications to receive
- * @param notificationsTarget  What target to notify
+ * @param notificationsTargetConfig  Notifications Target Configurations
  * @param cloudwatchRuleName Cloudwatch events rule name
  */
 interface NotificationsConfig {
@@ -60,9 +60,20 @@ interface NotificationsConfig {
    */
   topicName?: string;
   notificationsType: NOTIFICATIONS_TYPE;
-  notificationsTarget: NOTIFICATIONS_TARGET;
+  notificationsTargetConfig: NotificationsEmailTargetConfig;
   /**
    * @default - Cloudformation generates unique resource Id and uses that as a name
    */
   cloudwatchRuleName?: string;
+}
+
+/**
+ * @param targetType Type of target
+ * @param emailAddress Email to send notifications to
+ * @param emailSubject Email subject to be used when sending emails
+ */
+interface NotificationsEmailTargetConfig {
+  targetType: NOTIFICATIONS_TARGET.EMAIL;
+  emailAddress: string;
+  emailSubject: string;
 }
