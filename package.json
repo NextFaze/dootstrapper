@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@aws-cdk/assert": "^1.18.0",
     "@bazel/bazel": "latest",
     "@bazel/buildifier": "latest",
     "@bazel/ibazel": "latest",

@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "lib": ["es2015.promise", "es5", "es6", "es2017.object"],
+    "target": "esNext",
     "module": "commonjs",
-    "lib": ["es2018"],
+    "moduleResolution": "node",
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -12,7 +13,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": false,
+    "noFallthroughCasesInSwitch": true,
     "inlineSourceMap": true,
     "inlineSources": true,
     "experimentalDecorators": true,

@@ -13,9 +13,9 @@ export interface IDoostrapper {
 }
 
 export interface DoostrapperProps extends StackProps {
-  artifactsBucketConfig: ArtifactsBucketProps;
+  artifactsBucketConfig?: ArtifactsBucketProps;
   pipelineConfig: PipelineProps;
-  codeDeployConfig: CodeDeployConfig;
+  codeDeployConfig?: CodeDeployConfig;
   notificationsConfig: NotificationsConfig;
 }
 
@@ -45,7 +45,7 @@ interface PipelineProps {
 }
 
 interface CodeDeployConfig {
-  projectName: string;
+  projectName?: string;
 }
 
 /**
@@ -59,6 +59,9 @@ interface NotificationsConfig {
    * @default - Cloudformation generates unique resource Id and uses that as a name
    */
   topicName?: string;
+  /**
+   * @default - Pipeline Execution events
+   */
   notificationsType: NOTIFICATIONS_TYPE;
   notificationsTargetConfig: NotificationsEmailTargetConfig;
   /**

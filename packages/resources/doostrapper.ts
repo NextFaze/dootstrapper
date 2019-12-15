@@ -16,7 +16,6 @@ import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
-import { EMAIL_VALIDATOR } from './../../dist/dootstrapper/packages/resources/constants';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
 import { DoostrapperProps, IDoostrapper } from './interfaces';
 export class Doostrapper extends Stack implements IDoostrapper {
@@ -27,11 +26,9 @@ export class Doostrapper extends Stack implements IDoostrapper {
   constructor(scope: App, id: string, private props: DoostrapperProps) {
     super(scope, id, props);
 
-    const {
-      artifactsBucketConfig: { bucketName },
-    } = props;
+    const { artifactsBucketConfig } = props;
     this.artifactsBucket = new Bucket(this, 'ArtifactsBucket', {
-      bucketName,
+      bucketName: artifactsBucketConfig?.bucketName,
       versioned: true,
     });
     this.deployPipeline = this._createPipeline();
@@ -105,16 +102,13 @@ export class Doostrapper extends Stack implements IDoostrapper {
     inputSource: Artifact,
     outputSource: Artifact
   ) {
-    const {
-      codeDeployConfig: { projectName },
-    } = this.props;
+    const { codeDeployConfig } = this.props;
     const deployProject = new PipelineProject(this, 'DeployProject', {
-      projectName,
+      projectName: codeDeployConfig?.projectName,
       environment: {
         buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
         computeType: ComputeType.SMALL,
       },
-      badge: true,
       description: 'Doostrapper Codepipeline Deploy Project',
     });
     return new CodeBuildAction({
@@ -145,10 +139,6 @@ export class Doostrapper extends Stack implements IDoostrapper {
 
     let detailType: string;
     switch (notificationsType) {
-      case NOTIFICATIONS_TYPE.PIPELINE_EXECUTION: {
-        detailType = NOTIFICATIONS_DETAILS_TYPE.PIPELINE;
-        break;
-      }
       case NOTIFICATIONS_TYPE.STAGE_EXECUTION: {
         detailType = NOTIFICATIONS_DETAILS_TYPE.STAGE;
         break;
@@ -156,6 +146,9 @@ export class Doostrapper extends Stack implements IDoostrapper {
       case NOTIFICATIONS_TYPE.ACTION_EXECUTION: {
         detailType = NOTIFICATIONS_DETAILS_TYPE.ACTION;
         break;
+      }
+      default: {
+        detailType = NOTIFICATIONS_DETAILS_TYPE.PIPELINE;
       }
     }
     return new Rule(this, 'PipelineNotificationsRule', {
@@ -177,9 +170,9 @@ export class Doostrapper extends Stack implements IDoostrapper {
         notificationsTargetConfig: { emailAddress },
       },
     } = this.props;
-    if (!EMAIL_VALIDATOR.test(emailAddress.toLocaleLowerCase())) {
-      throw new Error('Invalid Email Address.');
-    }
+    // if (!EMAIL_VALIDATOR.test(String(emailAddress).toLocaleLowerCase())) {
+    //   throw new Error('Invalid Email Address.');
+    // }
     return new EmailSubscription(emailAddress);
   }
 }
