@@ -1,14 +1,11 @@
-# Welcome to your CDK TypeScript project!
+# CDK Deployment Bootstrapper project!
 
-This is a blank project for TypeScript development with CDK.
+Creates a CD pipeline to declaratively deploy to multiple environments
+Generates following resources:
+-  Codepipeline
+-  Codebuild
+-  Pub-sub channel (SNS) 
+-  S3
+-  Lambda (to send notifications to slack)
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+## Coming Soon...
