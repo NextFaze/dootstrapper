@@ -16,6 +16,7 @@ import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
+import { EMAIL_VALIDATOR } from './constants';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
 import { DoostrapperProps, IDoostrapper } from './interfaces';
 export class Doostrapper extends Stack implements IDoostrapper {
@@ -170,9 +171,9 @@ export class Doostrapper extends Stack implements IDoostrapper {
         notificationsTargetConfig: { emailAddress },
       },
     } = this.props;
-    // if (!EMAIL_VALIDATOR.test(String(emailAddress).toLocaleLowerCase())) {
-    //   throw new Error('Invalid Email Address.');
-    // }
+    if (!EMAIL_VALIDATOR.test(String(emailAddress).toLocaleLowerCase())) {
+      throw new Error('Invalid Email Address.');
+    }
     return new EmailSubscription(emailAddress);
   }
 }
