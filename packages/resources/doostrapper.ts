@@ -27,18 +27,20 @@ export class Doostrapper extends Stack implements IDoostrapper {
       versioned: true,
     });
     this.notificationsTopic = this._createPipelineNotificationsTopic();
-    this.notificationsRule = this._createNotificationsRule(
-      this.notificationsTopic,
-      this.deployPipeline.pipelineArn
-    );
-    this._createSnsSubscription();
-    this._createArtifactsEventsTrail();
-    new MultiEnvPipeline(this, 'MultiEnvPipeline', {
+    const multiEnvConstruct = new MultiEnvPipeline(this, 'MultiEnvPipeline', {
       artifactsBucket: this.artifactsBucket,
       notificationTopic: this.notificationsTopic,
       artifactsSourceKey: artifactsSourceKey,
       environments,
     });
+
+    this.deployPipeline = multiEnvConstruct.pipeline;
+    this.notificationsRule = this._createNotificationsRule(
+      this.notificationsTopic,
+      this.deployPipeline.pipelineArn
+    );
+    this._createArtifactsEventsTrail();
+    this.notificationsTopic.addSubscription(this._createSnsSubscription());
   }
 
   private _createPipelineNotificationsTopic() {
