@@ -1,15 +1,5 @@
 import { ReadWriteType, Trail } from '@aws-cdk/aws-cloudtrail';
-import {
-  ComputeType,
-  LinuxBuildImage,
-  PipelineProject,
-} from '@aws-cdk/aws-codebuild';
-import { Artifact, Pipeline } from '@aws-cdk/aws-codepipeline';
-import {
-  CodeBuildAction,
-  S3SourceAction,
-  S3Trigger,
-} from '@aws-cdk/aws-codepipeline-actions';
+import { Pipeline } from '@aws-cdk/aws-codepipeline';
 import { Rule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Bucket } from '@aws-cdk/aws-s3';
@@ -32,47 +22,25 @@ export class Doostrapper extends Stack implements IDoostrapper {
       bucketName: artifactsBucketConfig?.bucketName,
       versioned: true,
     });
-    this.deployPipeline = this._createPipeline();
     this.notificationsTopic = this._createPipelineNotificationsTopic();
     this.notificationsRule = this._createNotificationsRule(
       this.notificationsTopic,
       this.deployPipeline.pipelineArn
     );
     this._createSnsSubscription();
+    this._createArtifactsEventsTrail();
   }
 
-  /**
-   * Creates deploy Pipeline resource
-   */
-  private _createPipeline() {
+  private _createPipelineNotificationsTopic() {
     const {
-      pipelineConfig: { pipelineName },
+      notificationsConfig: { topicName },
     } = this.props;
-    const pipeline = new Pipeline(this, 'Pipeline', {
-      artifactBucket: this.artifactsBucket,
-      pipelineName,
+    return new Topic(this, 'PipelineNotificationsTopic', {
+      topicName,
     });
-    const s3Source = new Artifact('S3Source');
-    const codebuildSource = new Artifact('CodebuildSource');
-
-    // Checkout stage
-    pipeline.addStage({
-      stageName: 'Checkout',
-      actions: [this._createS3CheckoutAction(s3Source)],
-    });
-    // Deploy stage
-    pipeline.addStage({
-      stageName: 'Deploy',
-      actions: [this._createCDKDeployAction(s3Source, codebuildSource)],
-    });
-    return pipeline;
   }
 
-  /**
-   * Creates s3 checkout action
-   * @param sourceOutput Checkout output artifact
-   */
-  private _createS3CheckoutAction(sourceOutput: Artifact) {
+  private _createArtifactsEventsTrail() {
     const {
       pipelineConfig: { artifactsSourceKey },
     } = this.props;
@@ -84,49 +52,7 @@ export class Doostrapper extends Stack implements IDoostrapper {
       [this.artifactsBucket.arnForObjects(artifactsSourceKey)],
       { readWriteType: ReadWriteType.WRITE_ONLY }
     );
-    return new S3SourceAction({
-      actionName: 'S3Source',
-      bucket: this.artifactsBucket,
-      bucketKey: artifactsSourceKey,
-      output: sourceOutput,
-      trigger: S3Trigger.EVENTS,
-    });
-  }
-
-  /**
-   * Creates CDK deploy codebuild action
-   * @param deployProject Codebuild deploy project
-   * @param inputSource Codebuild input artifact
-   * @param outputSource Codebuild output artifact
-   */
-  private _createCDKDeployAction(
-    inputSource: Artifact,
-    outputSource: Artifact
-  ) {
-    const { codeDeployConfig } = this.props;
-    const deployProject = new PipelineProject(this, 'DeployProject', {
-      projectName: codeDeployConfig?.projectName,
-      environment: {
-        buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
-        computeType: ComputeType.SMALL,
-      },
-      description: 'Doostrapper Codepipeline Deploy Project',
-    });
-    return new CodeBuildAction({
-      actionName: 'CDKDeploy',
-      input: inputSource,
-      outputs: [outputSource],
-      project: deployProject,
-    });
-  }
-
-  private _createPipelineNotificationsTopic() {
-    const {
-      notificationsConfig: { topicName },
-    } = this.props;
-    return new Topic(this, 'PipelineNotificationsTopic', {
-      topicName,
-    });
+    return trail;
   }
 
   private _createNotificationsRule(
