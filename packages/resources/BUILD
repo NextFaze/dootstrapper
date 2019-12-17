@@ -29,10 +29,7 @@ ts_library(
     tsconfig = "//:tsconfig.json",
     deps = [
         ":library",
-        "@npm//@types/jasmine",
-        "@npm//@types/node",
-        "@npm//@aws-cdk/core",
-        "@npm//@aws-cdk/assert"
+        "@npm//:node_modules",
     ],
 )
 

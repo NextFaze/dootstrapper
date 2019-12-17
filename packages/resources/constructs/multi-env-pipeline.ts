@@ -17,13 +17,8 @@ import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { Construct } from '@aws-cdk/core';
 import { paramCase, pascalCase } from 'change-case';
+import { Environment } from '../interfaces';
 
-interface Environment {
-  name: string;
-  approvalRequired: boolean;
-  runtimeVariables: { [key: string]: string };
-  buildSpec: any;
-}
 interface MultiEnvPipelineProps {
   artifactsBucket: Bucket;
   artifactsSourceKey: string;
@@ -62,13 +57,6 @@ export class MultiEnvPipeline extends Construct {
       const output = new Artifact(pascalCase(`${environment.name}Source`));
       const stageName = pascalCase(`${environment.name}Deploy`);
 
-      if (environment.approvalRequired) {
-        this._createManualApprovalAction(
-          paramCase(`${environment.name}Approve`),
-          notificationTopic
-        );
-      }
-
       const { runtimeVariables, buildSpec } = environment;
       // Limiting support of runtime variables to string
       const runTimeEnvironments = Object.keys(runtimeVariables).reduce(
@@ -84,20 +72,31 @@ export class MultiEnvPipeline extends Construct {
         <any>{}
       );
 
+      const actions = [];
+      if (environment.approvalRequired) {
+        actions.push(
+          this._createManualApprovalAction(
+            paramCase(`${environment.name}Approve`),
+            notificationTopic
+          )
+        );
+      }
+      actions.push(
+        this._createCodebuildAction(
+          pascalCase(`${environment.name}PipelineProject`),
+          stageName,
+          environment.approvalRequired ? 2 : 1, // change run order based on approval
+          runTimeEnvironments,
+          buildSpec,
+          s3Source,
+          output
+        )
+      );
+
       // add multiple stages per environment
-      const stage = pipeline.addStage({
+      pipeline.addStage({
         stageName,
-        actions: [
-          this._createCodebuildAction(
-            pascalCase(`${environment.name}PipelineProject`),
-            stageName,
-            environment.approvalRequired ? 2 : 1, // change run order based on approval
-            runTimeEnvironments,
-            buildSpec,
-            s3Source,
-            output
-          ),
-        ],
+        actions,
       });
     });
     return pipeline;

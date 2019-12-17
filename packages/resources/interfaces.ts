@@ -15,7 +15,6 @@ export interface IDoostrapper {
 export interface DoostrapperProps extends StackProps {
   artifactsBucketConfig?: ArtifactsBucketProps;
   pipelineConfig: PipelineProps;
-  codeDeployConfig?: CodeDeployConfig;
   notificationsConfig: NotificationsConfig;
 }
 
@@ -32,6 +31,13 @@ interface ArtifactsBucketProps {
   bucketName?: string;
 }
 
+export interface Environment {
+  name: string;
+  approvalRequired: boolean;
+  runtimeVariables: { [key: string]: string };
+  buildSpec: any;
+}
+
 /**
  * @param pipelineName name of deploy pipeline
  * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
@@ -40,12 +46,8 @@ interface PipelineProps {
   /**
    * @default - AWS CloudFormation generates an ID and uses that for the pipeline name
    */
-  pipelineName?: string;
   artifactsSourceKey: string;
-}
-
-interface CodeDeployConfig {
-  projectName?: string;
+  environments: Array<Environment>;
 }
 
 /**

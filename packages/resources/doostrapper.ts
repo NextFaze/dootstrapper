@@ -7,6 +7,7 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
 import { EMAIL_VALIDATOR } from './constants';
+import { MultiEnvPipeline } from './constructs/multi-env-pipeline';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
 import { DoostrapperProps, IDoostrapper } from './interfaces';
 export class Doostrapper extends Stack implements IDoostrapper {
@@ -17,7 +18,10 @@ export class Doostrapper extends Stack implements IDoostrapper {
   constructor(scope: App, id: string, private props: DoostrapperProps) {
     super(scope, id, props);
 
-    const { artifactsBucketConfig } = props;
+    const {
+      artifactsBucketConfig,
+      pipelineConfig: { artifactsSourceKey, environments },
+    } = props;
     this.artifactsBucket = new Bucket(this, 'ArtifactsBucket', {
       bucketName: artifactsBucketConfig?.bucketName,
       versioned: true,
@@ -29,6 +33,12 @@ export class Doostrapper extends Stack implements IDoostrapper {
     );
     this._createSnsSubscription();
     this._createArtifactsEventsTrail();
+    new MultiEnvPipeline(this, 'MultiEnvPipeline', {
+      artifactsBucket: this.artifactsBucket,
+      notificationTopic: this.notificationsTopic,
+      artifactsSourceKey: artifactsSourceKey,
+      environments,
+    });
   }
 
   private _createPipelineNotificationsTopic() {
