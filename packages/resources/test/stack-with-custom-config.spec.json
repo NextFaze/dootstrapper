@@ -1,0 +1,974 @@
+{
+  "Resources": {
+    "ArtifactsBucket2AAC5544": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "unique-artifacts-bucket-name",
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "ArtifactsBucketTestStackMultiEnvPipeline2412191CSourceEventRulepathtoresourcezip4B3BB00D": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "EventPattern": {
+          "source": ["aws.s3"],
+          "detail-type": ["AWS API Call via CloudTrail"],
+          "detail": {
+            "resources": {
+              "ARN": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                      },
+                      "/path/to/resource.zip"
+                    ]
+                  ]
+                }
+              ]
+            },
+            "eventName": ["CompleteMultipartUpload", "CopyObject", "PutObject"],
+            "requestParameters": {
+              "bucketName": [
+                {
+                  "Ref": "ArtifactsBucket2AAC5544"
+                }
+              ],
+              "key": ["path/to/resource.zip"]
+            }
+          }
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":codepipeline:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "MultiEnvPipeline44057249"
+                  }
+                ]
+              ]
+            },
+            "Id": "Target0",
+            "RoleArn": {
+              "Fn::GetAtt": ["MultiEnvPipelineEventsRoleA222D099", "Arn"]
+            }
+          }
+        ]
+      }
+    },
+    "PipelineNotificationsTopic827A419F": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "TopicName": "account-unique-topic-name"
+      }
+    },
+    "PipelineNotificationsTopicPolicy68C85C82": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com"
+              },
+              "Resource": {
+                "Ref": "PipelineNotificationsTopic827A419F"
+              },
+              "Sid": "0"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Topics": [
+          {
+            "Ref": "PipelineNotificationsTopic827A419F"
+          }
+        ]
+      }
+    },
+    "PipelineNotificationsTopicexampleexamplecomB15E4C2D": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "PipelineNotificationsTopic827A419F"
+        },
+        "Endpoint": "example@example.com"
+      }
+    },
+    "MultiEnvPipelineRole142940FD": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codepipeline.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "MultiEnvPipelineRoleDefaultPolicyAD690EB1": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRole1382D76F",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "MultiEnvPipelineTestDeployCodePipelineActionRole068F06FC",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "MultiEnvPipelineRoleDefaultPolicyAD690EB1",
+        "Roles": [
+          {
+            "Ref": "MultiEnvPipelineRole142940FD"
+          }
+        ]
+      }
+    },
+    "MultiEnvPipeline44057249": {
+      "Type": "AWS::CodePipeline::Pipeline",
+      "Properties": {
+        "RoleArn": {
+          "Fn::GetAtt": ["MultiEnvPipelineRole142940FD", "Arn"]
+        },
+        "Stages": [
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Source",
+                  "Owner": "AWS",
+                  "Provider": "S3",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "S3Bucket": {
+                    "Ref": "ArtifactsBucket2AAC5544"
+                  },
+                  "S3ObjectKey": "path/to/resource.zip",
+                  "PollForSourceChanges": false
+                },
+                "Name": "S3Source",
+                "OutputArtifacts": [
+                  {
+                    "Name": "S3Source"
+                  }
+                ],
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRole1382D76F",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              }
+            ],
+            "Name": "Checkout"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "MultiEnvPipelineTestPipelineProject2C47B493"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "S3Source"
+                  }
+                ],
+                "Name": "Deploy",
+                "OutputArtifacts": [
+                  {
+                    "Name": "TestSource"
+                  }
+                ],
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "MultiEnvPipelineTestDeployCodePipelineActionRole068F06FC",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              }
+            ],
+            "Name": "TestDeploy"
+          }
+        ],
+        "ArtifactStore": {
+          "Location": {
+            "Ref": "ArtifactsBucket2AAC5544"
+          },
+          "Type": "S3"
+        }
+      },
+      "DependsOn": [
+        "MultiEnvPipelineRoleDefaultPolicyAD690EB1",
+        "MultiEnvPipelineRole142940FD"
+      ]
+    },
+    "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRole1382D76F": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyE2B5A9E9": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": ["s3:GetObject*", "s3:GetBucket*", "s3:List*"],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": ["s3:DeleteObject*", "s3:PutObject*", "s3:Abort*"],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyE2B5A9E9",
+        "Roles": [
+          {
+            "Ref": "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRole1382D76F"
+          }
+        ]
+      }
+    },
+    "MultiEnvPipelineEventsRoleA222D099": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "MultiEnvPipelineEventsRoleDefaultPolicy76D2FC63": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "codepipeline:StartPipelineExecution",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codepipeline:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "MultiEnvPipeline44057249"
+                    }
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "MultiEnvPipelineEventsRoleDefaultPolicy76D2FC63",
+        "Roles": [
+          {
+            "Ref": "MultiEnvPipelineEventsRoleA222D099"
+          }
+        ]
+      }
+    },
+    "MultiEnvPipelineTestDeployCodePipelineActionRole068F06FC": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "MultiEnvPipelineTestDeployCodePipelineActionRoleDefaultPolicy738AC1CD": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "MultiEnvPipelineTestPipelineProject2C47B493",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "MultiEnvPipelineTestDeployCodePipelineActionRoleDefaultPolicy738AC1CD",
+        "Roles": [
+          {
+            "Ref": "MultiEnvPipelineTestDeployCodePipelineActionRole068F06FC"
+          }
+        ]
+      }
+    },
+    "MultiEnvPipelinetestDoostrapperCoreDeployUser359F0069": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/AdministratorAccess"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7": {
+      "Type": "AWS::IAM::AccessKey",
+      "Properties": {
+        "UserName": {
+          "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployUser359F0069"
+        }
+      }
+    },
+    "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Type": "String",
+        "Value": {
+          "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7"
+        },
+        "Name": "/doostrapper/test/access_key_id"
+      }
+    },
+    "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Type": "String",
+        "Value": {
+          "Fn::GetAtt": [
+            "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7",
+            "SecretAccessKey"
+          ]
+        },
+        "Name": "/doostrapper/test/secret_access_key"
+      }
+    },
+    "MultiEnvPipelineTestPipelineProjectRoleCE42161B": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "MultiEnvPipelineTestPipelineProjectRoleDefaultPolicy054C61D8": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":log-group:/aws/codebuild/",
+                      {
+                        "Ref": "MultiEnvPipelineTestPipelineProject2C47B493"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":log-group:/aws/codebuild/",
+                      {
+                        "Ref": "MultiEnvPipelineTestPipelineProject2C47B493"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter",
+                    {
+                      "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F"
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter",
+                    {
+                      "Ref": "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2"
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "MultiEnvPipelineTestPipelineProjectRoleDefaultPolicy054C61D8",
+        "Roles": [
+          {
+            "Ref": "MultiEnvPipelineTestPipelineProjectRoleCE42161B"
+          }
+        ]
+      }
+    },
+    "MultiEnvPipelineTestPipelineProject2C47B493": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": [
+            {
+              "Name": "SOME_OTHER_VARIABLE",
+              "Type": "PLAINTEXT",
+              "Value": "variable"
+            }
+          ],
+          "Image": "aws/codebuild/nodejs:10.14.1",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "MultiEnvPipelineTestPipelineProjectRoleCE42161B",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": {
+            "Fn::Join": [
+              "",
+              [
+                "{\n  \"env\": {\n    \"variables\": {\n      \"AWS_DEFAULT_REGION\": \"ap-southeast-2\"\n    },\n    \"parameter-store\": {\n      \"AWS_ACCESS_KEY_ID\": \"",
+                {
+                  "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F"
+                },
+                "\",\n      \"AWS_SECRET_ACCESS_KEY\": \"",
+                {
+                  "Ref": "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2"
+                },
+                "\"\n    }\n  }\n}"
+              ]
+            ]
+          },
+          "Type": "CODEPIPELINE"
+        },
+        "Description": "Doostrapper Codepipeline Deploy Project for stage TestDeploy",
+        "Name": "test-pipeline-project"
+      }
+    },
+    "PipelineNotificationsRule108C77DD": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Doostrapper Pipeline notifications Cloudwatch Rule",
+        "EventPattern": {
+          "source": ["aws.codepipeline"],
+          "detail-type": ["CodePipeline Pipeline Execution State Change"],
+          "resources": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":codepipeline:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "MultiEnvPipeline44057249"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "Name": "unique-cloudwatch-name",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Ref": "PipelineNotificationsTopic827A419F"
+            },
+            "Id": "Target0"
+          }
+        ]
+      }
+    },
+    "S3SourceTrailS37D21E604": {
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "S3SourceTrailS3Policy2C693435": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "S3SourceTrailS37D21E604"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:GetBucketAcl",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudtrail.amazonaws.com"
+              },
+              "Resource": {
+                "Fn::GetAtt": ["S3SourceTrailS37D21E604", "Arn"]
+              }
+            },
+            {
+              "Action": "s3:PutObject",
+              "Condition": {
+                "StringEquals": {
+                  "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudtrail.amazonaws.com"
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": ["S3SourceTrailS37D21E604", "Arn"]
+                    },
+                    "/AWSLogs/",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "S3SourceTrailLogGroupB099508C": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "RetentionInDays": 365
+      }
+    },
+    "S3SourceTrailLogsRoleDDC8A909": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudtrail.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "S3SourceTrailLogsRoleDefaultPolicy8A97801B": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": ["logs:PutLogEvents", "logs:CreateLogStream"],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": ["S3SourceTrailLogGroupB099508C", "Arn"]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "S3SourceTrailLogsRoleDefaultPolicy8A97801B",
+        "Roles": [
+          {
+            "Ref": "S3SourceTrailLogsRoleDDC8A909"
+          }
+        ]
+      }
+    },
+    "S3SourceTrail482E028F": {
+      "Type": "AWS::CloudTrail::Trail",
+      "Properties": {
+        "IsLogging": true,
+        "S3BucketName": {
+          "Ref": "S3SourceTrailS37D21E604"
+        },
+        "CloudWatchLogsLogGroupArn": {
+          "Fn::GetAtt": ["S3SourceTrailLogGroupB099508C", "Arn"]
+        },
+        "CloudWatchLogsRoleArn": {
+          "Fn::GetAtt": ["S3SourceTrailLogsRoleDDC8A909", "Arn"]
+        },
+        "EnableLogFileValidation": true,
+        "EventSelectors": [
+          {
+            "DataResources": [
+              {
+                "Type": "AWS::S3::Object",
+                "Values": [
+                  {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                        },
+                        "/path/to/resource.zip"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ReadWriteType": "WriteOnly"
+          }
+        ],
+        "IncludeGlobalServiceEvents": true,
+        "IsMultiRegionTrail": true
+      },
+      "DependsOn": [
+        "S3SourceTrailLogsRoleDefaultPolicy8A97801B",
+        "S3SourceTrailLogsRoleDDC8A909",
+        "S3SourceTrailS3Policy2C693435"
+      ]
+    }
+  }
+}

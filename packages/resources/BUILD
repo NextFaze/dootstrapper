@@ -3,6 +3,7 @@ package(default_visibility = ["//visibility:public"])
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
 
+
 ts_library(
     name = "library",
     srcs = glob(
@@ -24,15 +25,12 @@ ts_library(
         "**/*.spec.ts",
     ]),
     data = glob([
-        "test/**/*.json",
+        "**/*spec.json",
     ]),
     tsconfig = "//:tsconfig.json",
     deps = [
         ":library",
-        "@npm//@types/jasmine",
-        "@npm//@types/node",
-        "@npm//@aws-cdk/core",
-        "@npm//@aws-cdk/assert"
+        "@npm//:node_modules",
     ],
 )
 
@@ -45,3 +43,4 @@ jasmine_node_test(
         "@npm//source-map-support",
     ],
 )
+

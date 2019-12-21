@@ -5,27 +5,34 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { StackProps } from '@aws-cdk/core';
 import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
 
-export interface IDoostrapper {
+export interface IDoostrapperDelivery {
   readonly artifactsBucket: Bucket;
   readonly deployPipeline: Pipeline;
   readonly notificationsTopic: Topic;
   readonly notificationsRule: Rule;
 }
 
-export interface DoostrapperProps extends StackProps {
-  artifactsBucketConfig?: ArtifactsBucketProps;
-  pipelineConfig: PipelineProps;
-  codeDeployConfig?: CodeDeployConfig;
-  notificationsConfig: NotificationsConfig;
+/**
+ * @param artifactsBucketConfig Artifacts bucket related config
+ * @param pipelineConfig Deploy pipeline related config
+ * @param notificationsConfig Deployment notifications related config
+ */
+export interface IDoostrapperDeliveryProps extends StackProps {
+  /**
+   * @default - Doostrapper specific config is applied
+   */
+  artifactsBucketConfig?: IArtifactsBucketProps;
+  pipelineConfig: IPipelineProps;
+  notificationsConfig: INotificationsConfig;
 }
 
 /**
- * @param bucketName artifacts bucket name
+ * @param bucketName Artifacts bucket name
  * It is recommended not to have user defined bucket name
  * Bucket name needs to be unique across all accounts.
  * @param versioned this bucket should have versioning turned on or not.
  */
-interface ArtifactsBucketProps {
+interface IArtifactsBucketProps {
   /**
    * @default - Cloudformation generated bucket name
    */
@@ -33,19 +40,39 @@ interface ArtifactsBucketProps {
 }
 
 /**
- * @param pipelineName name of deploy pipeline
  * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
+ * @param environments environment related config
  */
-interface PipelineProps {
+interface IPipelineProps {
   /**
    * @default - AWS CloudFormation generates an ID and uses that for the pipeline name
    */
-  pipelineName?: string;
   artifactsSourceKey: string;
+  environments: IEnvironment[];
 }
 
-interface CodeDeployConfig {
-  projectName?: string;
+/**
+ * @param name Environment name
+ * @param adminPermissions Should admin permission be created with accessKey and Secret injected into container
+ * @param approvalRequired Manual approval to add before deploy action
+ * @param runtimeVariables Runtime variables to inject into container
+ * @param buildSpec BuildSpec file to execute on codebuild
+ */
+interface IEnvironment {
+  name: string;
+  /**
+   * @default - No admin access is created, developer must provide accessKeyId and secretAccessKey in SSM
+   */
+  adminPermissions?: boolean;
+  /**
+   * @default - No approval action is added
+   */
+  approvalRequired?: boolean;
+  /**
+   * @default - No environment variables are passed to pipeline
+   */
+  runtimeVariables?: { [key: string]: string };
+  buildSpec: any;
 }
 
 /**
@@ -54,7 +81,7 @@ interface CodeDeployConfig {
  * @param notificationsTargetConfig  Notifications Target Configurations
  * @param cloudwatchRuleName Cloudwatch events rule name
  */
-interface NotificationsConfig {
+interface INotificationsConfig {
   /**
    * @default - Cloudformation generates unique resource Id and uses that as a name
    */
@@ -63,7 +90,7 @@ interface NotificationsConfig {
    * @default - Pipeline Execution events
    */
   notificationsType: NOTIFICATIONS_TYPE;
-  notificationsTargetConfig: NotificationsEmailTargetConfig;
+  notificationsTargetConfig: INotificationsEmailTargetConfig;
   /**
    * @default - Cloudformation generates unique resource Id and uses that as a name
    */
@@ -75,7 +102,7 @@ interface NotificationsConfig {
  * @param emailAddress Email to send notifications to
  * @param emailSubject Email subject to be used when sending emails
  */
-interface NotificationsEmailTargetConfig {
+interface INotificationsEmailTargetConfig {
   targetType: NOTIFICATIONS_TARGET.EMAIL;
   emailAddress: string;
   emailSubject: string;
