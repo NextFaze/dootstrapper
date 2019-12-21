@@ -495,6 +495,22 @@
         ]
       }
     },
+    "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Type": "String",
+        "Value": "ACCESS_KEY_ID",
+        "Name": "/doostrapper/test/access_key_id"
+      }
+    },
+    "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Type": "String",
+        "Value": "SECRET_ACCESS_KEY",
+        "Name": "/doostrapper/test/secret_access_key"
+      }
+    },
     "MultiEnvPipelineTestPipelineProjectRoleCE42161B": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -576,6 +592,70 @@
             },
             {
               "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter",
+                    {
+                      "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F"
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ssm:DescribeParameters",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:GetParameterHistory"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter",
+                    {
+                      "Ref": "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2"
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
@@ -631,7 +711,22 @@
           ]
         },
         "Source": {
-          "BuildSpec": "{}",
+          "BuildSpec": {
+            "Fn::Join": [
+              "",
+              [
+                "{\n  \"env\": {\n    \"parameter-store\": {\n      \"AWS_ACCESS_KEY_ID\": \"",
+                {
+                  "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F"
+                },
+                "\",\n      \"AWS_SECRET_ACCESS_KEY\": \"",
+                {
+                  "Ref": "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2"
+                },
+                "\"\n    }\n  }\n}"
+              ]
+            ]
+          },
           "Type": "CODEPIPELINE"
         },
         "Description": "Doostrapper Codepipeline Deploy Project for stage TestDeploy",

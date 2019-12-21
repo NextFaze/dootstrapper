@@ -12,7 +12,6 @@ new DoostrapperDelivery(app, 'DoostrapperStack', {
       {
         approvalRequired: false,
         adminPermissions: true,
-        region: 'ap-southeast-1',
         buildSpec: {
           version: 0.2,
           env: {
@@ -47,7 +46,6 @@ new DoostrapperDelivery(app, 'DoostrapperStack', {
       {
         approvalRequired: true,
         adminPermissions: true,
-        region: 'ap-southeast-2',
         buildSpec: {
           version: 0.2,
           phases: {

@@ -37,6 +37,7 @@ export class DoostrapperDelivery extends Stack implements IDoostrapperDelivery {
     });
 
     this.deployPipeline = multiEnvConstruct.pipeline;
+
     this.notificationsRule = this._createNotificationsRule(
       this.notificationsTopic,
       this.deployPipeline.pipelineArn

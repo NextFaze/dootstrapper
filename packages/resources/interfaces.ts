@@ -12,14 +12,22 @@ export interface IDoostrapperDelivery {
   readonly notificationsRule: Rule;
 }
 
+/**
+ * @param artifactsBucketConfig Artifacts bucket related config
+ * @param pipelineConfig Deploy pipeline related config
+ * @param notificationsConfig Deployment notifications related config
+ */
 export interface DoostrapperDeliveryProps extends StackProps {
+  /**
+   * @default - Doostrapper specific config is applied
+   */
   artifactsBucketConfig?: ArtifactsBucketProps;
   pipelineConfig: PipelineProps;
   notificationsConfig: NotificationsConfig;
 }
 
 /**
- * @param bucketName artifacts bucket name
+ * @param bucketName Artifacts bucket name
  * It is recommended not to have user defined bucket name
  * Bucket name needs to be unique across all accounts.
  * @param versioned this bucket should have versioning turned on or not.
@@ -31,21 +39,9 @@ interface ArtifactsBucketProps {
   bucketName?: string;
 }
 
-interface Environment {
-  name: string;
-  /**
-   * @default create user with admin permission and use it's credentials in codebuild container
-   */
-  adminPermissions: boolean;
-  approvalRequired: boolean;
-  runtimeVariables: { [key: string]: string };
-  region: string;
-  buildSpec: any;
-}
-
 /**
- * @param pipelineName name of deploy pipeline
  * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
+ * @param environments environment related config
  */
 interface PipelineProps {
   /**
@@ -53,6 +49,30 @@ interface PipelineProps {
    */
   artifactsSourceKey: string;
   environments: Array<Environment>;
+}
+
+/**
+ * @param name Environment name
+ * @param adminPermissions Should admin permission be created with accessKey and Secret injected into container
+ * @param approvalRequired Manual approval to add before deploy action
+ * @param runtimeVariables Runtime variables to inject into container
+ * @param buildSpec BuildSpec file to execute on codebuild
+ */
+interface Environment {
+  name: string;
+  /**
+   * @default - No admin access is created, developer must provide accessKeyId and secretAccessKey in SSM
+   */
+  adminPermissions?: boolean;
+  /**
+   * @default - No approval action is added
+   */
+  approvalRequired?: boolean;
+  /**
+   * @default - No environment variables are passed to pipeline
+   */
+  runtimeVariables?: { [key: string]: string };
+  buildSpec: any;
 }
 
 /**

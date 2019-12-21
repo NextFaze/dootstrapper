@@ -44,13 +44,13 @@ export class MultiEnvPipeline extends Construct {
     super(scope, id);
 
     const { artifactsBucket, environments, notificationTopic } = this.props;
-    const pipeline = new Pipeline(this, 'Pipeline', {
+    this.pipeline = new Pipeline(this, 'Pipeline', {
       artifactBucket: artifactsBucket,
     });
     const s3Source = new Artifact('S3Source');
 
     // Checkout stage
-    pipeline.addStage({
+    this.pipeline.addStage({
       stageName: 'Checkout',
       actions: [this._createS3CheckoutAction(s3Source)],
     });
@@ -96,7 +96,7 @@ export class MultiEnvPipeline extends Construct {
         )
       );
       // add multiple stages per environment
-      pipeline.addStage({
+      this.pipeline.addStage({
         stageName,
         actions,
       });
