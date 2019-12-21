@@ -25,7 +25,7 @@ ts_library(
         "**/*.spec.ts",
     ]),
     data = glob([
-        "test/**/*.json",
+        "**/*spec.json",
     ]),
     tsconfig = "//:tsconfig.json",
     deps = [

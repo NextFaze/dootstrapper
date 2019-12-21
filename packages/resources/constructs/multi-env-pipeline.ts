@@ -14,6 +14,7 @@ import {
 } from '@aws-cdk/aws-codepipeline-actions';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
+import { StringParameter } from '@aws-cdk/aws-ssm';
 import { Construct } from '@aws-cdk/core';
 import { paramCase, pascalCase } from 'change-case';
 import { createBuildSpecWithCredentials } from '../helpers/create-buildspec-with-credentials';
@@ -21,9 +22,9 @@ import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environme
 import { Core } from './core';
 interface DeployEnvironment {
   name: string;
-  adminPermissions: boolean;
-  approvalRequired: boolean;
-  runtimeVariables: { [key: string]: string };
+  adminPermissions?: boolean;
+  approvalRequired?: boolean;
+  runtimeVariables?: { [key: string]: string };
   buildSpec: any;
 }
 interface MultiEnvPipelineProps {
@@ -56,8 +57,8 @@ export class MultiEnvPipeline extends Construct {
 
     // Deploy stages
     environments.forEach(environment => {
-      const { adminPermissions } = environment;
-      const doostrapperCore = new Core(
+      const { adminPermissions = false } = environment;
+      const { accessKeyId, secretAccessKey } = new Core(
         this,
         `${environment.name}DoostrapperCore`,
         {
@@ -68,7 +69,7 @@ export class MultiEnvPipeline extends Construct {
 
       const output = new Artifact(pascalCase(`${environment.name}Source`));
       const stageName = pascalCase(`${environment.name}Deploy`);
-      const { runtimeVariables, buildSpec } = environment;
+      const { runtimeVariables = {}, buildSpec } = environment;
       const runTimeEnvironments = resolveRuntimeEnvironments(runtimeVariables);
       const actions = [];
 
@@ -90,7 +91,8 @@ export class MultiEnvPipeline extends Construct {
           buildSpec,
           s3Source,
           output,
-          doostrapperCore
+          accessKeyId,
+          secretAccessKey
         )
       );
       // add multiple stages per environment
@@ -131,16 +133,16 @@ export class MultiEnvPipeline extends Construct {
     buildSpec: any,
     inputSource: Artifact,
     outputSource: Artifact,
-    doostrapperCore: Core
+    accessKeyId: StringParameter,
+    secretAccessKey: StringParameter
   ) {
     const deployProject = new PipelineProject(this, id, {
       projectName: paramCase(id),
       buildSpec: BuildSpec.fromObject(
         createBuildSpecWithCredentials({
           buildSpec,
-          accessKeyIdParamName: doostrapperCore.accessKeyId.parameterName,
-          secretAccessKeyParamName:
-            doostrapperCore.secretAccessKey.parameterName,
+          accessKeyIdParamName: accessKeyId.parameterName,
+          secretAccessKeyParamName: secretAccessKey.parameterName,
         })
       ),
       environment: {
@@ -150,9 +152,8 @@ export class MultiEnvPipeline extends Construct {
       },
       description: `Doostrapper Codepipeline Deploy Project for stage ${stage}`,
     });
-
-    doostrapperCore.accessKeyId.grantRead(deployProject);
-    doostrapperCore.secretAccessKey.grantRead(deployProject);
+    accessKeyId.grantRead(deployProject);
+    secretAccessKey.grantRead(deployProject);
 
     return new CodeBuildAction({
       actionName: 'Deploy',
