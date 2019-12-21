@@ -25,8 +25,8 @@ export function createBuildSpecWithCredentials({
       },
     };
   } else {
-    buildSpec.env['variables'] = {
-      ...buildSpec.env['variables'],
+    buildSpec.env.variables = {
+      ...buildSpec.env.variables,
     };
     buildSpec.env['parameter-store'] = {
       ...buildSpec.env['parameter-store'],

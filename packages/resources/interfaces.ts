@@ -17,13 +17,13 @@ export interface IDoostrapperDelivery {
  * @param pipelineConfig Deploy pipeline related config
  * @param notificationsConfig Deployment notifications related config
  */
-export interface DoostrapperDeliveryProps extends StackProps {
+export interface IDoostrapperDeliveryProps extends StackProps {
   /**
    * @default - Doostrapper specific config is applied
    */
-  artifactsBucketConfig?: ArtifactsBucketProps;
-  pipelineConfig: PipelineProps;
-  notificationsConfig: NotificationsConfig;
+  artifactsBucketConfig?: IArtifactsBucketProps;
+  pipelineConfig: IPipelineProps;
+  notificationsConfig: INotificationsConfig;
 }
 
 /**
@@ -32,7 +32,7 @@ export interface DoostrapperDeliveryProps extends StackProps {
  * Bucket name needs to be unique across all accounts.
  * @param versioned this bucket should have versioning turned on or not.
  */
-interface ArtifactsBucketProps {
+interface IArtifactsBucketProps {
   /**
    * @default - Cloudformation generated bucket name
    */
@@ -43,12 +43,12 @@ interface ArtifactsBucketProps {
  * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
  * @param environments environment related config
  */
-interface PipelineProps {
+interface IPipelineProps {
   /**
    * @default - AWS CloudFormation generates an ID and uses that for the pipeline name
    */
   artifactsSourceKey: string;
-  environments: Array<Environment>;
+  environments: IEnvironment[];
 }
 
 /**
@@ -58,7 +58,7 @@ interface PipelineProps {
  * @param runtimeVariables Runtime variables to inject into container
  * @param buildSpec BuildSpec file to execute on codebuild
  */
-interface Environment {
+interface IEnvironment {
   name: string;
   /**
    * @default - No admin access is created, developer must provide accessKeyId and secretAccessKey in SSM
@@ -81,7 +81,7 @@ interface Environment {
  * @param notificationsTargetConfig  Notifications Target Configurations
  * @param cloudwatchRuleName Cloudwatch events rule name
  */
-interface NotificationsConfig {
+interface INotificationsConfig {
   /**
    * @default - Cloudformation generates unique resource Id and uses that as a name
    */
@@ -90,7 +90,7 @@ interface NotificationsConfig {
    * @default - Pipeline Execution events
    */
   notificationsType: NOTIFICATIONS_TYPE;
-  notificationsTargetConfig: NotificationsEmailTargetConfig;
+  notificationsTargetConfig: INotificationsEmailTargetConfig;
   /**
    * @default - Cloudformation generates unique resource Id and uses that as a name
    */
@@ -102,7 +102,7 @@ interface NotificationsConfig {
  * @param emailAddress Email to send notifications to
  * @param emailSubject Email subject to be used when sending emails
  */
-interface NotificationsEmailTargetConfig {
+interface INotificationsEmailTargetConfig {
   targetType: NOTIFICATIONS_TARGET.EMAIL;
   emailAddress: string;
   emailSubject: string;

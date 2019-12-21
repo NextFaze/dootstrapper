@@ -9,13 +9,17 @@ import { App, Stack } from '@aws-cdk/core';
 import { EMAIL_VALIDATOR } from './constants';
 import { MultiEnvPipeline } from './constructs/multi-env-pipeline';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
-import { DoostrapperDeliveryProps, IDoostrapperDelivery } from './interfaces';
+import { IDoostrapperDelivery, IDoostrapperDeliveryProps } from './interfaces';
 export class DoostrapperDelivery extends Stack implements IDoostrapperDelivery {
-  readonly artifactsBucket: Bucket;
-  readonly deployPipeline: Pipeline;
-  readonly notificationsTopic: Topic;
-  readonly notificationsRule: Rule;
-  constructor(scope: App, id: string, private props: DoostrapperDeliveryProps) {
+  public readonly artifactsBucket: Bucket;
+  public readonly deployPipeline: Pipeline;
+  public readonly notificationsTopic: Topic;
+  public readonly notificationsRule: Rule;
+  constructor(
+    scope: App,
+    id: string,
+    private props: IDoostrapperDeliveryProps
+  ) {
     super(scope, id, props);
 
     const {
@@ -32,7 +36,7 @@ export class DoostrapperDelivery extends Stack implements IDoostrapperDelivery {
     const multiEnvConstruct = new MultiEnvPipeline(this, 'MultiEnvPipeline', {
       artifactsBucket: this.artifactsBucket,
       notificationTopic: this.notificationsTopic,
-      artifactsSourceKey: artifactsSourceKey,
+      artifactsSourceKey,
       environments,
     });
 

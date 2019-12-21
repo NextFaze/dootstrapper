@@ -12,5 +12,5 @@ export function resolveRuntimeEnvironments(runtimeVariables: {
       };
     }
     return acc;
-  }, <any>{});
+  }, {} as any);
 }

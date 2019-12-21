@@ -20,26 +20,26 @@ import { paramCase, pascalCase } from 'change-case';
 import { createBuildSpecWithCredentials } from '../helpers/create-buildspec-with-credentials';
 import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environments';
 import { Core } from './core';
-interface DeployEnvironment {
+interface IDeployEnvironment {
   name: string;
   adminPermissions?: boolean;
   approvalRequired?: boolean;
   runtimeVariables?: { [key: string]: string };
   buildSpec: any;
 }
-interface MultiEnvPipelineProps {
+interface IMultiEnvPipelineProps {
   artifactsBucket: Bucket;
   artifactsSourceKey: string;
   notificationTopic: Topic;
-  environments: Array<DeployEnvironment>;
+  environments: IDeployEnvironment[];
 }
 
 export class MultiEnvPipeline extends Construct {
-  readonly pipeline: Pipeline;
+  public readonly pipeline: Pipeline;
   constructor(
     scope: Construct,
     id: string,
-    private props: MultiEnvPipelineProps
+    private props: IMultiEnvPipelineProps
   ) {
     super(scope, id);
 
@@ -51,8 +51,8 @@ export class MultiEnvPipeline extends Construct {
 
     // Checkout stage
     this.pipeline.addStage({
-      stageName: 'Checkout',
       actions: [this._createS3CheckoutAction(s3Source)],
+      stageName: 'Checkout',
     });
 
     // Deploy stages
@@ -97,8 +97,8 @@ export class MultiEnvPipeline extends Construct {
       );
       // add multiple stages per environment
       this.pipeline.addStage({
-        stageName,
         actions,
+        stageName,
       });
     });
   }
