@@ -1,6 +1,5 @@
 import {
   BuildEnvironmentVariable,
-  BuildEnvironmentVariableType,
   BuildSpec,
   ComputeType,
   LinuxBuildImage,
@@ -17,13 +16,21 @@ import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { Construct } from '@aws-cdk/core';
 import { paramCase, pascalCase } from 'change-case';
-import { Environment } from '../interfaces';
-
+import { createBuildSpecWithCredentials } from '../helpers/create-buildspec-with-credentials';
+import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environments';
+import { Core } from './core';
+interface DeployEnvironment {
+  name: string;
+  adminPermissions: boolean;
+  approvalRequired: boolean;
+  runtimeVariables: { [key: string]: string };
+  buildSpec: any;
+}
 interface MultiEnvPipelineProps {
   artifactsBucket: Bucket;
   artifactsSourceKey: string;
   notificationTopic: Topic;
-  environments: Array<Environment>;
+  environments: Array<DeployEnvironment>;
 }
 
 export class MultiEnvPipeline extends Construct {
@@ -34,13 +41,7 @@ export class MultiEnvPipeline extends Construct {
     private props: MultiEnvPipelineProps
   ) {
     super(scope, id);
-    this.pipeline = this._createPipeline();
-  }
 
-  /**
-   * Creates deploy Pipeline resource
-   */
-  private _createPipeline() {
     const { artifactsBucket, environments, notificationTopic } = this.props;
     const pipeline = new Pipeline(this, 'Pipeline', {
       artifactBucket: artifactsBucket,
@@ -53,26 +54,24 @@ export class MultiEnvPipeline extends Construct {
       actions: [this._createS3CheckoutAction(s3Source)],
     });
 
+    // Deploy stages
     environments.forEach(environment => {
-      const output = new Artifact(pascalCase(`${environment.name}Source`));
-      const stageName = pascalCase(`${environment.name}Deploy`);
-
-      const { runtimeVariables, buildSpec } = environment;
-      // Limiting support of runtime variables to string
-      const runTimeEnvironments = Object.keys(runtimeVariables).reduce(
-        (acc, key) => {
-          if (runtimeVariables.hasOwnProperty(key)) {
-            acc[key] = {
-              type: BuildEnvironmentVariableType.PLAINTEXT,
-              value: runtimeVariables[key],
-            };
-          }
-          return acc;
-        },
-        <any>{}
+      const { adminPermissions } = environment;
+      const doostrapperCore = new Core(
+        this,
+        `${environment.name}DoostrapperCore`,
+        {
+          adminPermissions,
+          environmentName: environment.name,
+        }
       );
 
+      const output = new Artifact(pascalCase(`${environment.name}Source`));
+      const stageName = pascalCase(`${environment.name}Deploy`);
+      const { runtimeVariables, buildSpec } = environment;
+      const runTimeEnvironments = resolveRuntimeEnvironments(runtimeVariables);
       const actions = [];
+
       if (environment.approvalRequired) {
         actions.push(
           this._createManualApprovalAction(
@@ -81,6 +80,7 @@ export class MultiEnvPipeline extends Construct {
           )
         );
       }
+
       actions.push(
         this._createCodebuildAction(
           pascalCase(`${environment.name}PipelineProject`),
@@ -89,17 +89,16 @@ export class MultiEnvPipeline extends Construct {
           runTimeEnvironments,
           buildSpec,
           s3Source,
-          output
+          output,
+          doostrapperCore
         )
       );
-
       // add multiple stages per environment
       pipeline.addStage({
         stageName,
         actions,
       });
     });
-    return pipeline;
   }
 
   /**
@@ -131,11 +130,19 @@ export class MultiEnvPipeline extends Construct {
     runtimeVariables: { [name: string]: BuildEnvironmentVariable },
     buildSpec: any,
     inputSource: Artifact,
-    outputSource: Artifact
+    outputSource: Artifact,
+    doostrapperCore: Core
   ) {
     const deployProject = new PipelineProject(this, id, {
       projectName: paramCase(id),
-      buildSpec: BuildSpec.fromObject(buildSpec),
+      buildSpec: BuildSpec.fromObject(
+        createBuildSpecWithCredentials({
+          buildSpec,
+          accessKeyIdParamName: doostrapperCore.accessKeyId.parameterName,
+          secretAccessKeyParamName:
+            doostrapperCore.secretAccessKey.parameterName,
+        })
+      ),
       environment: {
         buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
         environmentVariables: runtimeVariables,
@@ -143,6 +150,10 @@ export class MultiEnvPipeline extends Construct {
       },
       description: `Doostrapper Codepipeline Deploy Project for stage ${stage}`,
     });
+
+    doostrapperCore.accessKeyId.grantRead(deployProject);
+    doostrapperCore.secretAccessKey.grantRead(deployProject);
+
     return new CodeBuildAction({
       actionName: 'Deploy',
       input: inputSource,

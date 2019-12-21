@@ -9,24 +9,26 @@ import { App, Stack } from '@aws-cdk/core';
 import { EMAIL_VALIDATOR } from './constants';
 import { MultiEnvPipeline } from './constructs/multi-env-pipeline';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
-import { DoostrapperProps, IDoostrapper } from './interfaces';
-export class Doostrapper extends Stack implements IDoostrapper {
+import { DoostrapperDeliveryProps, IDoostrapperDelivery } from './interfaces';
+export class DoostrapperDelivery extends Stack implements IDoostrapperDelivery {
   readonly artifactsBucket: Bucket;
   readonly deployPipeline: Pipeline;
   readonly notificationsTopic: Topic;
   readonly notificationsRule: Rule;
-  constructor(scope: App, id: string, private props: DoostrapperProps) {
+  constructor(scope: App, id: string, private props: DoostrapperDeliveryProps) {
     super(scope, id, props);
 
     const {
       artifactsBucketConfig,
       pipelineConfig: { artifactsSourceKey, environments },
     } = props;
+
     this.artifactsBucket = new Bucket(this, 'ArtifactsBucket', {
       bucketName: artifactsBucketConfig?.bucketName,
       versioned: true,
     });
     this.notificationsTopic = this._createPipelineNotificationsTopic();
+
     const multiEnvConstruct = new MultiEnvPipeline(this, 'MultiEnvPipeline', {
       artifactsBucket: this.artifactsBucket,
       notificationTopic: this.notificationsTopic,

@@ -5,14 +5,14 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { StackProps } from '@aws-cdk/core';
 import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
 
-export interface IDoostrapper {
+export interface IDoostrapperDelivery {
   readonly artifactsBucket: Bucket;
   readonly deployPipeline: Pipeline;
   readonly notificationsTopic: Topic;
   readonly notificationsRule: Rule;
 }
 
-export interface DoostrapperProps extends StackProps {
+export interface DoostrapperDeliveryProps extends StackProps {
   artifactsBucketConfig?: ArtifactsBucketProps;
   pipelineConfig: PipelineProps;
   notificationsConfig: NotificationsConfig;
@@ -31,10 +31,15 @@ interface ArtifactsBucketProps {
   bucketName?: string;
 }
 
-export interface Environment {
+interface Environment {
   name: string;
+  /**
+   * @default create user with admin permission and use it's credentials in codebuild container
+   */
+  adminPermissions: boolean;
   approvalRequired: boolean;
   runtimeVariables: { [key: string]: string };
+  region: string;
   buildSpec: any;
 }
 
