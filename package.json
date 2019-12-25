@@ -1,7 +1,9 @@
 {
-  "name": "packages",
+  "name": "doostrapper",
   "version": "0.1.0",
   "private": true,
+  "description": "Multi environment deployment Constructs App",
+  "main": "index.js",
   "devDependencies": {
     "@aws-cdk/assert": "^1.19.0",
     "@bazel/bazel": "latest",
@@ -37,17 +39,22 @@
     "@aws-cdk/aws-sns-subscriptions": "^1.19.0",
     "@aws-cdk/aws-ssm": "^1.19.0",
     "@aws-cdk/core": "^1.19.0",
-    "aws-cdk": "^1.19.0",
     "change-case": "^4.1.1"
   },
   "scripts": {
     "build": "bazel build //...",
+    "check": "bazel version",
     "test": "bazel test //...",
+    "pack": "bazel run :doostrapper.pack",
+    "publish": "bazel run :doostrapper.publish",
+    "build:watch": "ibazel build //...",
     "test:watch": "ibazel test //...",
     "format:check": "prettier --check ./**/*.ts",
     "format:write": "prettier --write ./**/*.ts",
     "synth": "cdk synth",
     "deploy": "cdk deploy",
-    "lint": "tslint --project ./"
+    "lint": "tslint --project ./",
+    "clean": "bazel clean",
+    "clean:deep": "bazel clean --expunge"
   }
 }
