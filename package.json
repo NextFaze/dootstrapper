@@ -1,7 +1,6 @@
 {
   "name": "doostrapper",
   "version": "0.1.0",
-  "private": true,
   "description": "Multi environment deployment Constructs App",
   "main": "index.js",
   "devDependencies": {
