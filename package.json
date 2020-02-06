@@ -1,8 +1,18 @@
 {
   "name": "doostrapper",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Multi environment deployment Constructs App",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whimzyLive/doostrapper"
+  },
+  "homepage": "https://github.com/whimzyLive/doostrapper/blob/master/README.md",
+  "keywords": [
+    "aws-cdk",
+    "aws-cdk-deployment",
+    "aws-cdk-boostrapper"
+  ],
   "devDependencies": {
     "@aws-cdk/assert": "^1.19.0",
     "@bazel/bazel": "latest",
