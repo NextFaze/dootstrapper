@@ -1,6 +1,6 @@
 ![Build Status](https://github.com/whimzyLive/doostrapper/workflows/ci/badge.svg)
 
-# CDK Deployment Bootstrapper project!
+# CDK Deployment Boostrapper project!
 
 Creates a CD pipeline to declaratively deploy to multiple environments
 Generates following resources:
