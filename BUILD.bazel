@@ -28,6 +28,7 @@ ts_library(
 pkg_npm(
     name = "doostrapper",
     srcs = ["package.json","README.md"],
+    tags = ["lib-release"],
     deps = [
     ":library",
     ],

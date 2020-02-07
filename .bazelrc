@@ -7,6 +7,10 @@
 # Cache action outputs on disk so they persist across output_base and bazel shutdown (eg. changing branches)
 build --disk_cache=~/.cache/bazel-disk-cache
 
+# This tells Bazel how to interact with the version control system
+# Enable this with --config=release
+build:release --stamp --workspace_status_command=./tools/bazel_stamp_vars.js
+
 # Bazel will create symlinks from the workspace directory to output artifacts.
 # Build results will be placed in a directory called "dist/bin"
 # Other directories will be created like "dist/testlogs"

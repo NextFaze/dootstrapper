@@ -1,7 +1,7 @@
 {
   "name": "doostrapper",
-  "version": "0.1.4",
-  "description": "Multi environment deployment Constructs App",
+  "version": "0.1.7",
+  "description": "CDK App Deployment boostrapper",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -10,14 +10,15 @@
   "homepage": "https://github.com/whimzyLive/doostrapper/blob/master/README.md",
   "keywords": [
     "aws-cdk",
-    "aws-cdk-deployment",
-    "aws-cdk-boostrapper"
+    "continuous-deployment",
+    "continuous-delivery",
+    "boostrapper"
   ],
   "devDependencies": {
     "@aws-cdk/assert": "^1.19.0",
-    "@bazel/bazel": "latest",
-    "@bazel/buildifier": "latest",
-    "@bazel/ibazel": "latest",
+    "@bazel/bazel": "2.0.0",
+    "@bazel/buildifier": "0.29.0",
+    "@bazel/ibazel": "0.11.1",
     "@bazel/jasmine": "^1.0.0",
     "@bazel/rollup": "^1.0.0",
     "@bazel/typescript": "^1.0.0",
@@ -51,8 +52,9 @@
     "change-case": "^4.1.1"
   },
   "scripts": {
+    "bazel": "bazel",
     "build": "bazel build //...",
-    "check": "bazel version",
+    "build:release": "./tools/release/publish.sh",
     "test": "bazel test //...",
     "pack": "bazel run :doostrapper.pack",
     "publish": "bazel run :doostrapper.publish",
