@@ -1,4 +1,7 @@
-# CDK Deployment Boostrapper project
+
+![Build Status](https://github.com/nextfaze/doostrapper/workflows/ci/badge.svg)
+
+# CDK Deployment Boostrapper project!
 
 Creates a CD (Continuous delivery/deployment) pipeline to declaratively deploy to multiple environments.
 
