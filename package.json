@@ -1,8 +1,12 @@
 {
   "name": "doostrapper",
-  "version": "0.1.4",
   "description": "Multi environment deployment Constructs App",
   "main": "index.js",
+  "private": true,
+  "engineStrict": true,
+  "engines": {
+    "node": ">=10.15 <12.14"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/whimzyLive/doostrapper"
@@ -54,8 +58,8 @@
     "build": "bazel build //...",
     "check": "bazel version",
     "test": "bazel test //...",
-    "pack": "bazel run :doostrapper.pack",
-    "publish": "bazel run :doostrapper.publish",
+    "pack": "bazel run //package:doostrapper.pack",
+    "publish": "bazel run //package:doostrapper.publish",
     "build:watch": "ibazel build //...",
     "test:watch": "ibazel test //...",
     "format:check": "prettier --check ./**/*.ts",
