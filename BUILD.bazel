@@ -7,28 +7,5 @@ exports_files(
     [
         "package.json",
         "package-lock.json",
+        "tsconfig.json",
     ],)
-
-ts_library(
-    name = "library",
-    srcs = glob(
-        [
-            "index.ts",
-        ],
-        exclude = ["**/*.spec.ts"],
-    ),
-    tsconfig = "//:tsconfig.json",
-    deps = [
-        "//resources:library",
-        "//handlers:library",
-        "@npm//:node_modules",
-    ],
-)
-
-pkg_npm(
-    name = "doostrapper",
-    srcs = ["package.json"],
-    deps = [
-    ":library",
-    ],
-)

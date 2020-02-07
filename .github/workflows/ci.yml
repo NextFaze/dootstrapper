@@ -3,6 +3,8 @@ on: [push]
 
 jobs:
   build:
+    env:
+      NPM_TOKEN: SECRET_NPM_TOKEN
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
