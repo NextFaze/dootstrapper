@@ -1,13 +1,23 @@
 # CDK Deployment Boostrapper project
 
-Creates a CD pipeline to declaratively deploy to multiple environments
-Generates following resources:
+Creates a CD (Continuous delivery/deployment) pipeline to declaratively deploy to multiple environments.
 
-- Codepipeline
-- Codebuild
-- Pub-sub channel (SNS)
-- Artifacts Store (S3)
-- Lambda (to send notifications to slack)
-- Fine Grained Role based Authorization for REST apis
+## Getting Started [Internal Use Only]
 
-## Coming Soon...
+This getting started section contains information on how to get started for developing doostrapper
+
+### Prerequisites
+
+- node (>=10.15 <12.14>)
+
+### Installing required deps
+
+`npm install`
+
+### Build
+
+`npm run build`
+
+### Test
+
+`npm run test`

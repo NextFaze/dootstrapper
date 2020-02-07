@@ -1,0 +1,34 @@
+{
+  "name": "doostrapper",
+  "version": "0.1.8-alpha.0",
+  "description": "Multi environment deployment boostrapper",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whimzyLive/doostrapper"
+  },
+  "homepage": "https://github.com/whimzyLive/doostrapper/blob/master/package/README.md",
+  "keywords": [
+    "aws-cdk",
+    "continuous delivery",
+    "continuous deployment",
+    "boostrapper"
+  ],
+  "module": "ES6",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-cdk/aws-cloudtrail": "^1.19.0",
+    "@aws-cdk/aws-codebuild": "^1.19.0",
+    "@aws-cdk/aws-codepipeline": "^1.19.0",
+    "@aws-cdk/aws-codepipeline-actions": "^1.19.0",
+    "@aws-cdk/aws-events": "^1.19.0",
+    "@aws-cdk/aws-events-targets": "^1.19.0",
+    "@aws-cdk/aws-iam": "^1.19.0",
+    "@aws-cdk/aws-s3": "^1.19.0",
+    "@aws-cdk/aws-sns": "^1.19.0",
+    "@aws-cdk/aws-sns-subscriptions": "^1.19.0",
+    "@aws-cdk/aws-ssm": "^1.19.0",
+    "@aws-cdk/core": "^1.19.0",
+    "change-case": "^4.1.1"
+  }
+}
