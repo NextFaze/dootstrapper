@@ -39,6 +39,23 @@
     "tslint-plugin-prettier": "^2.1.0",
     "typescript": "~3.7.5"
   },
+  "scripts": {
+    "build": "bazel build //...",
+    "check": "bazel version",
+    "test": "bazel test //...",
+    "add-dep": "bazel run @nodejs//:npm_node_repositories install",
+    "pack": "bazel run //package:doostrapper.pack",
+    "publish": "bazel run //package:doostrapper.publish",
+    "build:watch": "ibazel build //...",
+    "test:watch": "ibazel test //...",
+    "format:check": "prettier --check ./**/*.ts",
+    "format:write": "prettier --write ./**/*.ts",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy",
+    "lint": "tslint --project ./",
+    "clean": "bazel clean",
+    "clean:deep": "bazel clean --expunge"
+  },
   "dependencies": {
     "@aws-cdk/aws-cloudtrail": "^1.23.0",
     "@aws-cdk/aws-codebuild": "^1.23.0",
@@ -53,21 +70,5 @@
     "@aws-cdk/aws-ssm": "^1.23.0",
     "@aws-cdk/core": "^1.23.0",
     "change-case": "^4.1.1"
-  },
-  "scripts": {
-    "build": "bazel build //...",
-    "check": "bazel version",
-    "test": "bazel test //...",
-    "pack": "bazel run //package:doostrapper.pack",
-    "publish": "bazel run //package:doostrapper.publish",
-    "build:watch": "ibazel build //...",
-    "test:watch": "ibazel test //...",
-    "format:check": "prettier --check ./**/*.ts",
-    "format:write": "prettier --write ./**/*.ts",
-    "synth": "cdk synth",
-    "deploy": "cdk deploy",
-    "lint": "tslint --project ./",
-    "clean": "bazel clean",
-    "clean:deep": "bazel clean --expunge"
   }
 }
