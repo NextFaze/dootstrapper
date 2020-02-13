@@ -7,7 +7,7 @@ workspace(
     name = "doostrapper",
     # Map the @npm bazel workspace to the node_modules directory.
     # This lets Bazel use the same node_modules as other local tooling.
-    managed_directories = {"@npm": ["node_modules"]},
+    managed_directories = {"@npm": ["node_modules"], "@dist_npm": ["package/node_modules"]},
 )
 
 # Install the nodejs "bootstrap" package
@@ -21,12 +21,22 @@ http_archive(
 
 # The npm_install rule runs yarn anytime the package.json or package-lock.json file changes.
 # It also extracts any Bazel rules distributed in an npm package.
-load("@build_bazel_rules_nodejs//:index.bzl", "npm_install")
+load("@build_bazel_rules_nodejs//:index.bzl", "npm_install", "node_repositories")
+node_repositories(package_json = ["//:package.json", "//package:package.json"])
+
+
 npm_install(
     # Name this npm so that Bazel Label references look like @npm//package
     name = "npm",
     package_json = "//:package.json",
     package_lock_json = "//:package-lock.json",
+)
+
+npm_install(
+    # Name this npm so that Bazel Label references look like @npm_dist//package
+    name = "dist_npm",
+    package_json = "//package:package.json",
+    package_lock_json = "//package:package-lock.json",
 )
 
 # Install any Bazel rules which were extracted earlier by the npm_install rule.
