@@ -43,6 +43,7 @@
     "build": "bazel build //...",
     "check": "bazel version",
     "test": "bazel test //...",
+    "install:all": "bazel run @nodejs//:npm_node_repositories install",
     "add-dep": "bazel run @nodejs//:npm_node_repositories install",
     "pack": "bazel run //package:doostrapper.pack",
     "publish": "bazel run //package:doostrapper.publish",
