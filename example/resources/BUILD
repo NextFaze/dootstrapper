@@ -1,0 +1,12 @@
+load("//:index.bzl", "setup_ts_build", "setup_ts_specs")
+
+setup_ts_build(
+  name = "library"
+)
+
+setup_ts_specs(
+  name = "test",
+  deps = [
+    ":library"
+  ]
+)
