@@ -1,0 +1,15 @@
+{
+  "name": "doostrapper-example",
+  "version": "1.0.0",
+  "description": "Example app to demonstrate simple usage of doostrapper package",
+  "main": "index.js",
+  "scripts": {
+    "test": "bazel test //..."
+  },
+  "keywords": [
+    "aws-cdk",
+    "doostrapper"
+  ],
+  "author": "Rushi Patel <rpatel@nextfaze.com>",
+  "license": "MIT"
+}
