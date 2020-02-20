@@ -5,7 +5,7 @@ setup_ts_build(
 )
 
 setup_ts_specs(
-    name = "test",
+    name = "specs",
     deps = [
         ":library",
     ],
