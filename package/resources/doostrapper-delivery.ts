@@ -10,6 +10,7 @@ import { EMAIL_VALIDATOR } from './constants';
 import { MultiEnvPipeline } from './constructs/multi-env-pipeline';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
 import { IDoostrapperDelivery, IDoostrapperDeliveryProps } from './interfaces';
+
 export class DoostrapperDelivery extends Stack implements IDoostrapperDelivery {
   public readonly artifactsBucket: Bucket;
   public readonly deployPipeline: Pipeline;

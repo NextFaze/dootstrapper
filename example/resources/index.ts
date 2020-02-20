@@ -51,7 +51,7 @@ new DoostrapperDelivery(app, 'Doostrapper', {
   },
   notificationsConfig: {
     notificationsTargetConfig: {
-      emailAddress: 'rpatel+test@nextfaze.com',
+      emailAddress: 'rpatel@nextfaze.com',
       emailSubject: 'Deployment Notifications',
       targetType: NOTIFICATIONS_TARGET.EMAIL,
     },
