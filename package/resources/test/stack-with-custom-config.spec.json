@@ -499,7 +499,7 @@
         ]
       }
     },
-    "MultiEnvPipelinetestDoostrapperCoreDeployUser359F0069": {
+    "MultiEnvPipelinetestDootstrapperCoreDeployUser359F0069": {
       "Type": "AWS::IAM::User",
       "Properties": {
         "ManagedPolicyArns": [
@@ -518,35 +518,35 @@
         ]
       }
     },
-    "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7": {
+    "MultiEnvPipelinetestDootstrapperCoreDeployCredentialsC6276BF7": {
       "Type": "AWS::IAM::AccessKey",
       "Properties": {
         "UserName": {
-          "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployUser359F0069"
+          "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployUser359F0069"
         }
       }
     },
-    "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F": {
+    "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId6E97CF1F": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
         "Type": "String",
         "Value": {
-          "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7"
+          "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployCredentialsC6276BF7"
         },
-        "Name": "/doostrapper/test/access_key_id"
+        "Name": "/dootstrapper/test/access_key_id"
       }
     },
-    "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2": {
+    "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey89E012B2": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
         "Type": "String",
         "Value": {
           "Fn::GetAtt": [
-            "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7",
+            "MultiEnvPipelinetestDootstrapperCoreDeployCredentialsC6276BF7",
             "SecretAccessKey"
           ]
         },
-        "Name": "/doostrapper/test/secret_access_key"
+        "Name": "/dootstrapper/test/secret_access_key"
       }
     },
     "MultiEnvPipelineTestPipelineProjectRoleCE42161B": {
@@ -654,7 +654,7 @@
                     },
                     ":parameter",
                     {
-                      "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F"
+                      "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId6E97CF1F"
                     }
                   ]
                 ]
@@ -686,7 +686,7 @@
                     },
                     ":parameter",
                     {
-                      "Ref": "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2"
+                      "Ref": "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey89E012B2"
                     }
                   ]
                 ]
@@ -762,11 +762,11 @@
               [
                 "{\n  \"env\": {\n    \"variables\": {\n      \"AWS_DEFAULT_REGION\": \"ap-southeast-2\"\n    },\n    \"parameter-store\": {\n      \"AWS_ACCESS_KEY_ID\": \"",
                 {
-                  "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F"
+                  "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId6E97CF1F"
                 },
                 "\",\n      \"AWS_SECRET_ACCESS_KEY\": \"",
                 {
-                  "Ref": "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2"
+                  "Ref": "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey89E012B2"
                 },
                 "\"\n    }\n  }\n}"
               ]
@@ -774,14 +774,14 @@
           },
           "Type": "CODEPIPELINE"
         },
-        "Description": "Doostrapper Codepipeline Deploy Project for stage TestDeploy",
+        "Description": "Dootstrapper Codepipeline Deploy Project for stage TestDeploy",
         "Name": "test-pipeline-project"
       }
     },
     "PipelineNotificationsRule108C77DD": {
       "Type": "AWS::Events::Rule",
       "Properties": {
-        "Description": "Doostrapper Pipeline notifications Cloudwatch Rule",
+        "Description": "Dootstrapper Pipeline notifications Cloudwatch Rule",
         "EventPattern": {
           "source": ["aws.codepipeline"],
           "detail-type": ["CodePipeline Pipeline Execution State Change"],

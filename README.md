@@ -1,13 +1,13 @@
 
-# CDK Deployment Boostrapper project
+# CDK Deployment Bootstrapper project
 
-![Build Status](https://github.com/nextfaze/doostrapper/workflows/ci/badge.svg)
+![Build Status](https://github.com/nextfaze/dootstrapper/workflows/ci/badge.svg)
 
 Creates a CD (Continuous delivery/deployment) pipeline to declaratively deploy to multiple environments.
 
 ## Getting Started [Internal Use Only]
 
-This getting started section contains information on how to get started for developing doostrapper
+This getting started section contains information on how to get started for developing dootstrapper
 
 ### Prerequisites
 

@@ -60,7 +60,7 @@ export class MultiEnvPipeline extends Construct {
       const { adminPermissions = false } = environment;
       const { accessKeyId, secretAccessKey } = new Core(
         this,
-        `${environment.name}DoostrapperCore`,
+        `${environment.name}DootstrapperCore`,
         {
           adminPermissions,
           environmentName: environment.name,
@@ -150,7 +150,7 @@ export class MultiEnvPipeline extends Construct {
         environmentVariables: runtimeVariables,
         computeType: ComputeType.SMALL,
       },
-      description: `Doostrapper Codepipeline Deploy Project for stage ${stage}`,
+      description: `Dootstrapper Codepipeline Deploy Project for stage ${stage}`,
     });
     accessKeyId.grantRead(deployProject);
     secretAccessKey.grantRead(deployProject);

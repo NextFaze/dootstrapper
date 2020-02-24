@@ -5,7 +5,7 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { StackProps } from '@aws-cdk/core';
 import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
 
-export interface IDoostrapperDelivery {
+export interface IDootstrapperDelivery {
   readonly artifactsBucket: Bucket;
   readonly deployPipeline: Pipeline;
   readonly notificationsTopic: Topic;
@@ -17,9 +17,9 @@ export interface IDoostrapperDelivery {
  * @param pipelineConfig Deploy pipeline related config
  * @param notificationsConfig Deployment notifications related config
  */
-export interface IDoostrapperDeliveryProps extends StackProps {
+export interface IDootstrapperDeliveryProps extends StackProps {
   /**
-   * @default - Doostrapper specific config is applied
+   * @default - Dootstrapper specific config is applied
    */
   artifactsBucketConfig?: IArtifactsBucketProps;
   pipelineConfig: IPipelineProps;
