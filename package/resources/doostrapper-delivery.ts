@@ -9,8 +9,12 @@ import { App, Stack } from '@aws-cdk/core';
 import { EMAIL_VALIDATOR } from './constants';
 import { MultiEnvPipeline } from './constructs/multi-env-pipeline';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
-import { IDootstrapperDelivery, IDootstrapperDeliveryProps } from './interfaces';
-export class DootstrapperDelivery extends Stack implements IDootstrapperDelivery {
+import {
+  IDootstrapperDelivery,
+  IDootstrapperDeliveryProps,
+} from './interfaces';
+export class DootstrapperDelivery extends Stack
+  implements IDootstrapperDelivery {
   public readonly artifactsBucket: Bucket;
   public readonly deployPipeline: Pipeline;
   public readonly notificationsTopic: Topic;
