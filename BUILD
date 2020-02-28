@@ -2,14 +2,6 @@ package(default_visibility = ["//visibility:public"])
 load("//:index.bzl", "setup_ts_build")
 load("@build_bazel_rules_nodejs//:index.bzl", "pkg_npm")
 
-exports_files(
-    [
-        "package.json",
-        "package-lock.json",
-        "tsconfig.json",
-    ],
-)
-
 setup_ts_build(
     name = "library",
     srcs = [
@@ -27,8 +19,13 @@ pkg_npm(
         "LICENCE",
         "README.public.md",
         "package.json",
+        ":library"
     ],
-    deps = [
-        ":library",
-    ],
+    substitutions = {
+        "./resources/enums":"./enums"
+    },
+    replace_with_version = "0.0.0-PLACEHOLDER",
+    # deps = [
+    #     ":library",
+    # ],
 )
