@@ -9,8 +9,12 @@ import { App, Stack } from '@aws-cdk/core';
 import { EMAIL_VALIDATOR } from './constants';
 import { MultiEnvPipeline } from './constructs/multi-env-pipeline';
 import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
-import { IDoostrapperDelivery, IDoostrapperDeliveryProps } from './interfaces';
-export class DoostrapperDelivery extends Stack implements IDoostrapperDelivery {
+import {
+  IDootstrapperDelivery,
+  IDootstrapperDeliveryProps,
+} from './interfaces';
+export class DootstrapperDelivery extends Stack
+  implements IDootstrapperDelivery {
   public readonly artifactsBucket: Bucket;
   public readonly deployPipeline: Pipeline;
   public readonly notificationsTopic: Topic;
@@ -18,7 +22,7 @@ export class DoostrapperDelivery extends Stack implements IDoostrapperDelivery {
   constructor(
     scope: App,
     id: string,
-    private props: IDoostrapperDeliveryProps
+    private props: IDootstrapperDeliveryProps
   ) {
     super(scope, id, props);
 
@@ -100,7 +104,7 @@ export class DoostrapperDelivery extends Stack implements IDoostrapperDelivery {
     return new Rule(this, 'PipelineNotificationsRule', {
       targets: [snsTopic],
       enabled: true,
-      description: 'Doostrapper Pipeline notifications Cloudwatch Rule',
+      description: 'Dootstrapper Pipeline notifications Cloudwatch Rule',
       ruleName: cloudwatchRuleName,
       eventPattern: {
         source: ['aws.codepipeline'],

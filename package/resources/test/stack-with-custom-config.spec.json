@@ -15,8 +15,12 @@
       "Type": "AWS::Events::Rule",
       "Properties": {
         "EventPattern": {
-          "source": ["aws.s3"],
-          "detail-type": ["AWS API Call via CloudTrail"],
+          "source": [
+            "aws.s3"
+          ],
+          "detail-type": [
+            "AWS API Call via CloudTrail"
+          ],
           "detail": {
             "resources": {
               "ARN": [
@@ -25,7 +29,10 @@
                     "",
                     [
                       {
-                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                        "Fn::GetAtt": [
+                          "ArtifactsBucket2AAC5544",
+                          "Arn"
+                        ]
                       },
                       "/path/to/resource.zip"
                     ]
@@ -33,14 +40,20 @@
                 }
               ]
             },
-            "eventName": ["CompleteMultipartUpload", "CopyObject", "PutObject"],
+            "eventName": [
+              "CompleteMultipartUpload",
+              "CopyObject",
+              "PutObject"
+            ],
             "requestParameters": {
               "bucketName": [
                 {
                   "Ref": "ArtifactsBucket2AAC5544"
                 }
               ],
-              "key": ["path/to/resource.zip"]
+              "key": [
+                "path/to/resource.zip"
+              ]
             }
           }
         },
@@ -72,7 +85,10 @@
             },
             "Id": "Target0",
             "RoleArn": {
-              "Fn::GetAtt": ["MultiEnvPipelineEventsRoleA222D099", "Arn"]
+              "Fn::GetAtt": [
+                "MultiEnvPipelineEventsRoleA222D099",
+                "Arn"
+              ]
             }
           }
         ]
@@ -154,14 +170,20 @@
               "Effect": "Allow",
               "Resource": [
                 {
-                  "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                  "Fn::GetAtt": [
+                    "ArtifactsBucket2AAC5544",
+                    "Arn"
+                  ]
                 },
                 {
                   "Fn::Join": [
                     "",
                     [
                       {
-                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                        "Fn::GetAtt": [
+                          "ArtifactsBucket2AAC5544",
+                          "Arn"
+                        ]
                       },
                       "/*"
                     ]
@@ -204,7 +226,10 @@
       "Type": "AWS::CodePipeline::Pipeline",
       "Properties": {
         "RoleArn": {
-          "Fn::GetAtt": ["MultiEnvPipelineRole142940FD", "Arn"]
+          "Fn::GetAtt": [
+            "MultiEnvPipelineRole142940FD",
+            "Arn"
+          ]
         },
         "Stages": [
           {
@@ -327,18 +352,28 @@
         "PolicyDocument": {
           "Statement": [
             {
-              "Action": ["s3:GetObject*", "s3:GetBucket*", "s3:List*"],
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
               "Effect": "Allow",
               "Resource": [
                 {
-                  "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                  "Fn::GetAtt": [
+                    "ArtifactsBucket2AAC5544",
+                    "Arn"
+                  ]
                 },
                 {
                   "Fn::Join": [
                     "",
                     [
                       {
-                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                        "Fn::GetAtt": [
+                          "ArtifactsBucket2AAC5544",
+                          "Arn"
+                        ]
                       },
                       "/*"
                     ]
@@ -347,18 +382,28 @@
               ]
             },
             {
-              "Action": ["s3:DeleteObject*", "s3:PutObject*", "s3:Abort*"],
+              "Action": [
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
               "Effect": "Allow",
               "Resource": [
                 {
-                  "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                  "Fn::GetAtt": [
+                    "ArtifactsBucket2AAC5544",
+                    "Arn"
+                  ]
                 },
                 {
                   "Fn::Join": [
                     "",
                     [
                       {
-                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                        "Fn::GetAtt": [
+                          "ArtifactsBucket2AAC5544",
+                          "Arn"
+                        ]
                       },
                       "/*"
                     ]
@@ -499,7 +544,7 @@
         ]
       }
     },
-    "MultiEnvPipelinetestDoostrapperCoreDeployUser359F0069": {
+    "MultiEnvPipelinetestDootstrapperCoreDeployUser641A1FC9": {
       "Type": "AWS::IAM::User",
       "Properties": {
         "ManagedPolicyArns": [
@@ -518,35 +563,35 @@
         ]
       }
     },
-    "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7": {
+    "MultiEnvPipelinetestDootstrapperCoreDeployCredentials1D4EBD99": {
       "Type": "AWS::IAM::AccessKey",
       "Properties": {
         "UserName": {
-          "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployUser359F0069"
+          "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployUser641A1FC9"
         }
       }
     },
-    "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F": {
+    "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
         "Type": "String",
         "Value": {
-          "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7"
+          "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployCredentials1D4EBD99"
         },
-        "Name": "/doostrapper/test/access_key_id"
+        "Name": "/dootstrapper/test/access_key_id"
       }
     },
-    "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2": {
+    "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey90E4971B": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
         "Type": "String",
         "Value": {
           "Fn::GetAtt": [
-            "MultiEnvPipelinetestDoostrapperCoreDeployCredentialsC6276BF7",
+            "MultiEnvPipelinetestDootstrapperCoreDeployCredentials1D4EBD99",
             "SecretAccessKey"
           ]
         },
-        "Name": "/doostrapper/test/secret_access_key"
+        "Name": "/dootstrapper/test/secret_access_key"
       }
     },
     "MultiEnvPipelineTestPipelineProjectRoleCE42161B": {
@@ -654,7 +699,7 @@
                     },
                     ":parameter",
                     {
-                      "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F"
+                      "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78"
                     }
                   ]
                 ]
@@ -686,7 +731,7 @@
                     },
                     ":parameter",
                     {
-                      "Ref": "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2"
+                      "Ref": "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey90E4971B"
                     }
                   ]
                 ]
@@ -704,14 +749,20 @@
               "Effect": "Allow",
               "Resource": [
                 {
-                  "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                  "Fn::GetAtt": [
+                    "ArtifactsBucket2AAC5544",
+                    "Arn"
+                  ]
                 },
                 {
                   "Fn::Join": [
                     "",
                     [
                       {
-                        "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                        "Fn::GetAtt": [
+                          "ArtifactsBucket2AAC5544",
+                          "Arn"
+                        ]
                       },
                       "/*"
                     ]
@@ -762,11 +813,11 @@
               [
                 "{\n  \"env\": {\n    \"variables\": {\n      \"AWS_DEFAULT_REGION\": \"ap-southeast-2\"\n    },\n    \"parameter-store\": {\n      \"AWS_ACCESS_KEY_ID\": \"",
                 {
-                  "Ref": "MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F"
+                  "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78"
                 },
                 "\",\n      \"AWS_SECRET_ACCESS_KEY\": \"",
                 {
-                  "Ref": "MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2"
+                  "Ref": "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey90E4971B"
                 },
                 "\"\n    }\n  }\n}"
               ]
@@ -774,17 +825,21 @@
           },
           "Type": "CODEPIPELINE"
         },
-        "Description": "Doostrapper Codepipeline Deploy Project for stage TestDeploy",
+        "Description": "Dootstrapper Codepipeline Deploy Project for stage TestDeploy",
         "Name": "test-pipeline-project"
       }
     },
     "PipelineNotificationsRule108C77DD": {
       "Type": "AWS::Events::Rule",
       "Properties": {
-        "Description": "Doostrapper Pipeline notifications Cloudwatch Rule",
+        "Description": "Dootstrapper Pipeline notifications Cloudwatch Rule",
         "EventPattern": {
-          "source": ["aws.codepipeline"],
-          "detail-type": ["CodePipeline Pipeline Execution State Change"],
+          "source": [
+            "aws.codepipeline"
+          ],
+          "detail-type": [
+            "CodePipeline Pipeline Execution State Change"
+          ],
           "resources": [
             {
               "Fn::Join": [
@@ -843,7 +898,10 @@
                 "Service": "cloudtrail.amazonaws.com"
               },
               "Resource": {
-                "Fn::GetAtt": ["S3SourceTrailS37D21E604", "Arn"]
+                "Fn::GetAtt": [
+                  "S3SourceTrailS37D21E604",
+                  "Arn"
+                ]
               }
             },
             {
@@ -862,7 +920,10 @@
                   "",
                   [
                     {
-                      "Fn::GetAtt": ["S3SourceTrailS37D21E604", "Arn"]
+                      "Fn::GetAtt": [
+                        "S3SourceTrailS37D21E604",
+                        "Arn"
+                      ]
                     },
                     "/AWSLogs/",
                     {
@@ -907,10 +968,16 @@
         "PolicyDocument": {
           "Statement": [
             {
-              "Action": ["logs:PutLogEvents", "logs:CreateLogStream"],
+              "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogStream"
+              ],
               "Effect": "Allow",
               "Resource": {
-                "Fn::GetAtt": ["S3SourceTrailLogGroupB099508C", "Arn"]
+                "Fn::GetAtt": [
+                  "S3SourceTrailLogGroupB099508C",
+                  "Arn"
+                ]
               }
             }
           ],
@@ -932,10 +999,16 @@
           "Ref": "S3SourceTrailS37D21E604"
         },
         "CloudWatchLogsLogGroupArn": {
-          "Fn::GetAtt": ["S3SourceTrailLogGroupB099508C", "Arn"]
+          "Fn::GetAtt": [
+            "S3SourceTrailLogGroupB099508C",
+            "Arn"
+          ]
         },
         "CloudWatchLogsRoleArn": {
-          "Fn::GetAtt": ["S3SourceTrailLogsRoleDDC8A909", "Arn"]
+          "Fn::GetAtt": [
+            "S3SourceTrailLogsRoleDDC8A909",
+            "Arn"
+          ]
         },
         "EnableLogFileValidation": true,
         "EventSelectors": [
@@ -949,7 +1022,10 @@
                       "",
                       [
                         {
-                          "Fn::GetAtt": ["ArtifactsBucket2AAC5544", "Arn"]
+                          "Fn::GetAtt": [
+                            "ArtifactsBucket2AAC5544",
+                            "Arn"
+                          ]
                         },
                         "/path/to/resource.zip"
                       ]

@@ -5,18 +5,18 @@ import {
   matchTemplate,
 } from '@aws-cdk/assert';
 import { App, Stack } from '@aws-cdk/core';
-import { DoostrapperDelivery } from './doostrapper-delivery';
+import { DootstrapperDelivery } from './doostrapper-delivery';
 import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
 const stackWithMinConfig = require('./test/stack-with-min-config.spec.json');
 const stackWithCustomConfig = require('./test/stack-with-custom-config.spec.json');
 
-describe('Doostrapper', () => {
+describe('Dootstrapper', () => {
   let stack: Stack;
 
   describe('Stack with minimum config', () => {
     beforeAll(() => {
       const app = new App();
-      stack = new DoostrapperDelivery(app, 'TestStack', {
+      stack = new DootstrapperDelivery(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
           artifactsSourceKey: 'path/to/resource.zip',
@@ -115,7 +115,7 @@ describe('Doostrapper', () => {
     it('should create cloudwatch event rule to listen to pipeline execution status change', () => {
       expectCDK(stack).to(
         haveResource('AWS::Events::Rule', {
-          Description: 'Doostrapper Pipeline notifications Cloudwatch Rule',
+          Description: 'Dootstrapper Pipeline notifications Cloudwatch Rule',
           EventPattern: {
             source: ['aws.codepipeline'],
             'detail-type': ['CodePipeline Pipeline Execution State Change'],
@@ -162,7 +162,7 @@ describe('Doostrapper', () => {
   describe('stack with stage execution status config', () => {
     beforeAll(() => {
       const app = new App();
-      stack = new DoostrapperDelivery(app, 'TestStack', {
+      stack = new DootstrapperDelivery(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
           artifactsSourceKey: 'path/to/resource.zip',
@@ -187,7 +187,7 @@ describe('Doostrapper', () => {
     it('should create event rule to listen to pipeline stage execution config', () => {
       expectCDK(stack).to(
         haveResource('AWS::Events::Rule', {
-          Description: 'Doostrapper Pipeline notifications Cloudwatch Rule',
+          Description: 'Dootstrapper Pipeline notifications Cloudwatch Rule',
           EventPattern: {
             source: ['aws.codepipeline'],
             'detail-type': ['CodePipeline Stage Execution State Change'],
@@ -234,7 +234,7 @@ describe('Doostrapper', () => {
   describe('stack with actions execution status config', () => {
     beforeAll(() => {
       const app = new App();
-      stack = new DoostrapperDelivery(app, 'TestStack', {
+      stack = new DootstrapperDelivery(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
           artifactsSourceKey: 'path/to/resource.zip',
@@ -259,7 +259,7 @@ describe('Doostrapper', () => {
     it('should create event rule to listen to pipeline stage execution config', () => {
       expectCDK(stack).to(
         haveResource('AWS::Events::Rule', {
-          Description: 'Doostrapper Pipeline notifications Cloudwatch Rule',
+          Description: 'Dootstrapper Pipeline notifications Cloudwatch Rule',
           EventPattern: {
             source: ['aws.codepipeline'],
             'detail-type': ['CodePipeline Action Execution State Change'],
@@ -306,7 +306,7 @@ describe('Doostrapper', () => {
   describe('stack with all custom config', () => {
     beforeAll(() => {
       const app = new App();
-      stack = new DoostrapperDelivery(app, 'TestStack', {
+      stack = new DootstrapperDelivery(app, 'TestStack', {
         stackName: 'test-stack',
         artifactsBucketConfig: {
           bucketName: 'unique-artifacts-bucket-name',
