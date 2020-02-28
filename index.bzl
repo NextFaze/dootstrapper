@@ -1,21 +1,23 @@
 load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 
-def setup_ts_build(name, deps = []):
+def setup_ts_build(name, srcs = [], deps = []):
     """ Sets up default build configuration to compile ts sources with npm hosted deps        
         @param name - name of the target (required)
         @param deps - list of internal targets that this build relies on
                     - external npm deps is already been taken care of
     """
-
-    ts_library(
-        name = name,
+    if not srcs:
         srcs = native.glob(
             [
                 "**/*.ts",
             ],
             exclude = ["**/*.spec.ts"],
-        ),
+        )
+
+    ts_library(
+        name = name,
+        srcs = srcs,
         tsconfig = "//:tsconfig.json",
         deps = deps + [
             "@npm//:node_modules",

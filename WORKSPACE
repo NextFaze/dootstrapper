@@ -8,8 +8,7 @@ workspace(
     # Map the @npm bazel workspace to the node_modules directory.
     # This lets Bazel use the same node_modules as other local tooling.
     managed_directories = {
-        "@dist_npm": ["package/node_modules"],
-        "@npm": ["node_modules"],
+        "@npm": ["node_modules"]
     },
 )
 
@@ -28,8 +27,7 @@ http_archive(
 load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "npm_install")
 
 node_repositories(package_json = [
-    "//:package.json",
-    "//package:package.json",
+    "//:package.json"
 ])
 
 npm_install(

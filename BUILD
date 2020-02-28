@@ -1,20 +1,23 @@
 package(default_visibility = ["//visibility:public"])
-
-load("@build_bazel_rules_nodejs//:index.bzl", "pkg_npm")
 load("//:index.bzl", "setup_ts_build")
+load("@build_bazel_rules_nodejs//:index.bzl", "pkg_npm")
 
 exports_files(
     [
         "package.json",
         "package-lock.json",
+        "tsconfig.json",
     ],
 )
 
 setup_ts_build(
     name = "library",
+    srcs = [
+        "index.ts"
+        ],
     deps = [
-        "//package/handlers:library",
-        "//package/resources:library",
+        "//handlers:library",
+        "//resources:library",
     ],
 )
 
@@ -22,7 +25,7 @@ pkg_npm(
     name = "doostrapper",
     srcs = [
         "LICENCE",
-        "README.md",
+        "README.public.md",
         "package.json",
     ],
     deps = [

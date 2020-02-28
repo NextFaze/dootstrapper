@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "./package",
     "lib": ["es2015.promise", "es5", "es6", "es2017.object"],
     "target": "esNext",
     "module": "commonjs",
