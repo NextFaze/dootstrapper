@@ -26,7 +26,7 @@ pkg_npm(
         "package.json",
     ],
     substitutions = {
-        "doostrapper/package":"doostrapper"
+        "doostrapper/package": "doostrapper",
     },
     deps = [
         ":library",
