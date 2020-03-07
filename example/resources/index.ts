@@ -1,9 +1,10 @@
 import { App } from '@aws-cdk/core';
 import {
-  DoostrapperDelivery,
+  DootstrapperDelivery,
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
-} from 'doostrapper';
+} from 'dootstrapper';
+
 const buildSpec = {
   phases: {
     install: {
@@ -18,7 +19,7 @@ const buildSpec = {
 };
 
 const app = new App();
-new DoostrapperDelivery(app, 'Doostrapper', {
+new DootstrapperDelivery(app, 'Doostrapper', {
   pipelineConfig: {
     artifactsSourceKey: 'artifacts/example.zip',
     environments: [
