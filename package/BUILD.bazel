@@ -19,7 +19,7 @@ setup_ts_build(
 )
 
 pkg_npm(
-    name = "doostrapper",
+    name = "dootstrapper",
     srcs = [
         "LICENCE",
         "README.md",
