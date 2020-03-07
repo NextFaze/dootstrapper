@@ -1,4 +1,3 @@
-
 # CDK Deployment Bootstrapper project
 
 ![Build Status](https://github.com/nextfaze/dootstrapper/workflows/ci/badge.svg)
@@ -12,6 +11,11 @@ This getting started section contains information on how to get started for deve
 ### Prerequisites
 
 - node (>=10.15 <12.14>)
+
+### Environment
+
+Before any npm commands can be executed NPM_TOKEN env must be available to the bash environment, to do this run
+`export NPM_TOKEN=` or add `export NPM_TOKEN=` to .bashrc
 
 ### Installing
 
@@ -33,7 +37,7 @@ This getting started section contains information on how to get started for deve
 
 #### Adding Runtime Dependency
 
-Run time dependencies must be added to root `package.json` as well in `package.json` for given package  
+Run time dependencies must be added to root `package.json` as well in `package.json` for given package
 
 #### Adding Dev Dependency
 

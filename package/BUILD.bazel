@@ -25,6 +25,9 @@ pkg_npm(
         "README.md",
         "package.json",
     ],
+    substitutions = {
+        "doostrapper/package": "doostrapper",
+    },
     deps = [
         ":library",
     ],
