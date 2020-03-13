@@ -84,7 +84,7 @@ def gen_bundle(name, dir_name, deps, srcs = []):
             ":bundle",
         ],
         extension = "tar.gz",
-        package_dir = dir_name,
+        package_dir = "",
     )
 
 def gen_artifacts(name, srcs, configs, deps):

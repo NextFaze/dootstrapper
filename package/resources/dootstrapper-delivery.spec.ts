@@ -5,7 +5,7 @@ import {
   matchTemplate,
 } from '@aws-cdk/assert';
 import { App, Stack } from '@aws-cdk/core';
-import { DootstrapperDelivery } from './doostrapper-delivery';
+import { DootstrapperDelivery } from './dootstrapper-delivery';
 import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
 const stackWithMinConfig = require('./test/stack-with-min-config.spec.json');
 const stackWithCustomConfig = require('./test/stack-with-custom-config.spec.json');
