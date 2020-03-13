@@ -1,18 +1,18 @@
 {
-  "name": "doostrapper",
-  "version": "0.1.8-alpha.0",
-  "description": "Multi environment deployment boostrapper",
+  "name": "dootstrapper",
+  "version": "0.1.8-alpha.1",
+  "description": "Multi environment deployment bootstrapper",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/whimzyLive/doostrapper"
+    "url": "https://github.com/whimzyLive/dootstrapper"
   },
-  "homepage": "https://github.com/whimzyLive/doostrapper/blob/master/package/README.md",
+  "homepage": "https://github.com/whimzyLive/dootstrapper/blob/master/package/README.md",
   "keywords": [
     "aws-cdk",
     "continuous delivery",
     "continuous deployment",
-    "boostrapper"
+    "bootstrapper"
   ],
   "module": "ES6",
   "license": "MIT",

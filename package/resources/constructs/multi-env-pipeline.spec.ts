@@ -151,7 +151,7 @@ describe('MultiEnvPipeline', () => {
                       ':parameter',
                       {
                         Ref:
-                          'MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F',
+                          'MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78',
                       },
                     ],
                   ],
@@ -184,7 +184,7 @@ describe('MultiEnvPipeline', () => {
                       ':parameter',
                       {
                         Ref:
-                          'MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2',
+                          'MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey90E4971B',
                       },
                     ],
                   ],

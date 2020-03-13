@@ -19,12 +19,15 @@ setup_ts_build(
 )
 
 pkg_npm(
-    name = "doostrapper",
+    name = "dootstrapper",
     srcs = [
         "LICENCE",
         "README.md",
         "package.json",
     ],
+    substitutions = {
+        "doostrapper/package": "doostrapper",
+    },
     deps = [
         ":library",
     ],

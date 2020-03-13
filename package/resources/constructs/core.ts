@@ -33,11 +33,11 @@ export class Core extends Construct {
     // create string parameter even if admin Permissions in not allowed
     // developer will be responsible for adding values to this param
     this.accessKeyId = new StringParameter(this, 'DeployAccessKeyId', {
-      parameterName: `/doostrapper/${environmentName}/access_key_id`,
+      parameterName: `/dootstrapper/${environmentName}/access_key_id`,
       stringValue: this.credentials?.ref || 'ACCESS_KEY_ID',
     });
     this.secretAccessKey = new StringParameter(this, 'DeploySecretAccessKey', {
-      parameterName: `/doostrapper/${environmentName}/secret_access_key`,
+      parameterName: `/dootstrapper/${environmentName}/secret_access_key`,
       stringValue: this.credentials?.attrSecretAccessKey || 'SECRET_ACCESS_KEY',
     });
   }

@@ -54,7 +54,7 @@ describe('Core construct ', () => {
       expectCDK(stack).to(
         haveResource('AWS::SSM::Parameter', {
           Type: 'String',
-          Name: '/doostrapper/test/access_key_id',
+          Name: '/dootstrapper/test/access_key_id',
           Value: {
             Ref: 'CoreDeployCredentials7007E7FA',
           },
@@ -63,7 +63,7 @@ describe('Core construct ', () => {
       expectCDK(stack).to(
         haveResource('AWS::SSM::Parameter', {
           Type: 'String',
-          Name: '/doostrapper/test/secret_access_key',
+          Name: '/dootstrapper/test/secret_access_key',
           Value: {
             'Fn::GetAtt': ['CoreDeployCredentials7007E7FA', 'SecretAccessKey'],
           },
@@ -91,14 +91,14 @@ describe('Core construct ', () => {
       expectCDK(stack).to(
         haveResource('AWS::SSM::Parameter', {
           Type: 'String',
-          Name: '/doostrapper/test/access_key_id',
+          Name: '/dootstrapper/test/access_key_id',
           Value: 'ACCESS_KEY_ID',
         })
       );
       expectCDK(stack).to(
         haveResource('AWS::SSM::Parameter', {
           Type: 'String',
-          Name: '/doostrapper/test/secret_access_key',
+          Name: '/dootstrapper/test/secret_access_key',
           Value: 'SECRET_ACCESS_KEY',
         })
       );

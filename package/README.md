@@ -1,4 +1,4 @@
-# CDK Deployment Boostrapper project
+# CDK Deployment Bootstrapper project
 
 Creates a CD pipeline to declaratively deploy to multiple environments
 Generates following resources:

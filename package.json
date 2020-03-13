@@ -1,5 +1,5 @@
 {
-  "name": "doostrapper-workspace",
+  "name": "dootstrapper",
   "description": "Multi environment deployment Constructs App",
   "main": "index.js",
   "private": true,
@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/whimzyLive/doostrapper"
+    "url": "https://github.com/whimzyLive/dootstrapper"
   },
-  "homepage": "https://github.com/whimzyLive/doostrapper/blob/master/README.md",
+  "homepage": "https://github.com/whimzyLive/dootstrapper/blob/master/README.md",
   "keywords": [
     "aws-cdk",
     "aws-cdk-deployment",
-    "aws-cdk-boostrapper"
+    "aws-cdk-bootstrapper"
   ],
   "devDependencies": {
     "@aws-cdk/assert": "^1.23.0",
@@ -41,14 +41,13 @@
     "typescript": "~3.7.5"
   },
   "scripts": {
-    "cdk": "cdk",
-    "build": "bazel build //...",
+    "build": "bazel build ${TARGET:-//...}",
     "check": "bazel version",
     "test": "bazel test //...",
     "install:all": "bazel run @nodejs//:npm_node_repositories install",
     "add-dep": "bazel run @nodejs//:npm_node_repositories install",
-    "pack": "bazel run //package:doostrapper.pack",
-    "publish": "bazel run //package:doostrapper.publish",
+    "pack": "bazel run //package:dootstrapper.pack",
+    "publish": "bazel run //package:dootstrapper.publish",
     "build:watch": "ibazel build //...",
     "test:watch": "ibazel test //...",
     "bazel:format": "find . -type f \\( -name \"*.bzl\" -or -name WORKSPACE -or -name BUILD -or -name BUILD.bazel \\) ! -path \"*/node_modules/*\" | xargs buildifier -v --warnings=attr-cfg,attr-license,attr-non-empty,attr-output-default,attr-single-file,constant-glob,ctx-actions,ctx-args,depset-iteration,depset-union,dict-concatenation,duplicated-name,filetype,git-repository,http-archive,integer-division,load,load-on-top,native-build,native-package,out-of-order-load,output-group,package-name,package-on-top,positional-args,redefined-variable,repository-name,same-origin-load,string-iteration,unsorted-dict-items,unused-variable",
