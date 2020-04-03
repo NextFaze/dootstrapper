@@ -19,7 +19,7 @@ const buildSpec = {
 };
 
 const app = new App();
-new DootstrapperDelivery(app, 'Doostrapper', {
+new DootstrapperDelivery(app, 'Dootstrapper', {
   pipelineConfig: {
     artifactsSourceKey: 'artifacts/example.zip',
     environments: [
@@ -59,6 +59,6 @@ new DootstrapperDelivery(app, 'Doostrapper', {
     notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
   },
   artifactsBucketConfig: {
-    bucketName: 'example-doostrapper-artifacts-bucket',
+    bucketName: 'example-dootstrapper-artifacts-bucket',
   },
 });
