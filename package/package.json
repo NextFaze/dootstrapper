@@ -1,6 +1,6 @@
 {
   "name": "dootstrapper",
-  "version": "0.1.8-alpha.2",
+  "version": "0.1.8-alpha.3",
   "description": "Multi environment deployment bootstrapper",
   "main": "index.js",
   "repository": {
@@ -17,6 +17,9 @@
   "module": "ES6",
   "license": "MIT",
   "dependencies": {
+    "change-case": "^4.1.1"
+  },
+  "peerDependencies": {
     "@aws-cdk/aws-cloudtrail": "^1.23.0",
     "@aws-cdk/aws-codebuild": "^1.23.0",
     "@aws-cdk/aws-codepipeline": "^1.23.0",
@@ -28,7 +31,6 @@
     "@aws-cdk/aws-sns": "^1.23.0",
     "@aws-cdk/aws-sns-subscriptions": "^1.23.0",
     "@aws-cdk/aws-ssm": "^1.23.0",
-    "@aws-cdk/core": "^1.23.0",
-    "change-case": "^4.1.1"
+    "@aws-cdk/core": "^1.23.0"
   }
 }

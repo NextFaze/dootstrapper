@@ -56,9 +56,6 @@ def setup_ts_specs(name, deps, data_dir = "", suffix = ".json"):
         size = "small",
         srcs = [":test_library"],
         install_source_map_support = True,
-        deps = [
-            "@npm//source-map-support",
-        ],
     )
 
 def gen_bundle(name, dir_name, deps, srcs = []):

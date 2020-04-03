@@ -19,9 +19,9 @@
   ],
   "devDependencies": {
     "@aws-cdk/assert": "^1.23.0",
-    "@bazel/bazel": "latest",
-    "@bazel/buildifier": "latest",
-    "@bazel/ibazel": "latest",
+    "@bazel/bazel": "^2.0.1",
+    "@bazel/buildifier": "^2.2.1",
+    "@bazel/ibazel": "^0.12.3",
     "@bazel/jasmine": "^1.3.0",
     "@bazel/rollup": "^1.3.0",
     "@bazel/typescript": "^1.3.0",
@@ -45,7 +45,6 @@
     "check": "bazel version",
     "test": "bazel test //...",
     "install:all": "bazel run @nodejs//:npm_node_repositories install",
-    "add-dep": "bazel run @nodejs//:npm_node_repositories install",
     "pack": "bazel run //package:dootstrapper.pack",
     "publish": "bazel run //package:dootstrapper.publish",
     "build:watch": "ibazel build //...",
@@ -76,7 +75,7 @@
     "@aws-cdk/core": "^1.23.0",
     "aws-cdk": "^1.23.0",
     "change-case": "^4.1.1",
-    "dootstrapper": "^0.1.8-alpha.2"
+    "dootstrapper": "^0.1.8-alpha.3"
   },
   "husky": {
     "hooks": {
