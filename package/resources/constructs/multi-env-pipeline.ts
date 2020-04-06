@@ -20,18 +20,13 @@ import { paramCase, pascalCase } from 'change-case';
 import { createBuildSpecWithCredentials } from '../helpers/create-buildspec-with-credentials';
 import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environments';
 import { Core } from './core';
-interface IDeployEnvironment {
-  name: string;
-  adminPermissions?: boolean;
-  approvalRequired?: boolean;
-  runtimeVariables?: { [key: string]: string };
-  buildSpec: any;
-}
+import { IEnvironment } from '../interfaces';
+
 interface IMultiEnvPipelineProps {
   artifactsBucket: Bucket;
   artifactsSourceKey: string;
   notificationTopic: Topic;
-  environments: IDeployEnvironment[];
+  environments: IEnvironment[];
 }
 
 export class MultiEnvPipeline extends Construct {
@@ -57,7 +52,7 @@ export class MultiEnvPipeline extends Construct {
 
     // Deploy stages
     environments.forEach(environment => {
-      const { adminPermissions = false } = environment;
+      const { adminPermissions = false, privilegedMode } = environment;
       const { accessKeyId, secretAccessKey } = new Core(
         this,
         `${environment.name}DootstrapperCore`,
@@ -84,6 +79,7 @@ export class MultiEnvPipeline extends Construct {
 
       actions.push(
         this._createCodebuildAction({
+          privilegedMode: privilegedMode,
           id: pascalCase(`${environment.name}PipelineProject`),
           stage: stageName,
           runOrder: environment.approvalRequired ? 2 : 1,
@@ -130,6 +126,7 @@ export class MultiEnvPipeline extends Construct {
     id,
     stage,
     runOrder,
+    privilegedMode,
     runtimeVariables,
     buildSpec,
     inputSource,
@@ -140,6 +137,7 @@ export class MultiEnvPipeline extends Construct {
     id: string;
     stage: string;
     runOrder: number;
+    privilegedMode?: boolean;
     runtimeVariables: {
       [name: string]: BuildEnvironmentVariable;
     };
@@ -162,6 +160,7 @@ export class MultiEnvPipeline extends Construct {
         buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
         environmentVariables: runtimeVariables,
         computeType: ComputeType.SMALL,
+        privileged: privilegedMode,
       },
       description: `Dootstrapper Codepipeline Deploy Project for stage ${stage}`,
     });
