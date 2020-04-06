@@ -27,6 +27,7 @@ new DootstrapperDelivery(app, 'Dootstrapper', {
     environments: [
       {
         name: 'Dev',
+        privilegedMode: true,
         adminPermissions: true,
         runtimeVariables: {
           currEnv: 'Development',
@@ -35,6 +36,7 @@ new DootstrapperDelivery(app, 'Dootstrapper', {
       },
       {
         name: 'Uat',
+        privilegedMode: true,
         adminPermissions: true,
         runtimeVariables: {
           currEnv: 'User Acceptance Testing',
@@ -43,6 +45,7 @@ new DootstrapperDelivery(app, 'Dootstrapper', {
       },
       {
         name: 'Prod',
+        privilegedMode: true,
         adminPermissions: true,
         approvalRequired: true,
         runtimeVariables: {
