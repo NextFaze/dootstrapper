@@ -75,25 +75,26 @@ export class MultiEnvPipeline extends Construct {
 
       if (environment.approvalRequired) {
         actions.push(
-          this._createManualApprovalAction(
-            paramCase(`${environment.name}Approve`),
-            notificationTopic
-          )
+          this._createManualApprovalAction({
+            actionName: paramCase(`${environment.name}Approve`),
+            notificationTopic,
+          })
         );
       }
 
       actions.push(
-        this._createCodebuildAction(
-          pascalCase(`${environment.name}PipelineProject`),
-          stageName,
-          environment.approvalRequired ? 2 : 1, // change run order based on approval
-          runTimeEnvironments,
-          buildSpec,
-          s3Source,
-          output,
+        this._createCodebuildAction({
+          id: pascalCase(`${environment.name}PipelineProject`),
+          stage: stageName,
+          runOrder: environment.approvalRequired ? 2 : 1,
+          runtimeVariables: runTimeEnvironments,
+          // always create new object instance of build for new environment
+          buildSpec: { ...buildSpec },
+          inputSource: s3Source,
+          outputSource: output,
           accessKeyId,
-          secretAccessKey
-        )
+          secretAccessKey,
+        })
       );
       // add multiple stages per environment
       this.pipeline.addStage({
@@ -125,26 +126,38 @@ export class MultiEnvPipeline extends Construct {
    * @param inputSource Codebuild input artifact
    * @param outputSource Codebuild output artifact
    */
-  private _createCodebuildAction(
-    id: string,
-    stage: string,
-    runOrder: number,
-    runtimeVariables: { [name: string]: BuildEnvironmentVariable },
-    buildSpec: any,
-    inputSource: Artifact,
-    outputSource: Artifact,
-    accessKeyId: StringParameter,
-    secretAccessKey: StringParameter
-  ) {
+  private _createCodebuildAction({
+    id,
+    stage,
+    runOrder,
+    runtimeVariables,
+    buildSpec,
+    inputSource,
+    outputSource,
+    accessKeyId,
+    secretAccessKey,
+  }: {
+    id: string;
+    stage: string;
+    runOrder: number;
+    runtimeVariables: {
+      [name: string]: BuildEnvironmentVariable;
+    };
+    buildSpec: any;
+    inputSource: Artifact;
+    outputSource: Artifact;
+    accessKeyId: StringParameter;
+    secretAccessKey: StringParameter;
+  }) {
+    const buildSpecRow = createBuildSpecWithCredentials({
+      buildSpec,
+      accessKeyIdParamName: accessKeyId.parameterName,
+      secretAccessKeyParamName: secretAccessKey.parameterName,
+    });
+
     const deployProject = new PipelineProject(this, id, {
       projectName: paramCase(id),
-      buildSpec: BuildSpec.fromObject(
-        createBuildSpecWithCredentials({
-          buildSpec,
-          accessKeyIdParamName: accessKeyId.parameterName,
-          secretAccessKeyParamName: secretAccessKey.parameterName,
-        })
-      ),
+      buildSpec: BuildSpec.fromObject(buildSpecRow),
       environment: {
         buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
         environmentVariables: runtimeVariables,
@@ -169,10 +182,13 @@ export class MultiEnvPipeline extends Construct {
    * @param actionName Manual approval action
    * @param notificationTopic Notification topic to send pipeline approval notifications
    */
-  private _createManualApprovalAction(
-    actionName: string,
-    notificationTopic: Topic
-  ) {
+  private _createManualApprovalAction({
+    actionName,
+    notificationTopic,
+  }: {
+    actionName: string;
+    notificationTopic: Topic;
+  }) {
     return new ManualApprovalAction({
       actionName,
       runOrder: 1,
