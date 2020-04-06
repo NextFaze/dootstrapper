@@ -16,6 +16,7 @@ setup_ts_build(
         "//package/handlers:library",
         "//package/resources:library",
     ],
+    module_name = '@dootstrapper/dootstrapper',
 )
 
 pkg_npm(

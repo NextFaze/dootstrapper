@@ -2,6 +2,9 @@ load("//:tools/defaults.bzl", "gen_bundle", "setup_ts_build", "setup_ts_specs", 
 
 setup_ts_build(
     name = "library",
+    deps = [
+        "//package:library"
+    ]
 )
 
 setup_ts_specs(
