@@ -6,6 +6,7 @@ import {
 } from 'dootstrapper';
 
 const buildSpec = {
+  version: 0.2,
   phases: {
     install: {
       'runtime-versions': {
