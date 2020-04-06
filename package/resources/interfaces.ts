@@ -54,7 +54,8 @@ interface IPipelineProps {
 /**
  * @param name Environment name
  * @param adminPermissions Should admin permission be created with accessKey and Secret injected into container
- * @param privilegedMode Enable this flag if you want to build Docker images or want your builds to get elevated privileges
+ * @param privilegedMode Enable this flag if you want to build Docker images or
+ * want your builds to get elevated privileges
  * @param approvalRequired Manual approval to add before deploy action
  * @param runtimeVariables Runtime variables to inject into container
  * @param buildSpec BuildSpec file to execute on codebuild
