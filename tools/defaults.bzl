@@ -3,7 +3,7 @@ load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
-def setup_ts_build(name, deps = []):
+def setup_ts_build(name, deps = [], **kwargs):
     """ Sets up default build configuration to compile ts sources with npm hosted deps        
         @param name - name of the target (required)
         @param deps - list of internal targets that this build relies on
@@ -22,6 +22,7 @@ def setup_ts_build(name, deps = []):
         deps = deps + [
             "@npm//:node_modules",
         ],
+        **kwargs
     )
 
 def setup_ts_specs(name, deps, data_dir = "", suffix = ".json"):

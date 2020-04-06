@@ -18,7 +18,11 @@
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "@dootstrapper/dootstrapper": ["package/index.ts"]
+    }
   },
   "exclude": ["cdk.out", "dist", "bazel-out", "node_modules"]
 }

@@ -3,7 +3,7 @@ import {
   DootstrapperDelivery,
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
-} from 'dootstrapper';
+} from '@dootstrapper/dootstrapper';
 
 const buildSpec = {
   version: 0.2,
@@ -20,12 +20,13 @@ const buildSpec = {
 };
 
 const app = new App();
+
 new DootstrapperDelivery(app, 'Dootstrapper', {
   pipelineConfig: {
     artifactsSourceKey: 'artifacts/example.zip',
     environments: [
       {
-        name: 'dev',
+        name: 'Dev',
         adminPermissions: true,
         runtimeVariables: {
           currEnv: 'Development',
@@ -33,7 +34,7 @@ new DootstrapperDelivery(app, 'Dootstrapper', {
         buildSpec,
       },
       {
-        name: 'uat',
+        name: 'Uat',
         adminPermissions: true,
         runtimeVariables: {
           currEnv: 'User Acceptance Testing',
@@ -41,7 +42,7 @@ new DootstrapperDelivery(app, 'Dootstrapper', {
         buildSpec,
       },
       {
-        name: 'prod',
+        name: 'Prod',
         adminPermissions: true,
         approvalRequired: true,
         runtimeVariables: {

@@ -3,7 +3,7 @@ package(default_visibility = ["//visibility:public"])
 load("//:tools/defaults.bzl", "setup_ts_build", "setup_ts_specs")
 
 setup_ts_build(
-    name = "library",
+    name = "library"
 )
 
 setup_ts_specs(

@@ -74,8 +74,7 @@
     "@aws-cdk/aws-ssm": "^1.23.0",
     "@aws-cdk/core": "^1.23.0",
     "aws-cdk": "^1.23.0",
-    "change-case": "^4.1.1",
-    "dootstrapper": "^0.1.8-alpha.3"
+    "change-case": "^4.1.1"
   },
   "husky": {
     "hooks": {
