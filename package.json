@@ -9,9 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/whimzyLive/dootstrapper"
+    "url": "https://github.com/nextfaze/dootstrapper"
   },
-  "homepage": "https://github.com/whimzyLive/dootstrapper/blob/master/README.md",
+  "homepage": "https://github.com/nextfaze/dootstrapper/blob/master/README.md",
   "keywords": [
     "aws-cdk",
     "aws-cdk-deployment",

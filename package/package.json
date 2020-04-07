@@ -1,13 +1,13 @@
 {
   "name": "dootstrapper",
-  "version": "0.1.8-alpha.4",
+  "version": "0.1.8-alpha.5",
   "description": "Multi environment deployment bootstrapper",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/whimzyLive/dootstrapper"
+    "url": "https://github.com/nextfaze/dootstrapper"
   },
-  "homepage": "https://github.com/whimzyLive/dootstrapper/blob/master/package/README.md",
+  "homepage": "https://github.com/nextfaze/dootstrapper/blob/master/package/README.md",
   "keywords": [
     "aws-cdk",
     "continuous delivery",
