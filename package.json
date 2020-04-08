@@ -1,6 +1,6 @@
 {
   "name": "dootstrapper",
-  "description": "Multi environment deployment Constructs App",
+  "description": "Development bootstrapper project",
   "main": "index.js",
   "private": true,
   "engineStrict": true,
@@ -12,11 +12,6 @@
     "url": "https://github.com/nextfaze/dootstrapper"
   },
   "homepage": "https://github.com/nextfaze/dootstrapper/blob/master/README.md",
-  "keywords": [
-    "aws-cdk",
-    "aws-cdk-deployment",
-    "aws-cdk-bootstrapper"
-  ],
   "devDependencies": {
     "@aws-cdk/assert": "^1.23.0",
     "@bazel/bazel": "^2.0.1",

@@ -1,4 +1,4 @@
-# CDK Deployment Bootstrapper project
+# Development Bootstrapper Project
 
 ![Build Status](https://github.com/nextfaze/dootstrapper/workflows/ci/badge.svg)
 
