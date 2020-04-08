@@ -2,7 +2,7 @@
 
 ![Build Status](https://github.com/nextfaze/dootstrapper/workflows/ci/badge.svg)
 
-Creates a CD (Continuous delivery/deployment) pipeline to declaratively deploy to multiple environments.
+Creates a Development Tools, used for software delivery process
 
 ## Getting Started [Internal Use Only]
 
