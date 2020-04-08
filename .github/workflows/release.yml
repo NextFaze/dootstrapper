@@ -6,6 +6,8 @@ on:
 
 jobs:
   release:
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,6 +19,4 @@ jobs:
       - name: install
         run: npm install
       - name: Publish To NPM
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run publish -- --config=release
