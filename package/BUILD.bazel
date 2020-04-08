@@ -31,6 +31,6 @@ pkg_npm(
     },
     replace_with_version = "0.0.0-PLACEHOLDER",
     deps = [
-        ':library'
+        ":library"
     ]
 )
