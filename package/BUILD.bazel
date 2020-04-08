@@ -30,4 +30,7 @@ pkg_npm(
         "dootstrapper/package": "dootstrapper",
     },
     replace_with_version = "0.0.0-PLACEHOLDER",
+    deps = [
+        ':library'
+    ]
 )
