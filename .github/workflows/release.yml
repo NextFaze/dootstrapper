@@ -16,4 +16,3 @@ jobs:
         run: npm install
       - name: Publish To NPM
         run: npm run publish -- --config=release
-      - continue-on-error: false
