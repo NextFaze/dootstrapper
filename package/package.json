@@ -1,6 +1,6 @@
 {
   "name": "dootstrapper",
-  "version": "0.1.8-alpha.5",
+  "version": "0.0.0-PLACEHOLDER",
   "description": "Multi environment deployment bootstrapper",
   "main": "index.js",
   "repository": {

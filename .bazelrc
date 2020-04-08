@@ -57,6 +57,11 @@ run:debug --define=VERBOSE_LOGS=1 -- --node_options=--inspect-brk
 # The following option will change the build output of certain rules such as terser and may not be desirable in all cases
 build:debug --compilation_mode=dbg
 
+# This tells bazel how to interact with git in order to current get tag information
+# Enable this with --config=release
+build:release --workspace_status_command="node ./tools/stamp_build.js"
+build:release --stamp
+
 # Turn off legacy external runfiles
 # This prevents accidentally depending on this feature, which Bazel will remove.
 build --nolegacy_external_runfiles
