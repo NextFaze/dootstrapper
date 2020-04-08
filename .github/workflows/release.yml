@@ -1,13 +1,11 @@
 name: release
 on:
-  push:
-    tags:
-      - '*'
+  release:
+    types: [published]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - continue-on-error: false
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Node
@@ -20,3 +18,4 @@ jobs:
         with:
           credentials: ${{secrets.NPM_TOKEN}}
         run: npm run publish -- --config=release
+      - continue-on-error: false
