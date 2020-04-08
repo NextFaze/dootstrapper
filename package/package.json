@@ -1,6 +1,7 @@
 {
-  "name": "dootstrapper",
+  "name": "@nf-tools/dootstrapper",
   "version": "0.0.0-PLACEHOLDER",
+  "private": false,
   "description": "Multi environment deployment bootstrapper",
   "main": "index.js",
   "repository": {
@@ -9,6 +10,8 @@
   },
   "homepage": "https://github.com/nextfaze/dootstrapper/blob/master/package/README.md",
   "keywords": [
+    "aws",
+    "nextfaze",
     "aws-cdk",
     "continuous delivery",
     "continuous deployment",
