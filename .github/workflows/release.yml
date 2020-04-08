@@ -6,6 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - with:
+          credentials: ${{secrets.NPM_TOKEN}}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Node
@@ -15,7 +17,5 @@ jobs:
       - name: install
         run: npm install
       - name: Publish To NPM
-        with:
-          credentials: ${{secrets.NPM_TOKEN}}
         run: npm run publish -- --config=release
       - continue-on-error: false
