@@ -59,7 +59,7 @@ build:debug --compilation_mode=dbg
 
 # This tells bazel how to interact with git in order to current get tag information
 # Enable this with --config=release
-build:release --workspace_status_command="node./tools/bazel_stamp_vars.js"
+build:release --workspace_status_command="node ./tools/bazel_stamp_vars.js"
 build:release --stamp
 
 # Turn off legacy external runfiles
