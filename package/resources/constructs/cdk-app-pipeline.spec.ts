@@ -6,6 +6,7 @@ import {
 } from '@aws-cdk/assert';
 import { Stack } from '@aws-cdk/core';
 import { CdkAppPipeline } from './cdk-app-pipeline';
+import { NOTIFICATIONS_TYPE } from '../constants/enums';
 const singleEnvPipeline = require('./test/single-env-pipeline.spec.json');
 const multiEnvNoApproval = require('./test/multi-env-pipeline-no-approval.spec.json');
 const multiEnvApproval = require('./test/multi-env-approval-pipeline.spec.json');
@@ -17,6 +18,7 @@ describe('CdkAppPipeline', () => {
       stack = new Stack();
       new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         environments: [
           {
             name: 'test',
@@ -232,6 +234,7 @@ describe('CdkAppPipeline', () => {
       stack = new Stack();
       new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         environments: [
           {
             name: 'test',
@@ -284,6 +287,7 @@ describe('CdkAppPipeline', () => {
       stack = new Stack();
       new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         environments: [
           {
             name: 'test',

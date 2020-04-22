@@ -23,6 +23,7 @@ const app = new App();
 
 new BackendDeployment(app, 'Dootstrapper', {
   pipelineConfig: {
+    notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
     artifactsSourceKey: 'artifacts/example.zip',
     environments: [
       {
@@ -61,7 +62,6 @@ new BackendDeployment(app, 'Dootstrapper', {
       emailSubject: 'Deployment Notifications',
       targetType: NOTIFICATIONS_TARGET.EMAIL,
     },
-    notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
   },
   artifactsBucketConfig: {
     bucketName: 'example-dootstrapper-artifacts-bucket',

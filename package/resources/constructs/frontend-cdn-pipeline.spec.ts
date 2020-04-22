@@ -11,6 +11,7 @@ import {
   DnsValidatedCertificate,
 } from '@aws-cdk/aws-certificatemanager';
 import { HostedZone } from '@aws-cdk/aws-route53';
+import { NOTIFICATIONS_TYPE } from '../constants/enums';
 
 describe('FrontendCDNPipeline', () => {
   let stack: Stack;
@@ -20,6 +21,7 @@ describe('FrontendCDNPipeline', () => {
       stack = new Stack();
       new FrontendCDNPipeline(stack, 'FrontendCDNPipeline', {
         artifactsSourceKey: '/path/t0/artifact.zip',
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         certificate: new DnsValidatedCertificate(stack, 'Certificate', {
           domainName: 'example.com',
           hostedZone: new HostedZone(stack, 'HostedZone', {
@@ -47,6 +49,7 @@ describe('FrontendCDNPipeline', () => {
       stack = new Stack();
       new FrontendCDNPipeline(stack, 'FrontendCDNPipeline', {
         artifactsSourceKey: '/path/t0/artifact.zip',
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         certificate: new DnsValidatedCertificate(stack, 'Certificate', {
           domainName: 'example.com',
           hostedZone: new HostedZone(stack, 'HostedZone', {
@@ -108,6 +111,7 @@ describe('FrontendCDNPipeline', () => {
       stack = new Stack();
       new FrontendCDNPipeline(stack, 'FrontendCDNPipeline', {
         artifactsSourceKey: '/path/t0/artifact.zip',
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         certificate: new DnsValidatedCertificate(stack, 'Certificate', {
           domainName: 'example.com',
           hostedZone: new HostedZone(stack, 'HostedZone', {

@@ -1,3 +1,4 @@
+import { IBackendPipelineProps } from './../interfaces';
 import { BasePipeline } from './base-pipeline';
 import { Artifact } from '@aws-cdk/aws-codepipeline';
 import { Construct } from '@aws-cdk/core';
@@ -6,7 +7,7 @@ import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environme
 import { CredentialStore } from './credential-store';
 import { IBackendEnvironment } from '../interfaces';
 
-interface ICdkAppPipelineProps {
+interface ICdkAppPipelineProps extends IBackendPipelineProps {
   artifactsSourceKey: string;
   environments: IBackendEnvironment[];
 }
@@ -17,7 +18,10 @@ export class CdkAppPipeline extends BasePipeline {
     id: string,
     private props: ICdkAppPipelineProps
   ) {
-    super(scope, id, { artifactSourceKey: props.artifactsSourceKey });
+    super(scope, id, {
+      artifactSourceKey: props.artifactsSourceKey,
+      notificationsType: props.notificationsType,
+    });
     const { environments } = this.props;
 
     // Deploy stages

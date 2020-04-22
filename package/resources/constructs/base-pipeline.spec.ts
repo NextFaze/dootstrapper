@@ -1,12 +1,15 @@
 import { Stack } from '@aws-cdk/core';
 import { expect as expectCDK, haveResource, SynthUtils } from '@aws-cdk/assert';
 import { BasePipeline } from './base-pipeline';
-import { Action } from '@aws-cdk/aws-codepipeline-actions';
 import { Artifact } from '@aws-cdk/aws-codepipeline';
 import { StringParameter } from '@aws-cdk/aws-ssm';
+import { NOTIFICATIONS_TYPE } from '../constants/enums';
 class Pipeline extends BasePipeline {
   constructor(stack: Stack) {
-    super(stack, 'Pipeline', { artifactSourceKey: 'path/to/artifact.zip' });
+    super(stack, 'Pipeline', {
+      artifactSourceKey: 'path/to/artifact.zip',
+      notificationsType: NOTIFICATIONS_TYPE.NONE,
+    });
     this.pipeline.addStage({
       actions: [
         this.createManualApprovalAction({ actionName: 'Approve', runOrder: 1 }),

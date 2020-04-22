@@ -33,11 +33,16 @@ interface IBackendArtifactsBucketProps {
  * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
  * @param environments environment related config
  */
-interface IBackendPipelineProps {
+export interface IBackendPipelineProps {
   /**
    * @default - AWS CloudFormation generates an ID and uses that for the pipeline name
    */
   artifactsSourceKey: string;
+  /**
+   * @default - Pipeline Execution events
+   */
+  notificationsType: NOTIFICATIONS_TYPE;
+
   environments: IBackendEnvironment[];
 }
 
@@ -77,15 +82,11 @@ export interface IBackendEnvironment {
  * @param notificationsTargetConfig  Notifications Target Configurations
  * @param cloudwatchRuleName Cloudwatch events rule name
  */
-interface INotificationsConfig {
+export interface INotificationsConfig {
   /**
    * @default - Cloudformation generates unique resource Id and uses that as a name
    */
   topicName?: string;
-  /**
-   * @default - Pipeline Execution events
-   */
-  notificationsType: NOTIFICATIONS_TYPE;
   notificationsTargetConfig: INotificationsEmailTargetConfig;
   /**
    * @default - Cloudformation generates unique resource Id and uses that as a name
@@ -112,6 +113,10 @@ export interface IFrontendDeploymentProps {
 
 export interface IFrontendPipelineConfig {
   artifactsSourceKey: string;
+  /**
+   * @default - Pipeline Execution events
+   */
+  notificationsType: NOTIFICATIONS_TYPE;
   environments: IFrontendEnvironment[];
 }
 

@@ -19,9 +19,16 @@ import {
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import { createBuildSpecWithCredentials } from '../helpers/create-buildspec-with-credentials';
 import { paramCase } from 'change-case';
+import {
+  NOTIFICATIONS_TYPE,
+  NOTIFICATIONS_DETAILS_TYPE,
+} from '../constants/enums';
+import { SnsTopic } from '@aws-cdk/aws-events-targets';
+import { Rule } from '@aws-cdk/aws-events';
 
 interface IBasePipelineProps {
   artifactSourceKey: string;
+  notificationsType: NOTIFICATIONS_TYPE;
 }
 
 export abstract class BasePipeline extends Construct {
@@ -30,7 +37,7 @@ export abstract class BasePipeline extends Construct {
   public readonly checkoutSource: Artifact;
   constructor(scope: Construct, id: string, props: IBasePipelineProps) {
     super(scope, id);
-    const { artifactSourceKey } = props;
+    const { artifactSourceKey, notificationsType } = props;
     const artifactsBucket = new Bucket(this, 'ArtifactBucket', {
       versioned: true,
     });
@@ -43,7 +50,7 @@ export abstract class BasePipeline extends Construct {
     );
     this.notificationTopic = new Topic(this, 'NotificationTopic');
 
-    this.pipeline = this.pipeline = new Pipeline(this, 'Pipeline', {
+    this.pipeline = new Pipeline(this, 'Pipeline', {
       artifactBucket: artifactsBucket,
     });
 
@@ -51,6 +58,12 @@ export abstract class BasePipeline extends Construct {
       bucketKey: artifactSourceKey,
       bucket: artifactsBucket,
     }).output;
+
+    this._createNotificationsRule({
+      notificationsType,
+      notificationsTopic: this.notificationTopic,
+      pipelineArn: this.pipeline.pipelineArn,
+    });
   }
 
   private _createCheckoutStage({
@@ -81,10 +94,47 @@ export abstract class BasePipeline extends Construct {
   }
 
   /**
+   * Creates a Rule to forward deployment events to sns topic
+   */
+  private _createNotificationsRule({
+    notificationsType,
+    notificationsTopic,
+    pipelineArn,
+  }: {
+    notificationsType: NOTIFICATIONS_TYPE;
+    notificationsTopic: Topic;
+    pipelineArn: string;
+  }) {
+    const snsTopic = new SnsTopic(notificationsTopic);
+
+    let detailType: string;
+    switch (notificationsType) {
+      case NOTIFICATIONS_TYPE.STAGE_EXECUTION: {
+        detailType = NOTIFICATIONS_DETAILS_TYPE.STAGE;
+        break;
+      }
+      case NOTIFICATIONS_TYPE.ACTION_EXECUTION: {
+        detailType = NOTIFICATIONS_DETAILS_TYPE.ACTION;
+        break;
+      }
+      default: {
+        detailType = NOTIFICATIONS_DETAILS_TYPE.PIPELINE;
+      }
+    }
+    return new Rule(this, 'PipelineNotificationsRule', {
+      targets: [snsTopic],
+      enabled: true,
+      description: 'Dootstrapper Pipeline notifications Cloudwatch Rule',
+      eventPattern: {
+        source: ['aws.codepipeline'],
+        detailType: [detailType],
+        resources: [pipelineArn],
+      },
+    });
+  }
+
+  /**
    * Creates CDK deploy codebuild action
-   * @param deployProject Codebuild deploy project
-   * @param inputSource Codebuild input artifact
-   * @param outputSource Codebuild output artifact
    */
   createCodebuildAction({
     id,
@@ -141,9 +191,7 @@ export abstract class BasePipeline extends Construct {
   }
 
   /**
-   *
-   * @param actionName Manual approval action
-   * @param notificationTopic Notification topic to send pipeline approval notifications
+   * Create Manual Approval Action
    */
   createManualApprovalAction({
     actionName,

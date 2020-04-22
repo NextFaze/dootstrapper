@@ -20,7 +20,10 @@ interface IFrontendCDNPipelineProps extends IFrontendPipelineConfig {
 
 export class FrontendCDNPipeline extends BasePipeline {
   constructor(scope: Construct, id: string, props: IFrontendCDNPipelineProps) {
-    super(scope, id, { artifactSourceKey: props.artifactsSourceKey });
+    super(scope, id, {
+      artifactSourceKey: props.artifactsSourceKey,
+      notificationsType: props.notificationsType,
+    });
     const { environments, certificate } = props;
 
     // create distribution for each environment

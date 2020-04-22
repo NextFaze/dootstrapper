@@ -19,6 +19,7 @@ describe('Dootstrapper', () => {
       stack = new BackendDeployment(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
+          notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
           artifactsSourceKey: 'path/to/resource.zip',
           environments: [
             {
@@ -28,7 +29,6 @@ describe('Dootstrapper', () => {
           ],
         },
         notificationsConfig: {
-          notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
           notificationsTargetConfig: {
             targetType: NOTIFICATIONS_TARGET.EMAIL,
             emailAddress: 'example@example.com',
@@ -108,6 +108,7 @@ describe('Dootstrapper', () => {
       stack = new BackendDeployment(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
+          notificationsType: NOTIFICATIONS_TYPE.STAGE_EXECUTION,
           artifactsSourceKey: 'path/to/resource.zip',
           environments: [
             {
@@ -117,7 +118,6 @@ describe('Dootstrapper', () => {
           ],
         },
         notificationsConfig: {
-          notificationsType: NOTIFICATIONS_TYPE.STAGE_EXECUTION,
           notificationsTargetConfig: {
             targetType: NOTIFICATIONS_TARGET.EMAIL,
             emailAddress: 'example@example.com',
@@ -180,6 +180,7 @@ describe('Dootstrapper', () => {
       stack = new BackendDeployment(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
+          notificationsType: NOTIFICATIONS_TYPE.ACTION_EXECUTION,
           artifactsSourceKey: 'path/to/resource.zip',
           environments: [
             {
@@ -189,7 +190,6 @@ describe('Dootstrapper', () => {
           ],
         },
         notificationsConfig: {
-          notificationsType: NOTIFICATIONS_TYPE.ACTION_EXECUTION,
           notificationsTargetConfig: {
             targetType: NOTIFICATIONS_TARGET.EMAIL,
             emailAddress: 'example@example.com',
@@ -255,6 +255,7 @@ describe('Dootstrapper', () => {
           bucketName: 'unique-artifacts-bucket-name',
         },
         pipelineConfig: {
+          notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
           artifactsSourceKey: 'path/to/resource.zip',
           environments: [
             {
@@ -276,7 +277,6 @@ describe('Dootstrapper', () => {
         },
         notificationsConfig: {
           topicName: 'account-unique-topic-name',
-          notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
           notificationsTargetConfig: {
             targetType: NOTIFICATIONS_TARGET.EMAIL,
             emailAddress: 'example@example.com',

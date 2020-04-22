@@ -681,6 +681,50 @@
         ]
       }
     },
+    "MultiEnvPipelinePipelineNotificationsRule3FBAE618": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Dootstrapper Pipeline notifications Cloudwatch Rule",
+        "EventPattern": {
+          "source": ["aws.codepipeline"],
+          "detail-type": ["CodePipeline Pipeline Execution State Change"],
+          "resources": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":codepipeline:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "MultiEnvPipeline44057249"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Ref": "MultiEnvPipelineNotificationTopicDF7464D3"
+            },
+            "Id": "Target0"
+          }
+        ]
+      }
+    },
     "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
@@ -923,50 +967,6 @@
         },
         "Description": "Dootstrapper Codepipeline Deploy Project for stage TestDeploy",
         "Name": "test-pipeline-project"
-      }
-    },
-    "PipelineNotificationsRule108C77DD": {
-      "Type": "AWS::Events::Rule",
-      "Properties": {
-        "Description": "Dootstrapper Pipeline notifications Cloudwatch Rule",
-        "EventPattern": {
-          "source": ["aws.codepipeline"],
-          "detail-type": ["CodePipeline Pipeline Execution State Change"],
-          "resources": [
-            {
-              "Fn::Join": [
-                "",
-                [
-                  "arn:",
-                  {
-                    "Ref": "AWS::Partition"
-                  },
-                  ":codepipeline:",
-                  {
-                    "Ref": "AWS::Region"
-                  },
-                  ":",
-                  {
-                    "Ref": "AWS::AccountId"
-                  },
-                  ":",
-                  {
-                    "Ref": "MultiEnvPipeline44057249"
-                  }
-                ]
-              ]
-            }
-          ]
-        },
-        "State": "ENABLED",
-        "Targets": [
-          {
-            "Arn": {
-              "Ref": "MultiEnvPipelineNotificationTopicDF7464D3"
-            },
-            "Id": "Target0"
-          }
-        ]
       }
     }
   }
