@@ -28,7 +28,7 @@ describe('Dootstrapper', () => {
             },
           ],
         },
-        notificationsConfig: {
+        notificationConfig: {
           notificationsTargetConfig: {
             targetType: NOTIFICATIONS_TARGET.EMAIL,
             emailAddress: 'example@example.com',
@@ -117,7 +117,7 @@ describe('Dootstrapper', () => {
             },
           ],
         },
-        notificationsConfig: {
+        notificationConfig: {
           notificationsTargetConfig: {
             targetType: NOTIFICATIONS_TARGET.EMAIL,
             emailAddress: 'example@example.com',
@@ -189,7 +189,7 @@ describe('Dootstrapper', () => {
             },
           ],
         },
-        notificationsConfig: {
+        notificationConfig: {
           notificationsTargetConfig: {
             targetType: NOTIFICATIONS_TARGET.EMAIL,
             emailAddress: 'example@example.com',
@@ -275,7 +275,7 @@ describe('Dootstrapper', () => {
             },
           ],
         },
-        notificationsConfig: {
+        notificationConfig: {
           topicName: 'account-unique-topic-name',
           notificationsTargetConfig: {
             targetType: NOTIFICATIONS_TARGET.EMAIL,

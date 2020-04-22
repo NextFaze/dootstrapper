@@ -5,7 +5,7 @@ import { PriceClass } from '@aws-cdk/aws-cloudfront';
 /**
  * @param artifactsBucketConfig Artifacts bucket related config
  * @param pipelineConfig Deploy pipeline related config
- * @param notificationsConfig Deployment notifications related config
+ * @param notificationConfig Deployment notifications related config
  */
 export interface IBackendDeploymentProps extends StackProps {
   /**
@@ -13,7 +13,7 @@ export interface IBackendDeploymentProps extends StackProps {
    */
   artifactsBucketConfig?: IBackendArtifactsBucketProps;
   pipelineConfig: IBackendPipelineProps;
-  notificationsConfig: INotificationsConfig;
+  notificationConfig: INotificationConfigProps;
 }
 
 /**
@@ -82,7 +82,7 @@ export interface IBackendEnvironment {
  * @param notificationsTargetConfig  Notifications Target Configurations
  * @param cloudwatchRuleName Cloudwatch events rule name
  */
-export interface INotificationsConfig {
+export interface INotificationConfigProps {
   /**
    * @default - Cloudformation generates unique resource Id and uses that as a name
    */
@@ -108,7 +108,7 @@ interface INotificationsEmailTargetConfig {
 export interface IFrontendDeploymentProps {
   baseDomainName: string;
   pipelineConfig: IFrontendPipelineConfig;
-  notificationConfig: INotificationsConfig;
+  notificationConfig: INotificationConfigProps;
 }
 
 export interface IFrontendPipelineConfig {

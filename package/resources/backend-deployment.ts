@@ -8,23 +8,23 @@ export class BackendDeployment extends Stack {
   constructor(scope: App, id: string, private props: IBackendDeploymentProps) {
     super(scope, id, props);
 
-    const { pipelineConfig } = props;
+    const {
+      pipelineConfig,
+      notificationConfig: {
+        notificationsTargetConfig: { emailAddress },
+      },
+    } = props;
 
     const pipelineConstruct = new CdkAppPipeline(this, 'MultiEnvPipeline', {
       ...pipelineConfig,
     });
 
     pipelineConstruct.notificationTopic.addSubscription(
-      this._createSnsSubscription()
+      this._createSnsSubscription(emailAddress)
     );
   }
 
-  private _createSnsSubscription() {
-    const {
-      notificationsConfig: {
-        notificationsTargetConfig: { emailAddress },
-      },
-    } = this.props;
+  private _createSnsSubscription(emailAddress: string) {
     if (!EMAIL_VALIDATOR.test(String(emailAddress).toLocaleLowerCase())) {
       throw new Error('Invalid Email Address.');
     }
