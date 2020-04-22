@@ -1,6 +1,6 @@
 import { App } from '@aws-cdk/core';
 import {
-  DootstrapperDelivery,
+  BackendDeployment,
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
 } from '@dootstrapper/dootstrapper';
@@ -21,7 +21,7 @@ const buildSpec = {
 
 const app = new App();
 
-new DootstrapperDelivery(app, 'Dootstrapper', {
+new BackendDeployment(app, 'Dootstrapper', {
   pipelineConfig: {
     artifactsSourceKey: 'artifacts/example.zip',
     environments: [

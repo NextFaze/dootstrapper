@@ -3,9 +3,9 @@ import { Rule } from '@aws-cdk/aws-events';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { StackProps } from '@aws-cdk/core';
-import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
+import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './constants/enums';
 
-export interface IDootstrapperDelivery {
+export interface IBackendDeployment {
   readonly artifactsBucket: Bucket;
   readonly deployPipeline: Pipeline;
   readonly notificationsTopic: Topic;
@@ -17,7 +17,7 @@ export interface IDootstrapperDelivery {
  * @param pipelineConfig Deploy pipeline related config
  * @param notificationsConfig Deployment notifications related config
  */
-export interface IDootstrapperDeliveryProps extends StackProps {
+export interface IBackendDeploymentProps extends StackProps {
   /**
    * @default - Dootstrapper specific config is applied
    */

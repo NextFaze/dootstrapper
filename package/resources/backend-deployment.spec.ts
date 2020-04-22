@@ -5,8 +5,8 @@ import {
   matchTemplate,
 } from '@aws-cdk/assert';
 import { App, Stack } from '@aws-cdk/core';
-import { DootstrapperDelivery } from './dootstrapper-delivery';
-import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
+import { BackendDeployment } from './backend-deployment';
+import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './constants/enums';
 const stackWithMinConfig = require('./test/stack-with-min-config.spec.json');
 const stackWithCustomConfig = require('./test/stack-with-custom-config.spec.json');
 
@@ -16,7 +16,7 @@ describe('Dootstrapper', () => {
   describe('Stack with minimum config', () => {
     beforeAll(() => {
       const app = new App();
-      stack = new DootstrapperDelivery(app, 'TestStack', {
+      stack = new BackendDeployment(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
           artifactsSourceKey: 'path/to/resource.zip',
@@ -162,7 +162,7 @@ describe('Dootstrapper', () => {
   describe('stack with stage execution status config', () => {
     beforeAll(() => {
       const app = new App();
-      stack = new DootstrapperDelivery(app, 'TestStack', {
+      stack = new BackendDeployment(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
           artifactsSourceKey: 'path/to/resource.zip',
@@ -234,7 +234,7 @@ describe('Dootstrapper', () => {
   describe('stack with actions execution status config', () => {
     beforeAll(() => {
       const app = new App();
-      stack = new DootstrapperDelivery(app, 'TestStack', {
+      stack = new BackendDeployment(app, 'TestStack', {
         stackName: 'test-stack',
         pipelineConfig: {
           artifactsSourceKey: 'path/to/resource.zip',
@@ -306,7 +306,7 @@ describe('Dootstrapper', () => {
   describe('stack with all custom config', () => {
     beforeAll(() => {
       const app = new App();
-      stack = new DootstrapperDelivery(app, 'TestStack', {
+      stack = new BackendDeployment(app, 'TestStack', {
         stackName: 'test-stack',
         artifactsBucketConfig: {
           bucketName: 'unique-artifacts-bucket-name',

@@ -6,24 +6,19 @@ import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
-import { EMAIL_VALIDATOR } from './constants';
+import { EMAIL_VALIDATOR } from './constants/constants';
 import { MultiEnvPipeline } from './constructs/multi-env-pipeline';
-import { NOTIFICATIONS_DETAILS_TYPE, NOTIFICATIONS_TYPE } from './enums';
 import {
-  IDootstrapperDelivery,
-  IDootstrapperDeliveryProps,
-} from './interfaces';
-export class DootstrapperDelivery extends Stack
-  implements IDootstrapperDelivery {
+  NOTIFICATIONS_DETAILS_TYPE,
+  NOTIFICATIONS_TYPE,
+} from './constants/enums';
+import { IBackendDeployment, IBackendDeploymentProps } from './interfaces';
+export class BackendDeployment extends Stack implements IBackendDeployment {
   public readonly artifactsBucket: Bucket;
   public readonly deployPipeline: Pipeline;
   public readonly notificationsTopic: Topic;
   public readonly notificationsRule: Rule;
-  constructor(
-    scope: App,
-    id: string,
-    private props: IDootstrapperDeliveryProps
-  ) {
+  constructor(scope: App, id: string, private props: IBackendDeploymentProps) {
     super(scope, id, props);
 
     const {

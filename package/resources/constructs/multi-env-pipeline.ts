@@ -19,7 +19,7 @@ import { Construct } from '@aws-cdk/core';
 import { paramCase, pascalCase } from 'change-case';
 import { createBuildSpecWithCredentials } from '../helpers/create-buildspec-with-credentials';
 import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environments';
-import { Core } from './core';
+import { CredentialStore } from './credential-store';
 import { IEnvironment } from '../interfaces';
 
 interface IMultiEnvPipelineProps {
@@ -53,7 +53,7 @@ export class MultiEnvPipeline extends Construct {
     // Deploy stages
     environments.forEach(environment => {
       const { adminPermissions = false, privilegedMode } = environment;
-      const { accessKeyId, secretAccessKey } = new Core(
+      const { accessKeyId, secretAccessKey } = new CredentialStore(
         this,
         `${environment.name}DootstrapperCore`,
         {
