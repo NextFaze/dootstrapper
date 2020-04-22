@@ -5,17 +5,17 @@ import {
   haveResourceLike,
 } from '@aws-cdk/assert';
 import { Stack } from '@aws-cdk/core';
-import { MultiEnvPipeline } from './multi-env-pipeline';
+import { CdkAppPipeline } from './cdk-app-pipeline';
 const singleEnvPipeline = require('./test/single-env-pipeline.spec.json');
 const multiEnvNoApproval = require('./test/multi-env-pipeline-no-approval.spec.json');
 const multiEnvApproval = require('./test/multi-env-approval-pipeline.spec.json');
-describe('MultiEnvPipeline', () => {
+describe('CdkAppPipeline', () => {
   let stack: Stack;
 
   describe('with minimum environment config', () => {
     beforeAll(() => {
       stack = new Stack();
-      new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
+      new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
         environments: [
           {
@@ -230,7 +230,7 @@ describe('MultiEnvPipeline', () => {
   describe('with multiple environments and no approval', () => {
     beforeAll(() => {
       stack = new Stack();
-      new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
+      new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
         environments: [
           {
@@ -282,7 +282,7 @@ describe('MultiEnvPipeline', () => {
   describe('with custom environments and approval config', () => {
     beforeAll(() => {
       stack = new Stack();
-      new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
+      new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
         environments: [
           {

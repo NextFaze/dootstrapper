@@ -4,7 +4,7 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
 import { EMAIL_VALIDATOR } from './constants/constants';
-import { MultiEnvPipeline } from './constructs/multi-env-pipeline';
+import { CdkAppPipeline } from './constructs/cdk-app-pipeline';
 import {
   NOTIFICATIONS_DETAILS_TYPE,
   NOTIFICATIONS_TYPE,
@@ -19,7 +19,7 @@ export class BackendDeployment extends Stack {
       pipelineConfig: { artifactsSourceKey, environments },
     } = props;
 
-    const pipelineConstruct = new MultiEnvPipeline(this, 'MultiEnvPipeline', {
+    const pipelineConstruct = new CdkAppPipeline(this, 'MultiEnvPipeline', {
       artifactsSourceKey,
       environments,
     });

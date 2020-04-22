@@ -1,22 +1,21 @@
 import { BasePipeline } from './base-pipeline';
 import { Artifact } from '@aws-cdk/aws-codepipeline';
-import { Topic } from '@aws-cdk/aws-sns';
 import { Construct } from '@aws-cdk/core';
 import { paramCase, pascalCase } from 'change-case';
 import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environments';
 import { CredentialStore } from './credential-store';
 import { IBackendEnvironment } from '../interfaces';
 
-interface IMultiEnvPipelineProps {
+interface ICdkAppPipelineProps {
   artifactsSourceKey: string;
   environments: IBackendEnvironment[];
 }
 
-export class MultiEnvPipeline extends BasePipeline {
+export class CdkAppPipeline extends BasePipeline {
   constructor(
     scope: Construct,
     id: string,
-    private props: IMultiEnvPipelineProps
+    private props: ICdkAppPipelineProps
   ) {
     super(scope, id, { artifactSourceKey: props.artifactsSourceKey });
     const { environments } = this.props;
