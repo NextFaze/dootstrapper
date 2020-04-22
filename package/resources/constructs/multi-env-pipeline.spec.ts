@@ -4,8 +4,6 @@ import {
   haveResource,
   haveResourceLike,
 } from '@aws-cdk/assert';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Topic } from '@aws-cdk/aws-sns';
 import { Stack } from '@aws-cdk/core';
 import { MultiEnvPipeline } from './multi-env-pipeline';
 const singleEnvPipeline = require('./test/single-env-pipeline.spec.json');
@@ -18,9 +16,7 @@ describe('MultiEnvPipeline', () => {
     beforeAll(() => {
       stack = new Stack();
       new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
-        artifactsBucket: new Bucket(stack, 'Bucket'),
         artifactsSourceKey: 'path/to/atifact.zip',
-        notificationTopic: new Topic(stack, 'Topic'),
         environments: [
           {
             name: 'test',
@@ -55,7 +51,7 @@ describe('MultiEnvPipeline', () => {
       expectCDK(stack).to(countResources('AWS::CodeBuild::Project', 1));
     });
 
-    it('should crete pipeline with two stages', () => {
+    it('should crete pipeline with single environment', () => {
       expectCDK(stack).to(countResources('AWS::CodePipeline::Pipeline', 1));
       expectCDK(stack).to(
         haveResource('AWS::CodePipeline::Pipeline', singleEnvPipeline)
@@ -202,14 +198,20 @@ describe('MultiEnvPipeline', () => {
                 Effect: 'Allow',
                 Resource: [
                   {
-                    'Fn::GetAtt': ['Bucket83908E77', 'Arn'],
+                    'Fn::GetAtt': [
+                      'MultiEnvPipelineArtifactBucket18578669',
+                      'Arn',
+                    ],
                   },
                   {
                     'Fn::Join': [
                       '',
                       [
                         {
-                          'Fn::GetAtt': ['Bucket83908E77', 'Arn'],
+                          'Fn::GetAtt': [
+                            'MultiEnvPipelineArtifactBucket18578669',
+                            'Arn',
+                          ],
                         },
                         '/*',
                       ],
@@ -229,9 +231,7 @@ describe('MultiEnvPipeline', () => {
     beforeAll(() => {
       stack = new Stack();
       new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
-        artifactsBucket: new Bucket(stack, 'Bucket'),
         artifactsSourceKey: 'path/to/atifact.zip',
-        notificationTopic: new Topic(stack, 'Topic'),
         environments: [
           {
             name: 'test',
@@ -283,9 +283,7 @@ describe('MultiEnvPipeline', () => {
     beforeAll(() => {
       stack = new Stack();
       new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
-        artifactsBucket: new Bucket(stack, 'Bucket'),
         artifactsSourceKey: 'path/to/atifact.zip',
-        notificationTopic: new Topic(stack, 'Topic'),
         environments: [
           {
             name: 'test',

@@ -43,71 +43,14 @@ describe('Dootstrapper', () => {
       expectCDK(stack).toMatch(stackWithMinConfig, MatchStyle.EXACT);
     });
 
-    it('should create sns topic to send notifications to', () => {
-      expectCDK(stack).to(haveResource('AWS::SNS::Topic'));
-    });
-
     it('should create sns subscription to email', () => {
       expectCDK(stack).to(
         haveResource('AWS::SNS::Subscription', {
           Protocol: 'email',
           TopicArn: {
-            Ref: 'PipelineNotificationsTopic827A419F',
+            Ref: 'MultiEnvPipelineNotificationTopicDF7464D3',
           },
           Endpoint: 'example@example.com',
-        })
-      );
-    });
-
-    it('should create single artifacts bucket with versioning enabled to store all the artifacts', () => {
-      expectCDK(stack).to(
-        haveResource('AWS::S3::Bucket', {
-          VersioningConfiguration: {
-            Status: 'Enabled',
-          },
-        })
-      );
-    });
-
-    it('should create cloudwatch trail to detect uploads to s3 bucket', () => {
-      expectCDK(stack).to(
-        haveResource('AWS::CloudTrail::Trail', {
-          IsLogging: true,
-          S3BucketName: {
-            Ref: 'S3SourceTrailS37D21E604',
-          },
-          CloudWatchLogsLogGroupArn: {
-            'Fn::GetAtt': ['S3SourceTrailLogGroupB099508C', 'Arn'],
-          },
-          CloudWatchLogsRoleArn: {
-            'Fn::GetAtt': ['S3SourceTrailLogsRoleDDC8A909', 'Arn'],
-          },
-          EnableLogFileValidation: true,
-          EventSelectors: [
-            {
-              DataResources: [
-                {
-                  Type: 'AWS::S3::Object',
-                  Values: [
-                    {
-                      'Fn::Join': [
-                        '',
-                        [
-                          {
-                            'Fn::GetAtt': ['ArtifactsBucket2AAC5544', 'Arn'],
-                          },
-                          '/path/to/resource.zip',
-                        ],
-                      ],
-                    },
-                  ],
-                },
-              ],
-              ReadWriteType: 'WriteOnly',
-            },
-          ],
-          IncludeGlobalServiceEvents: true,
-          IsMultiRegionTrail: true,
         })
       );
     });
@@ -149,7 +92,7 @@ describe('Dootstrapper', () => {
           Targets: [
             {
               Arn: {
-                Ref: 'PipelineNotificationsTopic827A419F',
+                Ref: 'MultiEnvPipelineNotificationTopicDF7464D3',
               },
               Id: 'Target0',
             },
@@ -221,7 +164,7 @@ describe('Dootstrapper', () => {
           Targets: [
             {
               Arn: {
-                Ref: 'PipelineNotificationsTopic827A419F',
+                Ref: 'MultiEnvPipelineNotificationTopicDF7464D3',
               },
               Id: 'Target0',
             },
@@ -293,7 +236,7 @@ describe('Dootstrapper', () => {
           Targets: [
             {
               Arn: {
-                Ref: 'PipelineNotificationsTopic827A419F',
+                Ref: 'MultiEnvPipelineNotificationTopicDF7464D3',
               },
               Id: 'Target0',
             },

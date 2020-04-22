@@ -3,7 +3,4 @@ export {
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
 } from './resources/constants/enums';
-export {
-  IBackendDeployment,
-  IBackendDeploymentProps,
-} from './resources/interfaces';
+export { IBackendDeploymentProps } from './resources/interfaces';

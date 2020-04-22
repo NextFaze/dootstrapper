@@ -1,54 +1,25 @@
-import {
-  BuildEnvironmentVariable,
-  BuildSpec,
-  ComputeType,
-  LinuxBuildImage,
-  PipelineProject,
-} from '@aws-cdk/aws-codebuild';
-import { Artifact, Pipeline } from '@aws-cdk/aws-codepipeline';
-import {
-  CodeBuildAction,
-  ManualApprovalAction,
-  S3SourceAction,
-  S3Trigger,
-} from '@aws-cdk/aws-codepipeline-actions';
-import { Bucket } from '@aws-cdk/aws-s3';
+import { BasePipeline } from './base-pipeline';
+import { Artifact } from '@aws-cdk/aws-codepipeline';
 import { Topic } from '@aws-cdk/aws-sns';
-import { StringParameter } from '@aws-cdk/aws-ssm';
 import { Construct } from '@aws-cdk/core';
 import { paramCase, pascalCase } from 'change-case';
-import { createBuildSpecWithCredentials } from '../helpers/create-buildspec-with-credentials';
 import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environments';
 import { CredentialStore } from './credential-store';
-import { IEnvironment } from '../interfaces';
+import { IBackendEnvironment } from '../interfaces';
 
 interface IMultiEnvPipelineProps {
-  artifactsBucket: Bucket;
   artifactsSourceKey: string;
-  notificationTopic: Topic;
-  environments: IEnvironment[];
+  environments: IBackendEnvironment[];
 }
 
-export class MultiEnvPipeline extends Construct {
-  public readonly pipeline: Pipeline;
+export class MultiEnvPipeline extends BasePipeline {
   constructor(
     scope: Construct,
     id: string,
     private props: IMultiEnvPipelineProps
   ) {
-    super(scope, id);
-
-    const { artifactsBucket, environments, notificationTopic } = this.props;
-    this.pipeline = new Pipeline(this, 'Pipeline', {
-      artifactBucket: artifactsBucket,
-    });
-    const s3Source = new Artifact('S3Source');
-
-    // Checkout stage
-    this.pipeline.addStage({
-      actions: [this._createS3CheckoutAction(s3Source)],
-      stageName: 'Checkout',
-    });
+    super(scope, id, { artifactSourceKey: props.artifactsSourceKey });
+    const { environments } = this.props;
 
     // Deploy stages
     environments.forEach(environment => {
@@ -70,15 +41,14 @@ export class MultiEnvPipeline extends Construct {
 
       if (environment.approvalRequired) {
         actions.push(
-          this._createManualApprovalAction({
+          this.createManualApprovalAction({
             actionName: paramCase(`${environment.name}Approve`),
-            notificationTopic,
           })
         );
       }
 
       actions.push(
-        this._createCodebuildAction({
+        this.createCodebuildAction({
           privilegedMode: privilegedMode,
           id: pascalCase(`${environment.name}PipelineProject`),
           stage: stageName,
@@ -86,7 +56,7 @@ export class MultiEnvPipeline extends Construct {
           runtimeVariables: runTimeEnvironments,
           // always create new object instance of build for new environment
           buildSpec: { ...buildSpec },
-          inputSource: s3Source,
+          inputSource: this.checkoutSource,
           outputSource: output,
           accessKeyId,
           secretAccessKey,
@@ -97,101 +67,6 @@ export class MultiEnvPipeline extends Construct {
         actions,
         stageName,
       });
-    });
-  }
-
-  /**
-   * Creates s3 checkout action
-   * @param sourceOutput Checkout output artifact
-   */
-  private _createS3CheckoutAction(sourceOutput: Artifact) {
-    const { artifactsSourceKey, artifactsBucket } = this.props;
-
-    return new S3SourceAction({
-      actionName: 'S3Source',
-      bucket: artifactsBucket,
-      bucketKey: artifactsSourceKey,
-      output: sourceOutput,
-      trigger: S3Trigger.EVENTS,
-    });
-  }
-
-  /**
-   * Creates CDK deploy codebuild action
-   * @param deployProject Codebuild deploy project
-   * @param inputSource Codebuild input artifact
-   * @param outputSource Codebuild output artifact
-   */
-  private _createCodebuildAction({
-    id,
-    stage,
-    runOrder,
-    privilegedMode,
-    runtimeVariables,
-    buildSpec,
-    inputSource,
-    outputSource,
-    accessKeyId,
-    secretAccessKey,
-  }: {
-    id: string;
-    stage: string;
-    runOrder: number;
-    privilegedMode?: boolean;
-    runtimeVariables: {
-      [name: string]: BuildEnvironmentVariable;
-    };
-    buildSpec: any;
-    inputSource: Artifact;
-    outputSource: Artifact;
-    accessKeyId: StringParameter;
-    secretAccessKey: StringParameter;
-  }) {
-    const buildSpecRow = createBuildSpecWithCredentials({
-      buildSpec,
-      accessKeyIdParamName: accessKeyId.parameterName,
-      secretAccessKeyParamName: secretAccessKey.parameterName,
-    });
-
-    const deployProject = new PipelineProject(this, id, {
-      projectName: paramCase(id),
-      buildSpec: BuildSpec.fromObject(buildSpecRow),
-      environment: {
-        buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
-        environmentVariables: runtimeVariables,
-        computeType: ComputeType.SMALL,
-        privileged: privilegedMode,
-      },
-      description: `Dootstrapper Codepipeline Deploy Project for stage ${stage}`,
-    });
-    accessKeyId.grantRead(deployProject);
-    secretAccessKey.grantRead(deployProject);
-
-    return new CodeBuildAction({
-      actionName: 'Deploy',
-      input: inputSource,
-      runOrder,
-      outputs: [outputSource],
-      project: deployProject,
-    });
-  }
-
-  /**
-   *
-   * @param actionName Manual approval action
-   * @param notificationTopic Notification topic to send pipeline approval notifications
-   */
-  private _createManualApprovalAction({
-    actionName,
-    notificationTopic,
-  }: {
-    actionName: string;
-    notificationTopic: Topic;
-  }) {
-    return new ManualApprovalAction({
-      actionName,
-      runOrder: 1,
-      notificationTopic,
     });
   }
 }

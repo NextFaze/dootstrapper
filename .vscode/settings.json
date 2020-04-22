@@ -1,8 +1,18 @@
 {
   "cSpell.words": [
+    "Cloudformation",
     "Codebuild",
     "Codepipeline",
     "Dootstrapper",
-    "bootstrapper"
+    "bazel",
+    "bootstrapper",
+    "buildifier",
+    "buildspec",
+    "certificatemanager",
+    "cloudfront",
+    "cloudtrail",
+    "cloudwatch",
+    "commitlint",
+    "ibazel"
   ]
 }

@@ -1,8 +1,5 @@
-import { ReadWriteType, Trail } from '@aws-cdk/aws-cloudtrail';
-import { Pipeline } from '@aws-cdk/aws-codepipeline';
 import { Rule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
@@ -12,65 +9,28 @@ import {
   NOTIFICATIONS_DETAILS_TYPE,
   NOTIFICATIONS_TYPE,
 } from './constants/enums';
-import { IBackendDeployment, IBackendDeploymentProps } from './interfaces';
-export class BackendDeployment extends Stack implements IBackendDeployment {
-  public readonly artifactsBucket: Bucket;
-  public readonly deployPipeline: Pipeline;
-  public readonly notificationsTopic: Topic;
+import { IBackendDeploymentProps } from './interfaces';
+export class BackendDeployment extends Stack {
   public readonly notificationsRule: Rule;
   constructor(scope: App, id: string, private props: IBackendDeploymentProps) {
     super(scope, id, props);
 
     const {
-      artifactsBucketConfig,
       pipelineConfig: { artifactsSourceKey, environments },
     } = props;
 
-    this.artifactsBucket = new Bucket(this, 'ArtifactsBucket', {
-      bucketName: artifactsBucketConfig?.bucketName,
-      versioned: true,
-    });
-    this.notificationsTopic = this._createPipelineNotificationsTopic();
-
-    const multiEnvConstruct = new MultiEnvPipeline(this, 'MultiEnvPipeline', {
-      artifactsBucket: this.artifactsBucket,
-      notificationTopic: this.notificationsTopic,
+    const pipelineConstruct = new MultiEnvPipeline(this, 'MultiEnvPipeline', {
       artifactsSourceKey,
       environments,
     });
 
-    this.deployPipeline = multiEnvConstruct.pipeline;
-
     this.notificationsRule = this._createNotificationsRule(
-      this.notificationsTopic,
-      this.deployPipeline.pipelineArn
+      pipelineConstruct.notificationTopic,
+      pipelineConstruct.pipeline.pipelineArn
     );
-    this._createArtifactsEventsTrail();
-    this.notificationsTopic.addSubscription(this._createSnsSubscription());
-  }
-
-  private _createPipelineNotificationsTopic() {
-    const {
-      notificationsConfig: { topicName },
-    } = this.props;
-    return new Topic(this, 'PipelineNotificationsTopic', {
-      topicName,
-    });
-  }
-
-  private _createArtifactsEventsTrail() {
-    const {
-      pipelineConfig: { artifactsSourceKey },
-    } = this.props;
-
-    const trail = new Trail(this, 'S3SourceTrail', {
-      sendToCloudWatchLogs: true,
-    });
-    trail.addS3EventSelector(
-      [this.artifactsBucket.arnForObjects(artifactsSourceKey)],
-      { readWriteType: ReadWriteType.WRITE_ONLY }
+    pipelineConstruct.notificationTopic.addSubscription(
+      this._createSnsSubscription()
     );
-    return trail;
   }
 
   private _createNotificationsRule(

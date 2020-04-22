@@ -1,16 +1,5 @@
-import { Pipeline } from '@aws-cdk/aws-codepipeline';
-import { Rule } from '@aws-cdk/aws-events';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Topic } from '@aws-cdk/aws-sns';
 import { StackProps } from '@aws-cdk/core';
 import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './constants/enums';
-
-export interface IBackendDeployment {
-  readonly artifactsBucket: Bucket;
-  readonly deployPipeline: Pipeline;
-  readonly notificationsTopic: Topic;
-  readonly notificationsRule: Rule;
-}
 
 /**
  * @param artifactsBucketConfig Artifacts bucket related config
@@ -21,8 +10,8 @@ export interface IBackendDeploymentProps extends StackProps {
   /**
    * @default - Dootstrapper specific config is applied
    */
-  artifactsBucketConfig?: IArtifactsBucketProps;
-  pipelineConfig: IPipelineProps;
+  artifactsBucketConfig?: IBackendArtifactsBucketProps;
+  pipelineConfig: IBackendPipelineProps;
   notificationsConfig: INotificationsConfig;
 }
 
@@ -32,7 +21,7 @@ export interface IBackendDeploymentProps extends StackProps {
  * Bucket name needs to be unique across all accounts.
  * @param versioned this bucket should have versioning turned on or not.
  */
-interface IArtifactsBucketProps {
+interface IBackendArtifactsBucketProps {
   /**
    * @default - Cloudformation generated bucket name
    */
@@ -43,12 +32,12 @@ interface IArtifactsBucketProps {
  * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
  * @param environments environment related config
  */
-interface IPipelineProps {
+interface IBackendPipelineProps {
   /**
    * @default - AWS CloudFormation generates an ID and uses that for the pipeline name
    */
   artifactsSourceKey: string;
-  environments: IEnvironment[];
+  environments: IBackendEnvironment[];
 }
 
 /**
@@ -60,7 +49,7 @@ interface IPipelineProps {
  * @param runtimeVariables Runtime variables to inject into container
  * @param buildSpec BuildSpec file to execute on codebuild
  */
-export interface IEnvironment {
+export interface IBackendEnvironment {
   name: string;
   /**
    * @default - No admin access is created, developer must provide accessKeyId and secretAccessKey in SSM
@@ -112,4 +101,20 @@ interface INotificationsEmailTargetConfig {
   targetType: NOTIFICATIONS_TARGET.EMAIL;
   emailAddress: string;
   emailSubject: string;
+}
+
+export interface IFrontendDeploymentProps {
+  baseDomainName: string;
+  pipelineConfig: IFrontendPipelineConfig;
+}
+
+export interface IFrontendPipelineConfig {
+  environments: IFrontendEnvironment[];
+}
+
+interface IFrontendEnvironment {
+  cdnConfig: {
+    domainName: string;
+    aliases: string[];
+  };
 }
