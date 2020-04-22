@@ -1,5 +1,6 @@
 import { StackProps } from '@aws-cdk/core';
 import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './constants/enums';
+import { PriceClass } from '@aws-cdk/aws-cloudfront';
 
 /**
  * @param artifactsBucketConfig Artifacts bucket related config
@@ -106,15 +107,19 @@ interface INotificationsEmailTargetConfig {
 export interface IFrontendDeploymentProps {
   baseDomainName: string;
   pipelineConfig: IFrontendPipelineConfig;
+  notificationConfig: INotificationsConfig;
 }
 
 export interface IFrontendPipelineConfig {
+  artifactsSourceKey: string;
   environments: IFrontendEnvironment[];
 }
 
 interface IFrontendEnvironment {
-  cdnConfig: {
-    domainName: string;
-    aliases: string[];
-  };
+  name: string;
+  aliases: string[];
+  cloudfrontPriceClass?: PriceClass;
+  approvalRequired?: boolean;
+  defaultRootObject?: string;
+  errorRootObject?: string;
 }

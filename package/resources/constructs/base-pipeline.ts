@@ -145,10 +145,16 @@ export abstract class BasePipeline extends Construct {
    * @param actionName Manual approval action
    * @param notificationTopic Notification topic to send pipeline approval notifications
    */
-  createManualApprovalAction({ actionName }: { actionName: string }) {
+  createManualApprovalAction({
+    actionName,
+    runOrder,
+  }: {
+    actionName: string;
+    runOrder: number;
+  }) {
     return new ManualApprovalAction({
       actionName,
-      runOrder: 1,
+      runOrder,
       notificationTopic: this.notificationTopic,
     });
   }

@@ -8,7 +8,9 @@ class Pipeline extends BasePipeline {
   constructor(stack: Stack) {
     super(stack, 'Pipeline', { artifactSourceKey: 'path/to/artifact.zip' });
     this.pipeline.addStage({
-      actions: [this.createManualApprovalAction({ actionName: 'Approve' })],
+      actions: [
+        this.createManualApprovalAction({ actionName: 'Approve', runOrder: 1 }),
+      ],
       stageName: 'deploy',
     });
   }

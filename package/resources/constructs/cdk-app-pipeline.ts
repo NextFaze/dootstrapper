@@ -37,11 +37,13 @@ export class CdkAppPipeline extends BasePipeline {
       const { runtimeVariables = {}, buildSpec } = environment;
       const runTimeEnvironments = resolveRuntimeEnvironments(runtimeVariables);
       const actions = [];
+      let runOrder = 0;
 
       if (environment.approvalRequired) {
         actions.push(
           this.createManualApprovalAction({
             actionName: paramCase(`${environment.name}Approve`),
+            runOrder: ++runOrder,
           })
         );
       }
@@ -51,7 +53,7 @@ export class CdkAppPipeline extends BasePipeline {
           privilegedMode: privilegedMode,
           id: pascalCase(`${environment.name}PipelineProject`),
           stage: stageName,
-          runOrder: environment.approvalRequired ? 2 : 1,
+          runOrder: ++runOrder,
           runtimeVariables: runTimeEnvironments,
           // always create new object instance of build for new environment
           buildSpec: { ...buildSpec },
