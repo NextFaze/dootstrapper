@@ -28,7 +28,7 @@ import { Rule } from '@aws-cdk/aws-events';
 
 interface IBasePipelineProps {
   artifactSourceKey: string;
-  notificationsType: NOTIFICATIONS_TYPE;
+  notificationsType?: NOTIFICATIONS_TYPE;
 }
 
 export abstract class BasePipeline extends Construct {
@@ -101,7 +101,7 @@ export abstract class BasePipeline extends Construct {
     notificationsTopic,
     pipelineArn,
   }: {
-    notificationsType: NOTIFICATIONS_TYPE;
+    notificationsType?: NOTIFICATIONS_TYPE;
     notificationsTopic: Topic;
     pipelineArn: string;
   }) {

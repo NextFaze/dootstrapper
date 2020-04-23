@@ -3,30 +3,12 @@ import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './constants/enums';
 import { PriceClass } from '@aws-cdk/aws-cloudfront';
 
 /**
- * @param artifactsBucketConfig Artifacts bucket related config
  * @param pipelineConfig Deploy pipeline related config
  * @param notificationConfig Deployment notifications related config
  */
 export interface IBackendDeploymentProps extends StackProps {
-  /**
-   * @default - Dootstrapper specific config is applied
-   */
-  artifactsBucketConfig?: IBackendArtifactsBucketProps;
   pipelineConfig: IBackendPipelineProps;
   notificationConfig: INotificationConfigProps;
-}
-
-/**
- * @param bucketName Artifacts bucket name
- * It is recommended not to have user defined bucket name
- * Bucket name needs to be unique across all accounts.
- * @param versioned this bucket should have versioning turned on or not.
- */
-interface IBackendArtifactsBucketProps {
-  /**
-   * @default - Cloudformation generated bucket name
-   */
-  bucketName?: string;
 }
 
 /**
@@ -34,16 +16,12 @@ interface IBackendArtifactsBucketProps {
  * @param environments environment related config
  */
 export interface IBackendPipelineProps {
-  /**
-   * @default - AWS CloudFormation generates an ID and uses that for the pipeline name
-   */
   artifactsSourceKey: string;
+  environments: IBackendEnvironment[];
   /**
    * @default - Pipeline Execution events
    */
-  notificationsType: NOTIFICATIONS_TYPE;
-
-  environments: IBackendEnvironment[];
+  notificationsType?: NOTIFICATIONS_TYPE;
 }
 
 /**
@@ -77,10 +55,7 @@ export interface IBackendEnvironment {
 }
 
 /**
- * @param topicName Name of SNS Topic resource
- * @param notificationsType Type of notifications to receive
  * @param notificationsTargetConfig  Notifications Target Configurations
- * @param cloudwatchRuleName Cloudwatch events rule name
  */
 export interface INotificationConfigProps {
   notificationsTargetConfig: INotificationsEmailTargetConfig;
@@ -97,17 +72,17 @@ interface INotificationsEmailTargetConfig {
 
 export interface IFrontendDeploymentProps extends StackProps {
   baseDomainName: string;
-  pipelineConfig: IFrontendPipelineConfig;
+  pipelineConfig: IFrontendPipelineProps;
   notificationConfig: INotificationConfigProps;
 }
 
-export interface IFrontendPipelineConfig {
+export interface IFrontendPipelineProps {
   artifactsSourceKey: string;
+  environments: IFrontendEnvironment[];
   /**
    * @default - Pipeline Execution events
    */
-  notificationsType: NOTIFICATIONS_TYPE;
-  environments: IFrontendEnvironment[];
+  notificationsType?: NOTIFICATIONS_TYPE;
 }
 
 interface IFrontendEnvironment {

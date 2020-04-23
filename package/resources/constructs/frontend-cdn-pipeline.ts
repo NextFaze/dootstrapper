@@ -1,5 +1,5 @@
 import { pascalCase, paramCase } from 'change-case';
-import { IFrontendPipelineConfig } from '../interfaces';
+import { IFrontendPipelineProps } from '../interfaces';
 import { Construct } from '@aws-cdk/core';
 import { Bucket } from '@aws-cdk/aws-s3';
 import {
@@ -14,7 +14,7 @@ import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
 import { BasePipeline } from './base-pipeline';
 import { S3DeployAction } from '@aws-cdk/aws-codepipeline-actions';
 
-interface IFrontendCDNPipelineProps extends IFrontendPipelineConfig {
+interface IFrontendCDNPipelineProps extends IFrontendPipelineProps {
   certificate: DnsValidatedCertificate;
 }
 

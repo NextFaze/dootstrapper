@@ -62,7 +62,4 @@ new BackendDeployment(app, 'Dootstrapper', {
       targetType: NOTIFICATIONS_TARGET.EMAIL,
     },
   },
-  artifactsBucketConfig: {
-    bucketName: 'example-dootstrapper-artifacts-bucket',
-  },
 });
