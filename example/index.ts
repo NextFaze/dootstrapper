@@ -59,7 +59,6 @@ new BackendDeployment(app, 'Dootstrapper', {
   notificationConfig: {
     notificationsTargetConfig: {
       emailAddress: 'rpatel@nextfaze.com',
-      emailSubject: 'Deployment Notifications',
       targetType: NOTIFICATIONS_TARGET.EMAIL,
     },
   },

@@ -83,29 +83,19 @@ export interface IBackendEnvironment {
  * @param cloudwatchRuleName Cloudwatch events rule name
  */
 export interface INotificationConfigProps {
-  /**
-   * @default - Cloudformation generates unique resource Id and uses that as a name
-   */
-  topicName?: string;
   notificationsTargetConfig: INotificationsEmailTargetConfig;
-  /**
-   * @default - Cloudformation generates unique resource Id and uses that as a name
-   */
-  cloudwatchRuleName?: string;
 }
 
 /**
  * @param targetType Type of target
  * @param emailAddress Email to send notifications to
- * @param emailSubject Email subject to be used when sending emails
  */
 interface INotificationsEmailTargetConfig {
   targetType: NOTIFICATIONS_TARGET.EMAIL;
   emailAddress: string;
-  emailSubject: string;
 }
 
-export interface IFrontendDeploymentProps {
+export interface IFrontendDeploymentProps extends StackProps {
   baseDomainName: string;
   pipelineConfig: IFrontendPipelineConfig;
   notificationConfig: INotificationConfigProps;

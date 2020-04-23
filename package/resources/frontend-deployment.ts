@@ -7,7 +7,7 @@ import { EMAIL_VALIDATOR } from './constants/constants';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 
 export class FrontendDeployment extends Stack {
-  constructor(scope: App, id: string, private props: IFrontendDeploymentProps) {
+  constructor(scope: App, id: string, props: IFrontendDeploymentProps) {
     super(scope, id);
     const {
       pipelineConfig,

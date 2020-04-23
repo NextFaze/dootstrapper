@@ -178,4 +178,50 @@ describe('BasePipeline', () => {
       })
     );
   });
+
+  it('should create cloudwatch event rule to listen to pipeline execution status change', () => {
+    expectCDK(stack).to(
+      haveResource('AWS::Events::Rule', {
+        Description: 'Dootstrapper Pipeline notifications Cloudwatch Rule',
+        EventPattern: {
+          source: ['aws.codepipeline'],
+          'detail-type': ['CodePipeline Pipeline Execution State Change'],
+          resources: [
+            {
+              'Fn::Join': [
+                '',
+                [
+                  'arn:',
+                  {
+                    Ref: 'AWS::Partition',
+                  },
+                  ':codepipeline:',
+                  {
+                    Ref: 'AWS::Region',
+                  },
+                  ':',
+                  {
+                    Ref: 'AWS::AccountId',
+                  },
+                  ':',
+                  {
+                    Ref: 'Pipeline9850B417',
+                  },
+                ],
+              ],
+            },
+          ],
+        },
+        State: 'ENABLED',
+        Targets: [
+          {
+            Arn: {
+              Ref: 'PipelineNotificationTopic82AA12F8',
+            },
+            Id: 'Target0',
+          },
+        ],
+      })
+    );
+  });
 });
