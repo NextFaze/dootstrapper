@@ -4,6 +4,8 @@ import {
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
 } from '@dootstrapper/dootstrapper';
+import { FrontendDeployment } from '@dootstrapper/dootstrapper';
+import { DOMAIN_NAME_REGISTRAR } from '@dootstrapper/dootstrapper';
 
 const buildSpec = {
   version: 0.2,
@@ -21,7 +23,36 @@ const buildSpec = {
 
 const app = new App();
 
-new BackendDeployment(app, 'Dootstrapper', {
+new FrontendDeployment(app, 'FrontendDeployment', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  pipelineConfig: {
+    artifactsSourceKey: 'artifacts/app.zip',
+    environments: [
+      {
+        aliases: ['app-test.example.com'],
+        name: 'test',
+        domainNameRegistrar: DOMAIN_NAME_REGISTRAR.AWS,
+      },
+    ],
+    notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
+  },
+  baseDomainName: 'example.com',
+  notificationConfig: {
+    notificationsTargetConfig: {
+      emailAddress: 'deployments@example.com',
+      targetType: NOTIFICATIONS_TARGET.EMAIL,
+    },
+  },
+});
+
+new BackendDeployment(app, 'BackendDeployment', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
   pipelineConfig: {
     notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
     artifactsSourceKey: 'artifacts/example.zip',
