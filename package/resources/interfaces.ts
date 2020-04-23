@@ -18,10 +18,15 @@ export interface IBackendDeploymentProps
  * @param baseDomainName Registered domain name to use
  * (i.e To host application on `app.example.com` this value needs to be `example.com` )
  * @requires hostedZone - Requires an hosted zone to be created before deploying Frontend Deployment app
+ * @param hostedZoneName Hosted zone to add records to
  */
 export interface IFrontendDeploymentProps
   extends IBaseDeploymentProps<IFrontendEnvironment> {
   baseDomainName: string;
+  /**
+   * @default baseDomainName When hostedZoneName is not defined, baseDomainName is used instead
+   */
+  hostedZoneName?: string;
 }
 
 /**

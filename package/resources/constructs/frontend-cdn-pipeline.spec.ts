@@ -75,8 +75,20 @@ describe('FrontendCDNPipeline', () => {
       expect(pipeline.Properties.Stages.length).toEqual(3);
       // test env should only have deploy action
       const stage1Actions = pipeline.Properties.Stages[1].Actions;
-      expect(stage1Actions.length).toEqual(1);
+      expect(stage1Actions.length).toEqual(2);
       expect(stage1Actions[0]).toEqual(
+        jasmine.objectContaining({
+          ActionTypeId: {
+            Category: 'Build',
+            Owner: 'AWS',
+            Provider: 'CodeBuild',
+            Version: '1',
+          },
+          Name: 'Prepare',
+          RunOrder: 1,
+        })
+      );
+      expect(stage1Actions[1]).toEqual(
         jasmine.objectContaining({
           ActionTypeId: {
             Category: 'Deploy',
@@ -85,13 +97,26 @@ describe('FrontendCDNPipeline', () => {
             Version: '1',
           },
           Name: 'Deploy',
+          RunOrder: 2,
         })
       );
 
       const stage2Actions = pipeline.Properties.Stages[2].Actions;
       // prod env should only have deploy action
-      expect(stage2Actions.length).toEqual(1);
+      expect(stage2Actions.length).toEqual(2);
       expect(stage2Actions[0]).toEqual(
+        jasmine.objectContaining({
+          ActionTypeId: {
+            Category: 'Build',
+            Owner: 'AWS',
+            Provider: 'CodeBuild',
+            Version: '1',
+          },
+          Name: 'Prepare',
+          RunOrder: 1,
+        })
+      );
+      expect(stage2Actions[1]).toEqual(
         jasmine.objectContaining({
           ActionTypeId: {
             Category: 'Deploy',
@@ -100,6 +125,7 @@ describe('FrontendCDNPipeline', () => {
             Version: '1',
           },
           Name: 'Deploy',
+          RunOrder: 2,
         })
       );
     });
@@ -134,17 +160,17 @@ describe('FrontendCDNPipeline', () => {
       });
     });
 
-    it('should not create approval stage', () => {
+    it('should create approval stage', () => {
       const pipeline = SynthUtils.synthesize(stack).template.Resources
         .FrontendCDNPipelineA052AB79;
       expect(pipeline.Properties.Stages.length).toEqual(3);
       // test env should only have deploy action
       const stage1Actions = pipeline.Properties.Stages[1].Actions;
-      expect(stage1Actions.length).toEqual(1);
+      expect(stage1Actions.length).toEqual(2);
 
       const stage2Actions = pipeline.Properties.Stages[2].Actions;
       // prod env should only have deploy action
-      expect(stage2Actions.length).toEqual(2);
+      expect(stage2Actions.length).toEqual(3);
       expect(stage2Actions[0]).toEqual(
         jasmine.objectContaining({
           ActionTypeId: {
@@ -154,17 +180,19 @@ describe('FrontendCDNPipeline', () => {
             Version: '1',
           },
           Name: 'Approve',
+          RunOrder: 1,
         })
       );
       expect(stage2Actions[1]).toEqual(
         jasmine.objectContaining({
-          ActionTypeId: {
-            Category: 'Deploy',
-            Owner: 'AWS',
-            Provider: 'S3',
-            Version: '1',
-          },
+          Name: 'Prepare',
+          RunOrder: 2,
+        })
+      );
+      expect(stage2Actions[2]).toEqual(
+        jasmine.objectContaining({
           Name: 'Deploy',
+          RunOrder: 3,
         })
       );
     });

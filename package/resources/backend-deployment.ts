@@ -5,7 +5,7 @@ import { CdkAppPipeline } from './constructs/cdk-app-pipeline';
 
 import { IBackendDeploymentProps } from './interfaces';
 export class BackendDeployment extends Stack {
-  constructor(scope: App, id: string, private props: IBackendDeploymentProps) {
+  constructor(scope: App, id: string, props: IBackendDeploymentProps) {
     super(scope, id, props);
 
     const {

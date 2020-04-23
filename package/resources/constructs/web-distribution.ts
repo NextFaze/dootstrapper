@@ -39,7 +39,10 @@ export class WebDistribution extends Construct {
       certificate,
     } = props;
 
-    this.s3BucketSource = new Bucket(this, 'OriginBucket');
+    this.s3BucketSource = new Bucket(this, 'OriginBucket', {
+      websiteIndexDocument: defaultRootObject || 'index.html',
+      websiteErrorDocument: errorRootObject || 'index.html',
+    });
     const originAccessIdentity = new OriginAccessIdentity(
       this,
       'OriginAccessIdentity',
@@ -71,13 +74,12 @@ export class WebDistribution extends Construct {
             ],
           },
         ],
-
-        defaultRootObject: defaultRootObject || 'index.html',
         errorConfigurations: [
-          // we let out apps handle error redirection
+          // routes will be handled by SPA, so redirect to default page path
           {
-            errorCode: 200,
-            responsePagePath: errorRootObject || 'index.html',
+            errorCode: 404,
+            responsePagePath: `/${defaultRootObject || 'index.html'}`,
+            responseCode: 200,
           },
         ],
         comment: `Cloudfront Distribution for ${aliases[0]}`,
