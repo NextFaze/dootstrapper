@@ -27,7 +27,7 @@ new BackendDeployment(app, 'Dootstrapper', {
     artifactsSourceKey: 'artifacts/example.zip',
     environments: [
       {
-        name: 'Dev',
+        name: 'dev',
         privilegedMode: true,
         adminPermissions: true,
         runtimeVariables: {
@@ -36,7 +36,7 @@ new BackendDeployment(app, 'Dootstrapper', {
         buildSpec,
       },
       {
-        name: 'Uat',
+        name: 'uat',
         privilegedMode: true,
         adminPermissions: true,
         runtimeVariables: {
@@ -45,7 +45,7 @@ new BackendDeployment(app, 'Dootstrapper', {
         buildSpec,
       },
       {
-        name: 'Prod',
+        name: 'prod',
         privilegedMode: true,
         adminPermissions: true,
         approvalRequired: true,

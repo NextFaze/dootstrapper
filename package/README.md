@@ -1,11 +1,22 @@
 # CDK Deployment Bootstrapper project
 
-Creates a CD pipeline to declaratively deploy to multiple environments
-Generates following resources:
+Creates a CD pipeline to declaratively deploy to multiple environments:
 
-✅ Codepipeline
+## Web Application Deployment
 
 ✅ Codebuild
+
+✅ SSM Params with admin permissions
+
+## Serverless Application Deployment
+
+✅ Cloudfront and S3Bucket as a source Origin
+
+✅ Route53 records
+
+## Common
+
+✅ Codepipeline
 
 ✅ Artifacts Store (S3)
 

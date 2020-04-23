@@ -3,21 +3,39 @@ import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './constants/enums';
 import { PriceClass } from '@aws-cdk/aws-cloudfront';
 
 /**
- * @param pipelineConfig Deploy pipeline related config
- * @param notificationConfig Deployment notifications related config
+ * @description Create an automated CD pipeline to deploy apps using simple easy to use `buildspec` for
+ * all specified environments
  */
-export interface IBackendDeploymentProps extends StackProps {
-  pipelineConfig: IBackendPipelineProps;
-  notificationConfig: INotificationConfigProps;
+export interface IBackendDeploymentProps
+  extends IBaseDeploymentProps<IBackendEnvironment> {}
+
+/**
+ * @description Sets up a CDN (Content Delivery Network) with automated CD pipeline for all specified environments
+ * @param baseDomainName Registered domain name to use
+ * (i.e To host application on `app.example.com` this value needs to be `example.com` )
+ * @requires hostedZone - requires an hosted zone to be created before deploying Frontend Deployment app
+ */
+export interface IFrontendDeploymentProps
+  extends IBaseDeploymentProps<IFrontendEnvironment> {
+  baseDomainName: string;
 }
 
 /**
- * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
- * @param environments environment related config
+ * @param pipelineConfig Deploy pipeline config
+ * @param notificationConfig Deployment notifications config
  */
-export interface IBackendPipelineProps {
+interface IBaseDeploymentProps<T> extends StackProps {
+  notificationConfig: INotificationConfigProps;
+  pipelineConfig: IBasePipelineProps<T>;
+}
+
+/**
+ * @param artifactsSourceKey fully qualified s3 path to target artifact (i.e path/to/some/file.zip)
+ * @param environments environment config
+ */
+export interface IBasePipelineProps<T> {
   artifactsSourceKey: string;
-  environments: IBackendEnvironment[];
+  environments: T[];
   /**
    * @default - Pipeline Execution events
    */
@@ -25,16 +43,29 @@ export interface IBackendPipelineProps {
 }
 
 /**
- * @param name Environment name
- * @param adminPermissions Should admin permission be created with accessKey and Secret injected into container
+ * @param notificationsTargetConfig  Notifications Target config
+ */
+export interface INotificationConfigProps {
+  notificationsTargetConfig: INotificationsEmailTargetConfig;
+}
+
+/**
+ * @param targetType Type of notification target
+ * @param emailAddress Email to send notifications
+ */
+export interface INotificationsEmailTargetConfig {
+  targetType: NOTIFICATIONS_TARGET.EMAIL;
+  emailAddress: string;
+}
+
+/**
+ * @param adminPermissions Should admin permission be created with accessKey and Secret injected into deploy container
  * @param privilegedMode Enable this flag if you want to build Docker images or
  * want your builds to get elevated privileges
- * @param approvalRequired Manual approval to add before deploy action
  * @param runtimeVariables Runtime variables to inject into container
  * @param buildSpec BuildSpec file to execute on codebuild
  */
-export interface IBackendEnvironment {
-  name: string;
+export interface IBackendEnvironment extends IBaseEnvironment {
   /**
    * @default - No admin access is created, developer must provide accessKeyId and secretAccessKey in SSM
    */
@@ -44,10 +75,6 @@ export interface IBackendEnvironment {
    */
   privilegedMode?: boolean;
   /**
-   * @default - No approval action is added
-   */
-  approvalRequired?: boolean;
-  /**
    * @default - No environment variables are passed to pipeline
    */
   runtimeVariables?: { [key: string]: string };
@@ -55,41 +82,36 @@ export interface IBackendEnvironment {
 }
 
 /**
- * @param notificationsTargetConfig  Notifications Target Configurations
+ * @param aliases list of aliases to register as an alternate names for cloudfront distribution
+ * @param cloudfrontPriceClass cloudfront pricing plan
+ * @param defaultRootObject default object to return when app is visited without any paths
+ * @param errorRootObject default object to return when unknown path is requested
+ *
  */
-export interface INotificationConfigProps {
-  notificationsTargetConfig: INotificationsEmailTargetConfig;
+export interface IFrontendEnvironment extends IBaseEnvironment {
+  aliases: string[];
+  /**
+   * @default PRICE_CLASS_100 cheapest plan is selected
+   */
+  cloudfrontPriceClass?: PriceClass;
+  /**
+   * @default index.html
+   */
+  defaultRootObject?: string;
+  /**
+   * @default index.html
+   */
+  errorRootObject?: string;
 }
 
 /**
- * @param targetType Type of target
- * @param emailAddress Email to send notifications to
+ * @param name Environment name
+ * @param approvalRequired Manual approval to add before deploy action
  */
-interface INotificationsEmailTargetConfig {
-  targetType: NOTIFICATIONS_TARGET.EMAIL;
-  emailAddress: string;
-}
-
-export interface IFrontendDeploymentProps extends StackProps {
-  baseDomainName: string;
-  pipelineConfig: IFrontendPipelineProps;
-  notificationConfig: INotificationConfigProps;
-}
-
-export interface IFrontendPipelineProps {
-  artifactsSourceKey: string;
-  environments: IFrontendEnvironment[];
-  /**
-   * @default - Pipeline Execution events
-   */
-  notificationsType?: NOTIFICATIONS_TYPE;
-}
-
-interface IFrontendEnvironment {
+interface IBaseEnvironment {
   name: string;
-  aliases: string[];
-  cloudfrontPriceClass?: PriceClass;
+  /**
+   * @default - No approval action is added
+   */
   approvalRequired?: boolean;
-  defaultRootObject?: string;
-  errorRootObject?: string;
 }
