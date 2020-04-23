@@ -1,20 +1,11 @@
-import { pascalCase, paramCase } from 'change-case';
+import { pascalCase } from 'change-case';
 import { IFrontendEnvironment, IBasePipelineProps } from '../interfaces';
 import { Construct } from '@aws-cdk/core';
-import { Bucket } from '@aws-cdk/aws-s3';
-import {
-  CloudFrontWebDistribution,
-  ViewerCertificate,
-  SecurityPolicyProtocol,
-  SSLMethod,
-  OriginAccessIdentity,
-  ViewerProtocolPolicy,
-} from '@aws-cdk/aws-cloudfront';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
 import { BasePipeline } from './base-pipeline';
 import { S3DeployAction } from '@aws-cdk/aws-codepipeline-actions';
-import { DOMAIN_NAME_REGISTRAR } from '../constants/enums';
-import { CnameRecord, IHostedZone } from '@aws-cdk/aws-route53';
+import { IHostedZone } from '@aws-cdk/aws-route53';
+import { WebDistribution } from './web-distribution';
 
 interface IFrontendCDNPipelineProps
   extends IBasePipelineProps<IFrontendEnvironment> {
@@ -33,74 +24,27 @@ export class FrontendCDNPipeline extends BasePipeline {
     // create distribution for each environment
     environments.forEach(environment => {
       const {
-        aliases,
         name,
         approvalRequired,
+        aliases,
         cloudfrontPriceClass,
         defaultRootObject,
-        errorRootObject,
         domainNameRegistrar,
+        errorRootObject,
       } = environment;
-      const s3BucketSource = new Bucket(
-        this,
-        pascalCase(name + 'OriginBucket')
-      );
-      const originAccessIdentity = new OriginAccessIdentity(
-        this,
-        pascalCase(`${name}OriginAccessIdentity`),
-        {
-          comment: `Origin Access Identity for ${aliases[0]}`,
-        }
-      );
-
-      const distribution = new CloudFrontWebDistribution(
+      const distribution = new WebDistribution(
         this,
         pascalCase(`${name}WebDistribution`),
         {
-          originConfigs: [
-            {
-              s3OriginSource: { s3BucketSource, originAccessIdentity },
-              behaviors: [
-                {
-                  isDefaultBehavior: true,
-                  forwardedValues: {
-                    queryString: true,
-                    cookies: {
-                      forward: 'none',
-                    },
-                  },
-                },
-              ],
-            },
-          ],
-
-          defaultRootObject: defaultRootObject || 'index.html',
-          errorConfigurations: [
-            // we let out apps handle error redirection
-            {
-              errorCode: 200,
-              responsePagePath: errorRootObject || 'index.html',
-            },
-          ],
-          comment: `Cloudfront Distribution for ${aliases[0]}`,
-          priceClass: cloudfrontPriceClass,
-          viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-          viewerCertificate: ViewerCertificate.fromAcmCertificate(certificate, {
-            securityPolicy: SecurityPolicyProtocol.TLS_V1_2_2018,
-            sslMethod: SSLMethod.SNI,
-            aliases: aliases,
-          }),
+          aliases,
+          cloudfrontPriceClass,
+          defaultRootObject,
+          domainNameRegistrar,
+          errorRootObject,
+          certificate,
+          hostedZone,
         }
       );
-
-      // register record in route53
-      if (domainNameRegistrar === DOMAIN_NAME_REGISTRAR.AWS) {
-        new CnameRecord(this, pascalCase(`${name}CnameRecord`), {
-          zone: hostedZone,
-          recordName: aliases[0],
-          domainName: distribution.domainName,
-        });
-      }
       // create deploy actions
       const actions = [];
       let runOrder = 0;
@@ -115,7 +59,7 @@ export class FrontendCDNPipeline extends BasePipeline {
 
       actions.push(
         new S3DeployAction({
-          bucket: s3BucketSource,
+          bucket: distribution.s3BucketSource,
           input: this.checkoutSource,
           actionName: 'Deploy',
           extract: true,

@@ -575,7 +575,7 @@
                 },
                 "Configuration": {
                   "BucketName": {
-                    "Ref": "FrontendCDNPipelineProdOriginBucketA8DFE315"
+                    "Ref": "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F"
                   },
                   "Extract": "true",
                   "ObjectKey": "prod"
@@ -813,7 +813,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineProdOriginBucketA8DFE315",
+                    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
                     "Arn"
                   ]
                 },
@@ -823,7 +823,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineProdOriginBucketA8DFE315",
+                          "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
                           "Arn"
                         ]
                       },
@@ -914,16 +914,16 @@
         ]
       }
     },
-    "FrontendCDNPipelineProdOriginBucketA8DFE315": {
+    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F": {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "FrontendCDNPipelineProdOriginBucketPolicy4AD8B884": {
+    "FrontendCDNPipelineProdWebDistributionOriginBucketPolicy2614B257": {
       "Type": "AWS::S3::BucketPolicy",
       "Properties": {
         "Bucket": {
-          "Ref": "FrontendCDNPipelineProdOriginBucketA8DFE315"
+          "Ref": "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F"
         },
         "PolicyDocument": {
           "Statement": [
@@ -933,7 +933,7 @@
               "Principal": {
                 "CanonicalUser": {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineProdOriginAccessIdentity135AD6E2",
+                    "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E",
                     "S3CanonicalUserId"
                   ]
                 }
@@ -941,7 +941,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineProdOriginBucketA8DFE315",
+                    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
                     "Arn"
                   ]
                 },
@@ -951,7 +951,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineProdOriginBucketA8DFE315",
+                          "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
                           "Arn"
                         ]
                       },
@@ -966,7 +966,7 @@
         }
       }
     },
-    "FrontendCDNPipelineProdOriginAccessIdentity135AD6E2": {
+    "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E": {
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
       "Properties": {
         "CloudFrontOriginAccessIdentityConfig": {
@@ -974,7 +974,7 @@
         }
       }
     },
-    "FrontendCDNPipelineProdWebDistributionCFDistribution426B0BBC": {
+    "FrontendCDNPipelineProdWebDistributionCloudFrontWebDistributionCFDistribution14A42620": {
       "Type": "AWS::CloudFront::Distribution",
       "Properties": {
         "DistributionConfig": {
@@ -1007,7 +1007,7 @@
             {
               "DomainName": {
                 "Fn::GetAtt": [
-                  "FrontendCDNPipelineProdOriginBucketA8DFE315",
+                  "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
                   "RegionalDomainName"
                 ]
               },
@@ -1019,7 +1019,7 @@
                     [
                       "origin-access-identity/cloudfront/",
                       {
-                        "Ref": "FrontendCDNPipelineProdOriginAccessIdentity135AD6E2"
+                        "Ref": "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E"
                       }
                     ]
                   ]

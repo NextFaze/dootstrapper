@@ -1,15 +1,11 @@
-import { Stack, App } from '@aws-cdk/core';
+import { Stack } from '@aws-cdk/core';
 import { FrontendCDNPipeline } from './frontend-cdn-pipeline';
 import {
   expect as expectCDK,
-  haveResource,
   countResources,
   SynthUtils,
 } from '@aws-cdk/assert';
-import {
-  Certificate,
-  DnsValidatedCertificate,
-} from '@aws-cdk/aws-certificatemanager';
+import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
 import { HostedZone } from '@aws-cdk/aws-route53';
 import { NOTIFICATIONS_TYPE } from '../constants/enums';
 
@@ -19,14 +15,16 @@ describe('FrontendCDNPipeline', () => {
   describe('with minimum config', () => {
     beforeAll(() => {
       stack = new Stack();
+      const hostedZone = new HostedZone(stack, 'HostedZone', {
+        zoneName: 'example.com',
+      });
       new FrontendCDNPipeline(stack, 'FrontendCDNPipeline', {
+        hostedZone,
         artifactsSourceKey: '/path/t0/artifact.zip',
         notificationsType: NOTIFICATIONS_TYPE.NONE,
         certificate: new DnsValidatedCertificate(stack, 'Certificate', {
           domainName: 'example.com',
-          hostedZone: new HostedZone(stack, 'HostedZone', {
-            zoneName: 'example.com',
-          }),
+          hostedZone,
           subjectAlternativeNames: ['*.example.com'],
         }),
         environments: [
@@ -40,21 +38,22 @@ describe('FrontendCDNPipeline', () => {
 
     it('should create', () => {
       expectCDK(stack).to(countResources('AWS::CodePipeline::Pipeline', 1));
-      expectCDK(stack).to(countResources('AWS::CloudFront::Distribution', 1));
     });
   });
 
   describe('with no approval config', () => {
     beforeAll(() => {
       stack = new Stack();
+      const hostedZone = new HostedZone(stack, 'HostedZone', {
+        zoneName: 'example.com',
+      });
       new FrontendCDNPipeline(stack, 'FrontendCDNPipeline', {
+        hostedZone,
         artifactsSourceKey: '/path/t0/artifact.zip',
         notificationsType: NOTIFICATIONS_TYPE.NONE,
         certificate: new DnsValidatedCertificate(stack, 'Certificate', {
           domainName: 'example.com',
-          hostedZone: new HostedZone(stack, 'HostedZone', {
-            zoneName: 'example.com',
-          }),
+          hostedZone,
           subjectAlternativeNames: ['*.example.com'],
         }),
         environments: [
@@ -109,14 +108,16 @@ describe('FrontendCDNPipeline', () => {
   describe('with approval config', () => {
     beforeAll(() => {
       stack = new Stack();
+      const hostedZone = new HostedZone(stack, 'HostedZone', {
+        zoneName: 'example.com',
+      });
       new FrontendCDNPipeline(stack, 'FrontendCDNPipeline', {
+        hostedZone,
         artifactsSourceKey: '/path/t0/artifact.zip',
         notificationsType: NOTIFICATIONS_TYPE.NONE,
         certificate: new DnsValidatedCertificate(stack, 'Certificate', {
           domainName: 'example.com',
-          hostedZone: new HostedZone(stack, 'HostedZone', {
-            zoneName: 'example.com',
-          }),
+          hostedZone,
           subjectAlternativeNames: ['*.example.com'],
         }),
         environments: [
