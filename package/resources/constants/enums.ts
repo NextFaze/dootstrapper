@@ -14,3 +14,7 @@ export enum NOTIFICATIONS_DETAILS_TYPE {
   STAGE = 'CodePipeline Stage Execution State Change',
   ACTION = 'CodePipeline Action Execution State Change',
 }
+
+export enum DOMAIN_NAME_REGISTRAR {
+  AWS = 'aws',
+}

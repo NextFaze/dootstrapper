@@ -32,6 +32,7 @@ export class FrontendDeployment extends Stack {
       {
         ...pipelineConfig,
         certificate,
+        hostedZone,
       }
     );
 

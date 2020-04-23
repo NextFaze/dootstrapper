@@ -1,5 +1,9 @@
 import { StackProps } from '@aws-cdk/core';
-import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './constants/enums';
+import {
+  NOTIFICATIONS_TARGET,
+  NOTIFICATIONS_TYPE,
+  DOMAIN_NAME_REGISTRAR,
+} from './constants/enums';
 import { PriceClass } from '@aws-cdk/aws-cloudfront';
 
 /**
@@ -13,7 +17,7 @@ export interface IBackendDeploymentProps
  * @description Sets up a CDN (Content Delivery Network) with automated CD pipeline for all specified environments
  * @param baseDomainName Registered domain name to use
  * (i.e To host application on `app.example.com` this value needs to be `example.com` )
- * @requires hostedZone - requires an hosted zone to be created before deploying Frontend Deployment app
+ * @requires hostedZone - Requires an hosted zone to be created before deploying Frontend Deployment app
  */
 export interface IFrontendDeploymentProps
   extends IBaseDeploymentProps<IFrontendEnvironment> {
@@ -30,8 +34,8 @@ interface IBaseDeploymentProps<T> extends StackProps {
 }
 
 /**
- * @param artifactsSourceKey fully qualified s3 path to target artifact (i.e path/to/some/file.zip)
- * @param environments environment config
+ * @param artifactsSourceKey Fully qualified s3 path to target artifact (i.e path/to/some/file.zip)
+ * @param environments Environment config
  */
 export interface IBasePipelineProps<T> {
   artifactsSourceKey: string;
@@ -82,16 +86,16 @@ export interface IBackendEnvironment extends IBaseEnvironment {
 }
 
 /**
- * @param aliases list of aliases to register as an alternate names for cloudfront distribution
- * @param cloudfrontPriceClass cloudfront pricing plan
- * @param defaultRootObject default object to return when app is visited without any paths
- * @param errorRootObject default object to return when unknown path is requested
+ * @param aliases List of aliases to register as an alternate names for cloudfront distribution
+ * @param cloudfrontPriceClass Cloudfront pricing plan
+ * @param defaultRootObject Default object to return when app is visited without any paths
+ * @param errorRootObject Default object to return when unknown path is requested
  *
  */
 export interface IFrontendEnvironment extends IBaseEnvironment {
   aliases: string[];
   /**
-   * @default PRICE_CLASS_100 cheapest plan is selected
+   * @default PRICE_CLASS_100 - Cheapest plan is selected
    */
   cloudfrontPriceClass?: PriceClass;
   /**
@@ -102,6 +106,10 @@ export interface IFrontendEnvironment extends IBaseEnvironment {
    * @default index.html
    */
   errorRootObject?: string;
+  /**
+   * @default none
+   */
+  domainNameRegistrar?: DOMAIN_NAME_REGISTRAR;
 }
 
 /**
