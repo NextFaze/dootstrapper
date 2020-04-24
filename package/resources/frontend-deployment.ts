@@ -1,5 +1,5 @@
 import { Stack, App } from '@aws-cdk/core';
-import { IFrontendDeploymentProps } from './interfaces';
+import { IBaseDeploymentProps, IFrontendEnvironment } from './interfaces';
 import { HostedZone } from '@aws-cdk/aws-route53';
 import {
   DnsValidatedCertificate,
@@ -10,8 +10,20 @@ import { FrontendCDNPipeline } from './constructs/frontend-cdn-pipeline';
 import { EMAIL_VALIDATOR } from './constants';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 
+export interface IFrontendDeploymentProps
+  extends IBaseDeploymentProps<IFrontendEnvironment> {
+  baseDomainName: string;
+  /**
+   * @default baseDomainName When hostedZoneName is not defined, baseDomainName is used instead
+   */
+  hostedZoneName?: string;
+  /**
+   * @default none a certificate is requested and validated using route53
+   */
+  certificateArn?: string;
+}
+
 /**
- * @category frontend
  * @noInheritDoc
  */
 export class FrontendDeployment extends Stack {

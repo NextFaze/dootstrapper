@@ -5,7 +5,3 @@ export {
   NOTIFICATIONS_TYPE,
   DOMAIN_NAME_REGISTRAR,
 } from './resources/enums';
-export {
-  IBackendDeploymentProps,
-  IFrontendDeploymentProps,
-} from './resources/interfaces';

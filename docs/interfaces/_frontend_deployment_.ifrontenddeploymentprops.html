@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_interfaces_.html">&quot;interfaces&quot;</a>
+					<a href="../modules/_frontend_deployment_.html">&quot;frontend-deployment&quot;</a>
 				</li>
 				<li>
-					<a href="_interfaces_.ifrontenddeploymentprops.html">IFrontendDeploymentProps</a>
+					<a href="_frontend_deployment_.ifrontenddeploymentprops.html">IFrontendDeploymentProps</a>
 				</li>
 			</ul>
 			<h1>Interface IFrontendDeploymentProps</h1>
@@ -65,34 +65,11 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<dl class="tsd-comment-tags">
-						<dt>description</dt>
-						<dd><p>Sets up a CDN (Content Delivery Network) with automated CD pipeline for all specified environments</p>
-						</dd>
-						<dt>param</dt>
-						<dd><p>Registered domain name to use
-							(i.e To host application on <code>app.example.com</code> this value needs to be <code>example.com</code> )</p>
-						</dd>
-						<dt>requires</dt>
-						<dd><p>hostedZone - Requires an hosted zone to be created before deploying Frontend Deployment app</p>
-						</dd>
-						<dt>param</dt>
-						<dd><p>Hosted zone to add records to</p>
-						</dd>
-						<dt>param</dt>
-						<dd><p>Amazon Resource Name of already available domain
-							When this value is truthy, application <em>DOES NOT</em> request andy certificate for given domain</p>
-						</dd>
-					</dl>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">IBaseDeploymentProps</span><span class="tsd-signature-symbol">&lt;</span><a href="_interfaces_.ifrontendenvironment.html" class="tsd-signature-type">IFrontendEnvironment</a><span class="tsd-signature-symbol">&gt;</span>
+						<a href="_interfaces_.ibasedeploymentprops.html" class="tsd-signature-type">IBaseDeploymentProps</a><span class="tsd-signature-symbol">&lt;</span><a href="_interfaces_.ifrontendenvironment.html" class="tsd-signature-type">IFrontendEnvironment</a><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">IFrontendDeploymentProps</span>
@@ -108,15 +85,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interfaces_.ifrontenddeploymentprops.html#basedomainname" class="tsd-kind-icon">base<wbr>Domain<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interfaces_.ifrontenddeploymentprops.html#certificatearn" class="tsd-kind-icon">certificate<wbr>Arn</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_interfaces_.ifrontenddeploymentprops.html#description" class="tsd-kind-icon">description</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_interfaces_.ifrontenddeploymentprops.html#env" class="tsd-kind-icon">env</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interfaces_.ifrontenddeploymentprops.html#hostedzonename" class="tsd-kind-icon">hosted<wbr>Zone<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_interfaces_.ifrontenddeploymentprops.html#notificationconfig" class="tsd-kind-icon">notification<wbr>Config</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_interfaces_.ifrontenddeploymentprops.html#pipelineconfig" class="tsd-kind-icon">pipeline<wbr>Config</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_interfaces_.ifrontenddeploymentprops.html#stackname" class="tsd-kind-icon">stack<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_interfaces_.ifrontenddeploymentprops.html#tags" class="tsd-kind-icon">tags</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_frontend_deployment_.ifrontenddeploymentprops.html#basedomainname" class="tsd-kind-icon">base<wbr>Domain<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_frontend_deployment_.ifrontenddeploymentprops.html#certificatearn" class="tsd-kind-icon">certificate<wbr>Arn</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_frontend_deployment_.ifrontenddeploymentprops.html#hostedzonename" class="tsd-kind-icon">hosted<wbr>Zone<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_frontend_deployment_.ifrontenddeploymentprops.html#notificationconfig" class="tsd-kind-icon">notification<wbr>Config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_frontend_deployment_.ifrontenddeploymentprops.html#pipelineconfig" class="tsd-kind-icon">pipeline<wbr>Config</a></li>
 							</ul>
 						</section>
 					</div>
@@ -130,7 +103,7 @@
 					<div class="tsd-signature tsd-kind-icon">base<wbr>Domain<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/eb1a1cd/package/resources/interfaces.ts#L27">package/resources/interfaces.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/frontend-deployment.ts#L15">package/resources/frontend-deployment.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -140,7 +113,7 @@
 					<div class="tsd-signature tsd-kind-icon">certificate<wbr>Arn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/eb1a1cd/package/resources/interfaces.ts#L35">package/resources/interfaces.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/frontend-deployment.ts#L23">package/resources/frontend-deployment.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -151,60 +124,13 @@
 						</dl>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="description" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> description</h3>
-					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_interfaces_.ibackenddeploymentprops.html">IBackendDeploymentProps</a>.<a href="_interfaces_.ibackenddeploymentprops.html#description">description</a></p>
-						<ul>
-							<li>Defined in node_modules/@aws-cdk/aws-sns-subscriptions/node_modules/@aws-cdk/core/lib/stack.d.ts:11</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A description of the stack.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>default</dt>
-							<dd><ul>
-									<li>No description.</li>
-								</ul>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="env" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> env</h3>
-					<div class="tsd-signature tsd-kind-icon">env<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Environment</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_interfaces_.ibackenddeploymentprops.html">IBackendDeploymentProps</a>.<a href="_interfaces_.ibackenddeploymentprops.html#env">env</a></p>
-						<ul>
-							<li>Defined in node_modules/@aws-cdk/aws-sns-subscriptions/node_modules/@aws-cdk/core/lib/stack.d.ts:18</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The AWS environment (account/region) where this stack will be deployed.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>default</dt>
-							<dd><ul>
-									<li>The <code>default-account</code> and <code>default-region</code> context parameters will be
-									used. If they are undefined, it will not be possible to deploy the stack.</li>
-								</ul>
-							</dd>
-						</dl>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="hostedzonename" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> hosted<wbr>Zone<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">hosted<wbr>Zone<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/eb1a1cd/package/resources/interfaces.ts#L31">package/resources/interfaces.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/frontend-deployment.ts#L19">package/resources/frontend-deployment.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -220,9 +146,9 @@
 					<h3>notification<wbr>Config</h3>
 					<div class="tsd-signature tsd-kind-icon">notification<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="_interfaces_.inotificationconfigprops.html" class="tsd-signature-type">INotificationConfigProps</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_interfaces_.ibackenddeploymentprops.html">IBackendDeploymentProps</a>.<a href="_interfaces_.ibackenddeploymentprops.html#notificationconfig">notificationConfig</a></p>
+						<p>Inherited from <a href="_interfaces_.ibasedeploymentprops.html">IBaseDeploymentProps</a>.<a href="_interfaces_.ibasedeploymentprops.html#notificationconfig">notificationConfig</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/eb1a1cd/package/resources/interfaces.ts#L43">package/resources/interfaces.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/interfaces.ts#L15">package/resources/interfaces.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -231,55 +157,11 @@
 					<h3>pipeline<wbr>Config</h3>
 					<div class="tsd-signature tsd-kind-icon">pipeline<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="_interfaces_.ibasepipelineprops.html" class="tsd-signature-type">IBasePipelineProps</a><span class="tsd-signature-symbol">&lt;</span><a href="_interfaces_.ifrontendenvironment.html" class="tsd-signature-type">IFrontendEnvironment</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_interfaces_.ibackenddeploymentprops.html">IBackendDeploymentProps</a>.<a href="_interfaces_.ibackenddeploymentprops.html#pipelineconfig">pipelineConfig</a></p>
+						<p>Inherited from <a href="_interfaces_.ibasedeploymentprops.html">IBaseDeploymentProps</a>.<a href="_interfaces_.ibasedeploymentprops.html#pipelineconfig">pipelineConfig</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/eb1a1cd/package/resources/interfaces.ts#L44">package/resources/interfaces.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/interfaces.ts#L16">package/resources/interfaces.ts:16</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="stackname" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stack<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">stack<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_interfaces_.ibackenddeploymentprops.html">IBackendDeploymentProps</a>.<a href="_interfaces_.ibackenddeploymentprops.html#stackname">stackName</a></p>
-						<ul>
-							<li>Defined in node_modules/@aws-cdk/aws-sns-subscriptions/node_modules/@aws-cdk/core/lib/stack.d.ts:24</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Name to deploy the stack with</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>default</dt>
-							<dd><ul>
-									<li>Derived from construct path.</li>
-								</ul>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="tags" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> tags</h3>
-					<div class="tsd-signature tsd-kind-icon">tags<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_interfaces_.ibackenddeploymentprops.html">IBackendDeploymentProps</a>.<a href="_interfaces_.ibackenddeploymentprops.html#tags">tags</a></p>
-						<ul>
-							<li>Defined in node_modules/@aws-cdk/aws-sns-subscriptions/node_modules/@aws-cdk/core/lib/stack.d.ts:30</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Stack tags that will be applied to all the taggable resources and the stack itself.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>default</dt>
-							<dd><p>{}</p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -295,70 +177,43 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_enums_.html">&quot;enums&quot;</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_frontend_deployment_.html">&quot;frontend-<wbr>deployment&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_.html">&quot;interfaces&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interfaces_.ibackenddeploymentprops.html" class="tsd-kind-icon">IBackend<wbr>Deployment<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interfaces_.ibackendenvironment.html" class="tsd-kind-icon">IBackend<wbr>Environment</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_interfaces_.ibasepipelineprops.html" class="tsd-kind-icon">IBase<wbr>Pipeline<wbr>Props</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_frontend_deployment_.frontenddeployment.html" class="tsd-kind-icon">Frontend<wbr>Deployment</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interfaces_.ifrontenddeploymentprops.html" class="tsd-kind-icon">IFrontend<wbr>Deployment<wbr>Props</a>
+						<a href="_frontend_deployment_.ifrontenddeploymentprops.html" class="tsd-kind-icon">IFrontend<wbr>Deployment<wbr>Props</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#basedomainname" class="tsd-kind-icon">base<wbr>Domain<wbr>Name</a>
+								<a href="_frontend_deployment_.ifrontenddeploymentprops.html#basedomainname" class="tsd-kind-icon">base<wbr>Domain<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#certificatearn" class="tsd-kind-icon">certificate<wbr>Arn</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#description" class="tsd-kind-icon">description</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#env" class="tsd-kind-icon">env</a>
+								<a href="_frontend_deployment_.ifrontenddeploymentprops.html#certificatearn" class="tsd-kind-icon">certificate<wbr>Arn</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#hostedzonename" class="tsd-kind-icon">hosted<wbr>Zone<wbr>Name</a>
+								<a href="_frontend_deployment_.ifrontenddeploymentprops.html#hostedzonename" class="tsd-kind-icon">hosted<wbr>Zone<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#notificationconfig" class="tsd-kind-icon">notification<wbr>Config</a>
+								<a href="_frontend_deployment_.ifrontenddeploymentprops.html#notificationconfig" class="tsd-kind-icon">notification<wbr>Config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#pipelineconfig" class="tsd-kind-icon">pipeline<wbr>Config</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#stackname" class="tsd-kind-icon">stack<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_interfaces_.ifrontenddeploymentprops.html#tags" class="tsd-kind-icon">tags</a>
+								<a href="_frontend_deployment_.ifrontenddeploymentprops.html#pipelineconfig" class="tsd-kind-icon">pipeline<wbr>Config</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interfaces_.ifrontendenvironment.html" class="tsd-kind-icon">IFrontend<wbr>Environment</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interfaces_.inotificationconfigprops.html" class="tsd-kind-icon">INotification<wbr>Config<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interfaces_.inotificationsemailtargetconfig.html" class="tsd-kind-icon">INotifications<wbr>Email<wbr>Target<wbr>Config</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

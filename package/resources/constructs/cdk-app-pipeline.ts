@@ -1,11 +1,10 @@
-import { IBasePipelineProps } from './../interfaces';
+import { IBasePipelineProps, IBackendEnvironment } from './../interfaces';
 import { BasePipeline } from './base-pipeline';
 import { Artifact } from '@aws-cdk/aws-codepipeline';
 import { Construct } from '@aws-cdk/core';
 import { paramCase, pascalCase } from 'change-case';
 import { resolveRuntimeEnvironments } from '../helpers/resolve-runtime-environments';
 import { CredentialStore } from './credential-store';
-import { IBackendEnvironment } from '../interfaces';
 
 interface ICdkAppPipelineProps extends IBasePipelineProps<IBackendEnvironment> {
   artifactsSourceKey: string;

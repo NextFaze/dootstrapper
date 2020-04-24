@@ -7,39 +7,11 @@ import {
 import { PriceClass } from '@aws-cdk/aws-cloudfront';
 
 /**
- * @description Create an automated CD pipeline to deploy apps using simple easy to use `buildspec` for
- * all specified environments
- */
-export interface IBackendDeploymentProps
-  extends IBaseDeploymentProps<IBackendEnvironment> {}
-
-/**
- * @description Sets up a CDN (Content Delivery Network) with automated CD pipeline for all specified environments
- * @param baseDomainName Registered domain name to use
- * (i.e To host application on `app.example.com` this value needs to be `example.com` )
- * @requires hostedZone - Requires an hosted zone to be created before deploying Frontend Deployment app
- * @param hostedZoneName Hosted zone to add records to
- * @param certificateArn: - Amazon Resource Name of already available domain
- * When this value is truthy, application _DOES NOT_ request andy certificate for given domain
- */
-export interface IFrontendDeploymentProps
-  extends IBaseDeploymentProps<IFrontendEnvironment> {
-  baseDomainName: string;
-  /**
-   * @default baseDomainName When hostedZoneName is not defined, baseDomainName is used instead
-   */
-  hostedZoneName?: string;
-  /**
-   * @default none a certificate is requested and validated using route53
-   */
-  certificateArn?: string;
-}
-
-/**
  * @param pipelineConfig Deploy pipeline config
  * @param notificationConfig Deployment notifications config
+ * @noInheritDoc
  */
-interface IBaseDeploymentProps<T> extends StackProps {
+export interface IBaseDeploymentProps<T> extends StackProps {
   notificationConfig: INotificationConfigProps;
   pipelineConfig: IBasePipelineProps<T>;
 }

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>NOTIFICATIONS_DETAILS_TYPE | Dootstrapper</title>
+	<title>IBackendDeploymentProps | Dootstrapper</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,63 +52,77 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_enums_.html">&quot;enums&quot;</a>
+					<a href="../modules/_backend_deployment_.html">&quot;backend-deployment&quot;</a>
 				</li>
 				<li>
-					<a href="_enums_.notifications_details_type.html">NOTIFICATIONS_DETAILS_TYPE</a>
+					<a href="_backend_deployment_.ibackenddeploymentprops.html">IBackendDeploymentProps</a>
 				</li>
 			</ul>
-			<h1>Enumeration NOTIFICATIONS_DETAILS_TYPE</h1>
+			<h1>Interface IBackendDeploymentProps</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<dl class="tsd-comment-tags">
+						<dt>description</dt>
+						<dd><p>Create an automated CD pipeline to deploy apps using simple easy to use <code>buildspec</code> for
+							all specified environments</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="_interfaces_.ibasedeploymentprops.html" class="tsd-signature-type">IBaseDeploymentProps</a><span class="tsd-signature-symbol">&lt;</span><a href="_interfaces_.ibackendenvironment.html" class="tsd-signature-type">IBackendEnvironment</a><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">IBackendDeploymentProps</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Enumeration members</h3>
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_enums_.notifications_details_type.html#action" class="tsd-kind-icon">ACTION</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_enums_.notifications_details_type.html#pipeline" class="tsd-kind-icon">PIPELINE</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_enums_.notifications_details_type.html#stage" class="tsd-kind-icon">STAGE</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_backend_deployment_.ibackenddeploymentprops.html#notificationconfig" class="tsd-kind-icon">notification<wbr>Config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_backend_deployment_.ibackenddeploymentprops.html#pipelineconfig" class="tsd-kind-icon">pipeline<wbr>Config</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Enumeration members</h2>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="action" class="tsd-anchor"></a>
-					<h3>ACTION</h3>
-					<div class="tsd-signature tsd-kind-icon">ACTION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;CodePipeline Action Execution State Change&quot;</span></div>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="notificationconfig" class="tsd-anchor"></a>
+					<h3>notification<wbr>Config</h3>
+					<div class="tsd-signature tsd-kind-icon">notification<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="_interfaces_.inotificationconfigprops.html" class="tsd-signature-type">INotificationConfigProps</a></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_interfaces_.ibasedeploymentprops.html">IBaseDeploymentProps</a>.<a href="_interfaces_.ibasedeploymentprops.html#notificationconfig">notificationConfig</a></p>
 						<ul>
-							<li>Defined in package/resources/enums.ts:15</li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/interfaces.ts#L15">package/resources/interfaces.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="pipeline" class="tsd-anchor"></a>
-					<h3>PIPELINE</h3>
-					<div class="tsd-signature tsd-kind-icon">PIPELINE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;CodePipeline Pipeline Execution State Change&quot;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="pipelineconfig" class="tsd-anchor"></a>
+					<h3>pipeline<wbr>Config</h3>
+					<div class="tsd-signature tsd-kind-icon">pipeline<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="_interfaces_.ibasepipelineprops.html" class="tsd-signature-type">IBasePipelineProps</a><span class="tsd-signature-symbol">&lt;</span><a href="_interfaces_.ibackendenvironment.html" class="tsd-signature-type">IBackendEnvironment</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_interfaces_.ibasedeploymentprops.html">IBaseDeploymentProps</a>.<a href="_interfaces_.ibasedeploymentprops.html#pipelineconfig">pipelineConfig</a></p>
 						<ul>
-							<li>Defined in package/resources/enums.ts:13</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="stage" class="tsd-anchor"></a>
-					<h3>STAGE</h3>
-					<div class="tsd-signature tsd-kind-icon">STAGE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;CodePipeline Stage Execution State Change&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in package/resources/enums.ts:14</li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/interfaces.ts#L16">package/resources/interfaces.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -120,10 +134,10 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_backend_deployment_.html">&quot;backend-<wbr>deployment&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_enums_.html">&quot;enums&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -136,33 +150,24 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="_enums_.domain_name_registrar.html" class="tsd-kind-icon">DOMAIN_<wbr>NAME_<wbr>REGISTRAR</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_backend_deployment_.backenddeployment.html" class="tsd-kind-icon">Backend<wbr>Deployment</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="_enums_.notifications_details_type.html" class="tsd-kind-icon">NOTIFICATIONS_<wbr>DETAILS_<wbr>TYPE</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_backend_deployment_.ibackenddeploymentprops.html" class="tsd-kind-icon">IBackend<wbr>Deployment<wbr>Props</a>
 						<ul>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="_enums_.notifications_details_type.html#action" class="tsd-kind-icon">ACTION</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="_backend_deployment_.ibackenddeploymentprops.html#notificationconfig" class="tsd-kind-icon">notification<wbr>Config</a>
 							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="_enums_.notifications_details_type.html#pipeline" class="tsd-kind-icon">PIPELINE</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="_enums_.notifications_details_type.html#stage" class="tsd-kind-icon">STAGE</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="_backend_deployment_.ibackenddeploymentprops.html#pipelineconfig" class="tsd-kind-icon">pipeline<wbr>Config</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="_enums_.notifications_target.html" class="tsd-kind-icon">NOTIFICATIONS_<wbr>TARGET</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="_enums_.notifications_type.html" class="tsd-kind-icon">NOTIFICATIONS_<wbr>TYPE</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
