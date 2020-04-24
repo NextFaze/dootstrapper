@@ -2,7 +2,7 @@ import { Stack } from '@aws-cdk/core';
 import { WebDistribution } from './web-distribution';
 import { HostedZone } from '@aws-cdk/aws-route53';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
-import { DOMAIN_NAME_REGISTRAR } from '../constants/enums';
+import { DOMAIN_NAME_REGISTRAR } from '../enums';
 import {
   expect as expectCDK,
   countResources,

@@ -11,7 +11,7 @@ import {
   PriceClass,
 } from '@aws-cdk/aws-cloudfront';
 import { CnameRecord, IHostedZone } from '@aws-cdk/aws-route53';
-import { DOMAIN_NAME_REGISTRAR } from '../constants/enums';
+import { DOMAIN_NAME_REGISTRAR } from '../enums';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 
 interface IWebDistributionProps {
@@ -24,6 +24,9 @@ interface IWebDistributionProps {
   cloudfrontPriceClass?: PriceClass;
 }
 
+/**
+ * @hidden
+ */
 export class WebDistribution extends Construct {
   public readonly s3BucketSource: Bucket;
   constructor(scope: Construct, id: string, props: IWebDistributionProps) {

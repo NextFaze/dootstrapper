@@ -6,7 +6,7 @@ import {
 } from '@aws-cdk/assert';
 import { Stack } from '@aws-cdk/core';
 import { CdkAppPipeline } from './cdk-app-pipeline';
-import { NOTIFICATIONS_TYPE } from '../constants/enums';
+import { NOTIFICATIONS_TYPE } from '../enums';
 const singleEnvPipeline = require('./test/single-env-pipeline.spec.json');
 const multiEnvNoApproval = require('./test/multi-env-pipeline-no-approval.spec.json');
 const multiEnvApproval = require('./test/multi-env-approval-pipeline.spec.json');

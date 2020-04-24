@@ -3,7 +3,7 @@ import { expect as expectCDK, haveResource, SynthUtils } from '@aws-cdk/assert';
 import { BasePipeline } from './base-pipeline';
 import { Artifact } from '@aws-cdk/aws-codepipeline';
 import { StringParameter } from '@aws-cdk/aws-ssm';
-import { NOTIFICATIONS_TYPE } from '../constants/enums';
+import { NOTIFICATIONS_TYPE } from '../enums';
 class Pipeline extends BasePipeline {
   constructor(stack: Stack) {
     super(stack, 'Pipeline', {

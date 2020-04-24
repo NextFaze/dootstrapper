@@ -12,6 +12,9 @@ interface ICdkAppPipelineProps extends IBasePipelineProps<IBackendEnvironment> {
   environments: IBackendEnvironment[];
 }
 
+/**
+ * @hidden
+ */
 export class CdkAppPipeline extends BasePipeline {
   constructor(
     scope: Construct,

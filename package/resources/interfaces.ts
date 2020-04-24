@@ -3,7 +3,7 @@ import {
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
   DOMAIN_NAME_REGISTRAR,
-} from './constants/enums';
+} from './enums';
 import { PriceClass } from '@aws-cdk/aws-cloudfront';
 
 /**

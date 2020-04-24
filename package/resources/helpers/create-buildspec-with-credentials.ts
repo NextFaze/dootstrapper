@@ -1,3 +1,6 @@
+/**
+ * @hidden
+ */
 export function createBuildSpecWithCredentials({
   buildSpec,
   accessKeyIdParamName,

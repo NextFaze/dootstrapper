@@ -1,9 +1,14 @@
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
-import { EMAIL_VALIDATOR } from './constants/constants';
+import { EMAIL_VALIDATOR } from './constants';
 import { CdkAppPipeline } from './constructs/cdk-app-pipeline';
 
 import { IBackendDeploymentProps } from './interfaces';
+
+/**
+ * @category backend
+ * @noInheritDoc
+ */
 export class BackendDeployment extends Stack {
   constructor(scope: App, id: string, props: IBackendDeploymentProps) {
     super(scope, id, props);

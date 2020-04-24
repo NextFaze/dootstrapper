@@ -7,9 +7,13 @@ import {
   ICertificate,
 } from '@aws-cdk/aws-certificatemanager';
 import { FrontendCDNPipeline } from './constructs/frontend-cdn-pipeline';
-import { EMAIL_VALIDATOR } from './constants/constants';
+import { EMAIL_VALIDATOR } from './constants';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 
+/**
+ * @category frontend
+ * @noInheritDoc
+ */
 export class FrontendDeployment extends Stack {
   constructor(scope: App, id: string, props: IFrontendDeploymentProps) {
     super(scope, id, props);
