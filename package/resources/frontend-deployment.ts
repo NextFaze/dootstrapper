@@ -1,7 +1,11 @@
 import { Stack, App } from '@aws-cdk/core';
 import { IFrontendDeploymentProps } from './interfaces';
 import { HostedZone } from '@aws-cdk/aws-route53';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
+import {
+  DnsValidatedCertificate,
+  Certificate,
+  ICertificate,
+} from '@aws-cdk/aws-certificatemanager';
 import { FrontendCDNPipeline } from './constructs/frontend-cdn-pipeline';
 import { EMAIL_VALIDATOR } from './constants/constants';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
@@ -12,6 +16,7 @@ export class FrontendDeployment extends Stack {
     const {
       pipelineConfig,
       hostedZoneName,
+      certificateArn,
       baseDomainName,
       notificationConfig: {
         notificationsTargetConfig: { emailAddress },
@@ -27,14 +32,24 @@ export class FrontendDeployment extends Stack {
       throw new Error('No Hosted Zone found for given domain name!');
     }
 
-    const certificate = new DnsValidatedCertificate(this, 'Certificate', {
-      domainName: baseDomainName,
-      hostedZone,
-      // When using ACM certificate with cloudfront, it must be requested in US East (N. Virginia) region
-      // Ref: https://docs.aws.amazon.com/acm/latest/userguide/acm-services.html
-      region: 'us-east-1',
-      subjectAlternativeNames: [`*.${baseDomainName}`],
-    });
+    let certificate: ICertificate;
+    if (certificateArn) {
+      certificate = Certificate.fromCertificateArn(
+        this,
+        'Certificate',
+        certificateArn
+      );
+    } else {
+      certificate = new DnsValidatedCertificate(this, 'Certificate', {
+        domainName: baseDomainName,
+        hostedZone,
+        // When using ACM certificate with cloudfront, it must be requested in US East (N. Virginia) region
+        // Ref: https://docs.aws.amazon.com/acm/latest/userguide/acm-services.html
+        region: 'us-east-1',
+        subjectAlternativeNames: [`*.${baseDomainName}`],
+      });
+    }
+
     const pipelineConstruct = new FrontendCDNPipeline(
       this,
       'FrontendCDNPipeline',
@@ -44,7 +59,6 @@ export class FrontendDeployment extends Stack {
         hostedZone,
       }
     );
-
     pipelineConstruct.notificationTopic.addSubscription(
       this._createSnsSubscription(emailAddress)
     );

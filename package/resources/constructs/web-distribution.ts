@@ -12,12 +12,12 @@ import {
 } from '@aws-cdk/aws-cloudfront';
 import { CnameRecord, IHostedZone } from '@aws-cdk/aws-route53';
 import { DOMAIN_NAME_REGISTRAR } from '../constants/enums';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
+import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 
 interface IWebDistributionProps {
   aliases: string[];
   hostedZone: IHostedZone;
-  certificate: DnsValidatedCertificate;
+  certificate: ICertificate;
   domainNameRegistrar?: DOMAIN_NAME_REGISTRAR;
   defaultRootObject?: string;
   errorRootObject?: string;

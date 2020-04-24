@@ -1,7 +1,7 @@
 import { pascalCase } from 'change-case';
 import { IFrontendEnvironment, IBasePipelineProps } from '../interfaces';
 import { Construct } from '@aws-cdk/core';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
+import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import { BasePipeline } from './base-pipeline';
 import {
   S3DeployAction,
@@ -20,7 +20,7 @@ import {
 
 interface IFrontendCDNPipelineProps
   extends IBasePipelineProps<IFrontendEnvironment> {
-  certificate: DnsValidatedCertificate;
+  certificate: ICertificate;
   hostedZone: IHostedZone;
 }
 

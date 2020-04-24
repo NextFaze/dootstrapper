@@ -19,6 +19,8 @@ export interface IBackendDeploymentProps
  * (i.e To host application on `app.example.com` this value needs to be `example.com` )
  * @requires hostedZone - Requires an hosted zone to be created before deploying Frontend Deployment app
  * @param hostedZoneName Hosted zone to add records to
+ * @param certificateArn: - Amazon Resource Name of already available domain
+ * When this value is truthy, application _DOES NOT_ request andy certificate for given domain
  */
 export interface IFrontendDeploymentProps
   extends IBaseDeploymentProps<IFrontendEnvironment> {
@@ -27,6 +29,10 @@ export interface IFrontendDeploymentProps
    * @default baseDomainName When hostedZoneName is not defined, baseDomainName is used instead
    */
   hostedZoneName?: string;
+  /**
+   * @default none a certificate is requested and validated using route53
+   */
+  certificateArn?: string;
 }
 
 /**
