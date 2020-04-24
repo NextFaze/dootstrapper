@@ -60,30 +60,73 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#cdk-deployment-bootstrapper-project" id="cdk-deployment-bootstrapper-project" style="color: inherit; text-decoration: none;">
-					<h1>CDK Deployment Bootstrapper project</h1>
+				<a href="#dootstrapper" id="dootstrapper" style="color: inherit; text-decoration: none;">
+					<h1>Dootstrapper</h1>
 				</a>
-				<p>Creates a CD pipeline to declaratively deploy to multiple environments:</p>
-				<a href="#web-application-deployment" id="web-application-deployment" style="color: inherit; text-decoration: none;">
-					<h2>Web Application Deployment</h2>
+				<p>Dootstrapper is a library for bootstrapping deployment resources. It creates a continuous delivery | continuous deployment pipeline to deploy modern web and serverless (AWS) apps. It uses highly declarative buildspec syntax to configure deployment steps, generating highly customizable multiple environment pipeline. Additionally, it also configures notification channels to publish deployment notifications to.</p>
+				<p>Dootstrapper uses modern JavaScript, is built with <a href="https://www.typescriptlang.org/">Typescript</a> (Provides optional types for JavaScript). At it&#39;s core, there is a <a href="https://docs.aws.amazon.com/cdk/">AWS Cloud Development Kit</a> which makes all magic possible.</p>
+				<p>Here is a small list of features it offers:</p>
+				<p>✔️ Ease of use</p>
+				<p>✔️ Minimum Effort to go from development to production</p>
+				<p>✔️ Automated deployment notifications</p>
+				<p>✔️ Support for deploying SPA apps</p>
+				<p>✔️ Support for deploying serverless apps without pain</p>
+				<p>✔️ Out of the box support for continuous delivery and continuous deployment on both platforms</p>
+				<p>✔️ Rich typing and documentation</p>
+				<p>✔️ Built with modern tools like bazel🍃️</p>
+				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+					<h2>Getting Started</h2>
 				</a>
-				<p>✅ Codebuild</p>
-				<p>✅ SSM Params with admin permissions</p>
-				<a href="#serverless-application-deployment" id="serverless-application-deployment" style="color: inherit; text-decoration: none;">
-					<h2>Serverless Application Deployment</h2>
+				<a href="#prerequisite" id="prerequisite" style="color: inherit; text-decoration: none;">
+					<h3>Prerequisite</h3>
 				</a>
-				<p>✅ Cloudfront and S3Bucket as a source Origin</p>
-				<p>✅ Route53 records</p>
-				<a href="#common" id="common" style="color: inherit; text-decoration: none;">
-					<h2>Common</h2>
+				<p><code>aws-cli</code>: installed and configured <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">Install it from here</a></p>
+				<p><code>aws-cdk</code>: installed globally <a href="https://www.npmjs.com/package/aws-cdk">Install is from here</a></p>
+				<a href="#scaffolding-project" id="scaffolding-project" style="color: inherit; text-decoration: none;">
+					<h3>Scaffolding project</h3>
 				</a>
-				<p>✅ Codepipeline</p>
-				<p>✅ Artifacts Store (S3)</p>
-				<p>❌ Pub-sub channel (SNS)</p>
-				<p>❌ Send Deployment notifications to slack</p>
-				<a href="#coming-soon" id="coming-soon" style="color: inherit; text-decoration: none;">
-					<h2>Coming Soon</h2>
+				<p>We will need CDK environment setup to be able to run cdk deploy commands
+				Initialize environment with</p>
+				<pre><code class="language-sh">cdk init --language typescript</code></pre>
+				<a href="#install-it-with" id="install-it-with" style="color: inherit; text-decoration: none;">
+					<h3>Install it with</h3>
 				</a>
+				<pre><code class="language-sh">npm i @nf-tools/dootstrapper</code></pre>
+				<a href="#installing-dependencies" id="installing-dependencies" style="color: inherit; text-decoration: none;">
+					<h4>Installing dependencies</h4>
+				</a>
+				<p>Since, Dootstrapper doesn&#39;t ship with existing aws-cdk modules, these all needs to be manually installed</p>
+				<p>Install cdk packages with</p>
+				<pre><code class="language-sh">npm i @aws-cdk/aws-sns-subscriptions @aws-cdk/aws-sns @aws-cdk/aws-s3 @aws-cdk/aws-iam @aws-cdk/aws-events-targets @aws-cdk/aws-events @aws-cdk/aws-codepipeline-actions @aws-cdk/aws-codepipeline @aws-cdk/aws-codebuild @aws-cdk/aws-cloudtrail @aws-cdk/aws-ssm @aws-cdk/aws-route53 @aws-cdk/aws-cloudfront @aws-cdk/aws-certificatemanager</code></pre>
+				<a href="#creating-your-first-pipeline-project" id="creating-your-first-pipeline-project" style="color: inherit; text-decoration: none;">
+					<h3>Creating your first pipeline project</h3>
+				</a>
+				<p>Now inside <code>{project-dir}/bin</code> locate line with <code>const app = new cdk.App()</code>. Just below, add</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">new</span> FrontendDeployment(app, <span class="hljs-string">'FrontendDeployment'</span>, {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  pipelineConfig: <span class="hljs-comment">// pipeline config option,</span>
+  baseDomainName: <span class="hljs-comment">// base domain name,</span>
+  notificationConfig: <span class="hljs-comment">// notification config option</span>
+});</code></pre>
+				<p>(Optional) Remove any other auto generated stack configs from <code>{project-dir}/lib</code></p>
+				<a href="#deploying" id="deploying" style="color: inherit; text-decoration: none;">
+					<h3>Deploying</h3>
+				</a>
+				<p>Run <code>cdk deploy</code> and all the required resources will be created in region specified in <code>~/.aws/config</code></p>
+				<p><strong>Note</strong>: <em>This entire process of building and deploying is likely to get much simple when dootstrapper cli comes out</em></p>
+				<a href="#more-examples" id="more-examples" style="color: inherit; text-decoration: none;">
+					<h3>More examples</h3>
+				</a>
+				<p>Checkout more detailed examples in dootstrapper repository <a href="https://github.com/NextFaze/dootstrapper/blob/develop/example/index.ts">here</a></p>
+				<a href="#motivation" id="motivation" style="color: inherit; text-decoration: none;">
+					<h2>Motivation</h2>
+				</a>
+				<p>To be able to create awesome softwares, we need a solid version control system and development styles, that has been Git and GitFlow traditionally. GitFlow has very effective development model but it is not efficient especially when we need frequent releases. With git flow each changes needs to go through entire merge life cycle: <code>feature -&gt; develop -&gt; master -&gt; release</code>, also it takes a lot of good practice to get good at GitFlow, and mostly with small/medium projects it is really not required. Thus, use <code>Trunk Based Development</code>.</p>
+				<p>Wait but now with <code>TBD</code> (sort for <code>Trunk Based Development</code>), there is going to be a lot of configuration required to release an application into multiple environment since it does not have that different branch for different environment niceness. To address this problem, Introducing Dootstrapper.</p>
+				<p>With Dootstrapper, it is easy to setup multiple environment based release cycle. It also takes care of sending notifications to teams, when human involvement is required. Under the hood it creates all key resources required (on aws cloud) for you.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
