@@ -56,7 +56,7 @@ export interface INotificationsEmailTargetConfig {
  * want your builds to get elevated privileges
  * @param - __runtimeVariables__: Any custom text only Runtime variables to inject into codebuild container
  * @param - __buildSpec__: BuildSpec file to execute on codebuild <br />
- * See [BuildSpec Specification](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-syntax)
+ * See [BuildSpec Specification](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)
  * for syntax. Also note that, dootstrapper only supports specifying buildspec in a JSON format
  * @inheritdoc {@link IBaseEnvironment}
  *
