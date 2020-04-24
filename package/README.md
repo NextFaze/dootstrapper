@@ -1,4 +1,6 @@
-# Dootstrapper
+# <div align="center">Dootstrapper</div>
+
+[![NPM Release](https://img.shields.io/npm/v/@nf-tools/dootstrapper?style=for-the-badge)](https://www.npmjs.com/package/@nf-tools/dootstrapper) [![Package Size](https://img.shields.io/bundlephobia/min/@nf-tools/dootstrapper?style=for-the-badge)](https://www.npmjs.com/package/@nf-tools/dootstrapper) [![Github Issues](https://img.shields.io/github/issues-raw/nextfaze/dootstrapper?style=for-the-badge)](https://github.com/NextFaze/dootstrapper) [![AWS CDK](https://img.shields.io/npm/dependency-version/@nf-tools/dootstrapper/peer/@aws-cdk/core?style=for-the-badge)](https://github.com/aws/aws-cdk) [![Dootstrapper stars](https://img.shields.io/github/stars/nextfaze/dootstrapper?color=orange&style=for-the-badge)](https://github.com/NextFaze/dootstrapper/stargazers)
 
 Dootstrapper is a library for bootstrapping deployment resources. It creates a continuous delivery | continuous deployment pipeline to deploy modern web and serverless (AWS) apps. It uses highly declarative buildspec syntax to configure deployment steps, generating highly customizable multiple environment pipeline. Additionally, it also configures notification channels to publish deployment notifications to.
 
