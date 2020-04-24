@@ -10,6 +10,18 @@ import { FrontendCDNPipeline } from './constructs/frontend-cdn-pipeline';
 import { EMAIL_VALIDATOR } from './constants';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 
+/**
+ * @param - __baseDomainName__: Base Domain name to serve application on. <br />
+ * i.e For application `app.example.com` this value will be `example.com`.
+ * @param - __hostedZoneName__: Hosted Zone name to lookup for when `baseDomainName` is different
+ *  than the hostedZoneName
+ * @param - __certificateArn__: Certificate to use when delivering content over cdn
+ * @inheritdoc {@link IBaseDeploymentProps}
+ * <br /><br />
+ * __Notes__: If _certificateArn_ value is provided, Cloudfront will be configured to use that as a
+ * viewer certificate.<br />
+ * Requires an hosted zone to be created before deploying Frontend Deployment app
+ */
 export interface IFrontendDeploymentProps
   extends IBaseDeploymentProps<IFrontendEnvironment> {
   baseDomainName: string;
@@ -23,8 +35,10 @@ export interface IFrontendDeploymentProps
   certificateArn?: string;
 }
 
-/**
+/** Create all required resources on AWS cloud to enable continuous delivery/deployment for modern web apps.<br />
+ *  Additionally, it also configures notification channels to report deployment notifications to your developers.
  * @noInheritDoc
+ *
  */
 export class FrontendDeployment extends Stack {
   constructor(scope: App, id: string, props: IFrontendDeploymentProps) {

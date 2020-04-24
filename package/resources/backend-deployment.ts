@@ -5,23 +5,16 @@ import { EMAIL_VALIDATOR } from './constants';
 import { CdkAppPipeline } from './constructs/cdk-app-pipeline';
 
 /**
- * @description Create an automated CD pipeline to deploy apps using simple easy to use `buildspec` for
- * all specified environments
+ * @inheritdoc {@link IBaseDeploymentProps}
  */
 export interface IBackendDeploymentProps
   extends IBaseDeploymentProps<IBackendEnvironment> {}
 
 /**
- * @description Sets up a CDN (Content Delivery Network) with automated CD pipeline for all specified environments
- * @param baseDomainName Registered domain name to use
- * (i.e To host application on `app.example.com` this value needs to be `example.com` )
- * @requires hostedZone - Requires an hosted zone to be created before deploying Frontend Deployment app
- * @param hostedZoneName Hosted zone to add records to
- * @param certificateArn: - Amazon Resource Name of already available domain
- * When this value is truthy, application _DOES NOT_ request andy certificate for given domain
- */
-
-/**
+ * Create an automated continuos delivery/deployment pipeline to deploy serverless apps. <br />
+ * It uses declarative buildspec syntax to configure deployment steps, powering you with highly
+ * customization multi environment pipeline. <br />
+ * Additionally, it also configures notification channels to report deployment notifications to your developers.
  * @noInheritDoc
  */
 export class BackendDeployment extends Stack {

@@ -65,6 +65,30 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<dl class="tsd-comment-tags">
+						<dt>param</dt>
+						<dd><p><strong>baseDomainName</strong>: Base Domain name to serve application on. <br />
+							i.e For application <code>app.example.com</code> this value will be <code>example.com</code>.</p>
+						</dd>
+						<dt>param</dt>
+						<dd><p><strong>hostedZoneName</strong>: Hosted Zone name to lookup for when <code>baseDomainName</code> is different
+							than the hostedZoneName</p>
+						</dd>
+						<dt>param</dt>
+						<dd><p><strong>certificateArn</strong>: Certificate to use when delivering content over cdn</p>
+						</dd>
+						<dt>inheritdoc</dt>
+						<dd><p><a href="_interfaces_.ibasedeploymentprops.html">IBaseDeploymentProps</a>
+								<br /><br />
+								<strong>Notes</strong>: If <em>certificateArn</em> value is provided, Cloudfront will be configured to use that as a
+								viewer certificate.<br />
+							Requires an hosted zone to be created before deploying Frontend Deployment app</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -103,7 +127,7 @@
 					<div class="tsd-signature tsd-kind-icon">base<wbr>Domain<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/frontend-deployment.ts#L15">package/resources/frontend-deployment.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/19807cc/package/resources/frontend-deployment.ts#L27">package/resources/frontend-deployment.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -113,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">certificate<wbr>Arn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/frontend-deployment.ts#L23">package/resources/frontend-deployment.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/19807cc/package/resources/frontend-deployment.ts#L35">package/resources/frontend-deployment.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -130,7 +154,7 @@
 					<div class="tsd-signature tsd-kind-icon">hosted<wbr>Zone<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/frontend-deployment.ts#L19">package/resources/frontend-deployment.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/19807cc/package/resources/frontend-deployment.ts#L31">package/resources/frontend-deployment.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -148,7 +172,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_interfaces_.ibasedeploymentprops.html">IBaseDeploymentProps</a>.<a href="_interfaces_.ibasedeploymentprops.html#notificationconfig">notificationConfig</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/interfaces.ts#L15">package/resources/interfaces.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/19807cc/package/resources/interfaces.ts#L16">package/resources/interfaces.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -159,7 +183,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_interfaces_.ibasedeploymentprops.html">IBaseDeploymentProps</a>.<a href="_interfaces_.ibasedeploymentprops.html#pipelineconfig">pipelineConfig</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/faf1b93/package/resources/interfaces.ts#L16">package/resources/interfaces.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/19807cc/package/resources/interfaces.ts#L17">package/resources/interfaces.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>

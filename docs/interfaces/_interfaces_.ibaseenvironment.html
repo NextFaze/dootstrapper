@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>INotificationConfigProps | Dootstrapper</title>
+	<title>IBaseEnvironment | Dootstrapper</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules/_interfaces_.html">&quot;interfaces&quot;</a>
 				</li>
 				<li>
-					<a href="_interfaces_.inotificationconfigprops.html">INotificationConfigProps</a>
+					<a href="_interfaces_.ibaseenvironment.html">IBaseEnvironment</a>
 				</li>
 			</ul>
-			<h1>Interface INotificationConfigProps</h1>
+			<h1>Interface IBaseEnvironment</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,12 @@
 				<div class="tsd-comment tsd-typography">
 					<dl class="tsd-comment-tags">
 						<dt>param</dt>
-						<dd><p><strong>notificationsTargetConfig</strong>:  Notifications Target config</p>
+						<dd><p><strong>name</strong>: Environment name</p>
+						</dd>
+						<dt>param</dt>
+						<dd><p><strong>approvalRequired</strong>: Manual approval to add before deploy action.<br />
+								This creates an approval action just before current environment&#39;s deployment action, and
+							notifies user using notification target configured in <a href="_interfaces_.inotificationconfigprops.html">INotificationConfigProps</a></p>
 						</dd>
 					</dl>
 				</div>
@@ -78,7 +83,15 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">INotificationConfigProps</span>
+						<span class="target">IBaseEnvironment</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="_interfaces_.ibackendenvironment.html" class="tsd-signature-type">IBackendEnvironment</a>
+							</li>
+							<li>
+								<a href="_interfaces_.ifrontendenvironment.html" class="tsd-signature-type">IFrontendEnvironment</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -89,7 +102,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interfaces_.inotificationconfigprops.html#notificationstargetconfig" class="tsd-kind-icon">notifications<wbr>Target<wbr>Config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interfaces_.ibaseenvironment.html#approvalrequired" class="tsd-kind-icon">approval<wbr>Required</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interfaces_.ibaseenvironment.html#name" class="tsd-kind-icon">name</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,12 +112,31 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="notificationstargetconfig" class="tsd-anchor"></a>
-					<h3>notifications<wbr>Target<wbr>Config</h3>
-					<div class="tsd-signature tsd-kind-icon">notifications<wbr>Target<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="_interfaces_.inotificationsemailtargetconfig.html" class="tsd-signature-type">INotificationsEmailTargetConfig</a></div>
+					<a name="approvalrequired" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> approval<wbr>Required</h3>
+					<div class="tsd-signature tsd-kind-icon">approval<wbr>Required<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/19807cc/package/resources/interfaces.ts#L39">package/resources/interfaces.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/19807cc/package/resources/interfaces.ts#L121">package/resources/interfaces.ts:121</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><ul>
+									<li>No approval action is added</li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/NextFaze/dootstrapper/blob/19807cc/package/resources/interfaces.ts#L117">package/resources/interfaces.ts:117</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -137,27 +170,30 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_interfaces_.ibasedeploymentprops.html" class="tsd-kind-icon">IBase<wbr>Deployment<wbr>Props</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_interfaces_.ibaseenvironment.html" class="tsd-kind-icon">IBase<wbr>Environment</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_interfaces_.ibaseenvironment.html#approvalrequired" class="tsd-kind-icon">approval<wbr>Required</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_interfaces_.ibaseenvironment.html#name" class="tsd-kind-icon">name</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_interfaces_.ibasepipelineprops.html" class="tsd-kind-icon">IBase<wbr>Pipeline<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_interfaces_.ifrontendenvironment.html" class="tsd-kind-icon">IFrontend<wbr>Environment</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_interfaces_.inotificationconfigprops.html" class="tsd-kind-icon">INotification<wbr>Config<wbr>Props</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_interfaces_.inotificationconfigprops.html#notificationstargetconfig" class="tsd-kind-icon">notifications<wbr>Target<wbr>Config</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_interfaces_.inotificationsemailtargetconfig.html" class="tsd-kind-icon">INotifications<wbr>Email<wbr>Target<wbr>Config</a>
 					</li>
