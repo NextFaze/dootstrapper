@@ -1,7 +1,7 @@
 import { HostedZone } from '@aws-cdk/aws-route53';
 import { Stack, App } from '@aws-cdk/core';
 import { FrontendDeployment } from './frontend-deployment';
-import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './constants/enums';
+import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 const frontEndMinConfig = require('./test/frontend-stack.json');
 

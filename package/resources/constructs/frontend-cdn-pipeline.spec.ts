@@ -7,7 +7,7 @@ import {
 } from '@aws-cdk/assert';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
 import { HostedZone } from '@aws-cdk/aws-route53';
-import { NOTIFICATIONS_TYPE } from '../constants/enums';
+import { NOTIFICATIONS_TYPE } from '../enums';
 
 describe('FrontendCDNPipeline', () => {
   let stack: Stack;

@@ -24,6 +24,9 @@ interface IFrontendCDNPipelineProps
   hostedZone: IHostedZone;
 }
 
+/**
+ * @hidden
+ */
 export class FrontendCDNPipeline extends BasePipeline {
   constructor(scope: Construct, id: string, props: IFrontendCDNPipelineProps) {
     super(scope, id, {

@@ -9,6 +9,9 @@ export enum NOTIFICATIONS_TARGET {
   EMAIL = 'email',
 }
 
+/**
+ * @hidden
+ */
 export enum NOTIFICATIONS_DETAILS_TYPE {
   PIPELINE = 'CodePipeline Pipeline Execution State Change',
   STAGE = 'CodePipeline Stage Execution State Change',

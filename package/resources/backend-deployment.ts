@@ -1,9 +1,22 @@
+import { IBaseDeploymentProps, IBackendEnvironment } from './interfaces';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { App, Stack } from '@aws-cdk/core';
-import { EMAIL_VALIDATOR } from './constants/constants';
+import { EMAIL_VALIDATOR } from './constants';
 import { CdkAppPipeline } from './constructs/cdk-app-pipeline';
 
-import { IBackendDeploymentProps } from './interfaces';
+/**
+ * @inheritdoc {@link IBaseDeploymentProps}
+ */
+export interface IBackendDeploymentProps
+  extends IBaseDeploymentProps<IBackendEnvironment> {}
+
+/**
+ * Create an automated continuos delivery/deployment pipeline to deploy serverless apps. <br />
+ * It uses declarative buildspec syntax to configure deployment steps, powering you with highly
+ * customization multi environment pipeline. <br />
+ * Additionally, it also configures notification channels to report deployment notifications to your developers.
+ * @noInheritDoc
+ */
 export class BackendDeployment extends Stack {
   constructor(scope: App, id: string, props: IBackendDeploymentProps) {
     super(scope, id, props);

@@ -19,10 +19,7 @@ import {
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import { createBuildSpecWithCredentials } from '../helpers/create-buildspec-with-credentials';
 import { paramCase } from 'change-case';
-import {
-  NOTIFICATIONS_TYPE,
-  NOTIFICATIONS_DETAILS_TYPE,
-} from '../constants/enums';
+import { NOTIFICATIONS_TYPE, NOTIFICATIONS_DETAILS_TYPE } from '../enums';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Rule } from '@aws-cdk/aws-events';
 
@@ -31,6 +28,9 @@ interface IBasePipelineProps {
   notificationsType?: NOTIFICATIONS_TYPE;
 }
 
+/**
+ * @hidden
+ */
 export abstract class BasePipeline extends Construct {
   public readonly pipeline: Pipeline;
   public readonly notificationTopic: Topic;

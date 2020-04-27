@@ -7,6 +7,9 @@ interface ICredentialStore {
   environmentName: string;
 }
 
+/**
+ * @hidden
+ */
 export class CredentialStore extends Construct {
   public readonly accessKeyId: StringParameter;
   public readonly secretAccessKey: StringParameter;
