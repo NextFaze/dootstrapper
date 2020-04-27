@@ -4,6 +4,7 @@ import {
   expect as expectCDK,
   countResources,
   SynthUtils,
+  haveResource,
 } from '@aws-cdk/assert';
 import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
 import { HostedZone } from '@aws-cdk/aws-route53';
@@ -193,6 +194,51 @@ describe('FrontendCDNPipeline', () => {
         jasmine.objectContaining({
           Name: 'Deploy',
           RunOrder: 3,
+        })
+      );
+    });
+  });
+
+  describe('with runtime environment config', () => {
+    beforeAll(() => {
+      stack = new Stack();
+      const hostedZone = new HostedZone(stack, 'HostedZone', {
+        zoneName: 'example.com',
+      });
+      new FrontendCDNPipeline(stack, 'FrontendCDNPipeline', {
+        hostedZone,
+        artifactsSourceKey: '/path/t0/artifact.zip',
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
+        certificate: new DnsValidatedCertificate(stack, 'Certificate', {
+          domainName: 'example.com',
+          hostedZone,
+          subjectAlternativeNames: ['*.example.com'],
+        }),
+        environments: [
+          {
+            aliases: ['app-dev.example.com'],
+            name: 'dev',
+          },
+          {
+            aliases: ['app.example.com'],
+            name: 'prod',
+          },
+        ],
+        runtimeEnvironmentConfig: {
+          directory: 'assets/config',
+          fileName: 'config',
+        },
+      });
+    });
+
+    it('should buildspec with runtime config replacements', () => {
+      expectCDK(stack).to(
+        haveResource('AWS::CodeBuild::Project', {
+          Source: {
+            BuildSpec:
+              '{\n  "version": 0.2,\n  "phases": {\n    "pre_build": {\n      "commands": "echo Preparing artifacts with runtime config"\n    },\n    "build": {\n      "commands": [\n        "cp -f assets/config/config.$environment.json assets/config/config.json"\n      ]\n    }\n  },\n  "artifacts": {\n    "files": [\n      "**/*"\n    ]\n  }\n}',
+            Type: 'CODEPIPELINE',
+          },
         })
       );
     });
