@@ -4,7 +4,7 @@ import {
   haveResource,
 } from '@aws-cdk/assert';
 import { Stack } from '@aws-cdk/core';
-import { Core } from './core';
+import { CredentialStore } from './credential-store';
 
 describe('Core construct ', () => {
   let stack: Stack;
@@ -12,7 +12,7 @@ describe('Core construct ', () => {
   describe('with admin permissions', () => {
     beforeAll(() => {
       stack = new Stack();
-      new Core(stack, 'Core', {
+      new CredentialStore(stack, 'Core', {
         adminPermissions: true,
         environmentName: 'test',
       });
@@ -54,7 +54,7 @@ describe('Core construct ', () => {
       expectCDK(stack).to(
         haveResource('AWS::SSM::Parameter', {
           Type: 'String',
-          Name: '/doostrapper/test/access_key_id',
+          Name: '/dootstrapper/test/access_key_id',
           Value: {
             Ref: 'CoreDeployCredentials7007E7FA',
           },
@@ -63,7 +63,7 @@ describe('Core construct ', () => {
       expectCDK(stack).to(
         haveResource('AWS::SSM::Parameter', {
           Type: 'String',
-          Name: '/doostrapper/test/secret_access_key',
+          Name: '/dootstrapper/test/secret_access_key',
           Value: {
             'Fn::GetAtt': ['CoreDeployCredentials7007E7FA', 'SecretAccessKey'],
           },
@@ -75,7 +75,7 @@ describe('Core construct ', () => {
   describe('without admin permissions', () => {
     beforeAll(() => {
       stack = new Stack();
-      new Core(stack, 'Core', {
+      new CredentialStore(stack, 'Core', {
         adminPermissions: false,
         environmentName: 'test',
       });
@@ -91,14 +91,14 @@ describe('Core construct ', () => {
       expectCDK(stack).to(
         haveResource('AWS::SSM::Parameter', {
           Type: 'String',
-          Name: '/doostrapper/test/access_key_id',
+          Name: '/dootstrapper/test/access_key_id',
           Value: 'ACCESS_KEY_ID',
         })
       );
       expectCDK(stack).to(
         haveResource('AWS::SSM::Parameter', {
           Type: 'String',
-          Name: '/doostrapper/test/secret_access_key',
+          Name: '/dootstrapper/test/secret_access_key',
           Value: 'SECRET_ACCESS_KEY',
         })
       );

@@ -1,73 +1,75 @@
-import { Pipeline } from '@aws-cdk/aws-codepipeline';
-import { Rule } from '@aws-cdk/aws-events';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Topic } from '@aws-cdk/aws-sns';
 import { StackProps } from '@aws-cdk/core';
-import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
+import {
+  NOTIFICATIONS_TARGET,
+  NOTIFICATIONS_TYPE,
+  DOMAIN_NAME_REGISTRAR,
+} from './enums';
+import { PriceClass } from '@aws-cdk/aws-cloudfront';
 
-export interface IDoostrapperDelivery {
-  readonly artifactsBucket: Bucket;
-  readonly deployPipeline: Pipeline;
-  readonly notificationsTopic: Topic;
-  readonly notificationsRule: Rule;
+/**
+ * @param - __pipelineConfig__: Deploy pipeline configurations
+ * @param - __notificationConfig__: Deployment notifications configuration
+ * @typeParam T value for this type will be either {@link IFrontendEnvironment} or {@link IBackendEnvironment}
+ * @noInheritDoc
+ */
+export interface IBaseDeploymentProps<T> extends StackProps {
+  notificationConfig: INotificationConfigProps;
+  pipelineConfig: IBasePipelineProps<T>;
 }
 
 /**
- * @param artifactsBucketConfig Artifacts bucket related config
- * @param pipelineConfig Deploy pipeline related config
- * @param notificationsConfig Deployment notifications related config
+ * @param - __artifactsSourceKey__: Fully qualified s3 path to target artifact (i.e path/to/some/file.zip)
+ * @param - __environments__: List of environments to setup in a pipeline
+ * @param - __notificationsType__: Type of deployment notifications to receive
+ * @typeParam T value for this type will be either {@link IFrontendEnvironment} or {@link IBackendEnvironment}
  */
-export interface IDoostrapperDeliveryProps extends StackProps {
-  /**
-   * @default - Doostrapper specific config is applied
-   */
-  artifactsBucketConfig?: IArtifactsBucketProps;
-  pipelineConfig: IPipelineProps;
-  notificationsConfig: INotificationsConfig;
-}
-
-/**
- * @param bucketName Artifacts bucket name
- * It is recommended not to have user defined bucket name
- * Bucket name needs to be unique across all accounts.
- * @param versioned this bucket should have versioning turned on or not.
- */
-interface IArtifactsBucketProps {
-  /**
-   * @default - Cloudformation generated bucket name
-   */
-  bucketName?: string;
-}
-
-/**
- * @param artifactsSourceKey s3 path where artifacts will be uploaded to, including suffix
- * @param environments environment related config
- */
-interface IPipelineProps {
-  /**
-   * @default - AWS CloudFormation generates an ID and uses that for the pipeline name
-   */
+export interface IBasePipelineProps<T> {
   artifactsSourceKey: string;
-  environments: IEnvironment[];
+  environments: T[];
+  /**
+   * @default - Pipeline Execution events
+   */
+  notificationsType?: NOTIFICATIONS_TYPE;
 }
 
 /**
- * @param name Environment name
- * @param adminPermissions Should admin permission be created with accessKey and Secret injected into container
- * @param approvalRequired Manual approval to add before deploy action
- * @param runtimeVariables Runtime variables to inject into container
- * @param buildSpec BuildSpec file to execute on codebuild
+ * @param - __notificationsTargetConfig__:  Notifications Target config
  */
-interface IEnvironment {
-  name: string;
+export interface INotificationConfigProps {
+  notificationsTargetConfig: INotificationsEmailTargetConfig;
+}
+
+/**
+ * @param - __targetType__: Type of notification target <br />
+ * currently only supports notification by email
+ * @param - __emailAddress__: Email to send notifications to
+ */
+export interface INotificationsEmailTargetConfig {
+  targetType: NOTIFICATIONS_TARGET.EMAIL;
+  emailAddress: string;
+}
+
+/**
+ * @param - __adminPermissions__: Indicates if deploy user with admin access be created and
+ *  injected into a codebuild container
+ * @param - __privilegedMode__: Enable this flag if you want to build Docker images or
+ * want your builds to get elevated privileges
+ * @param - __runtimeVariables__: Any custom text only Runtime variables to inject into codebuild container
+ * @param - __buildSpec__: BuildSpec file to execute on codebuild <br />
+ * See [BuildSpec Specification](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)
+ * for syntax. Also note that, dootstrapper only supports specifying buildspec in a JSON format
+ * @inheritdoc {@link IBaseEnvironment}
+ *
+ */
+export interface IBackendEnvironment extends IBaseEnvironment {
   /**
    * @default - No admin access is created, developer must provide accessKeyId and secretAccessKey in SSM
    */
   adminPermissions?: boolean;
   /**
-   * @default - No approval action is added
+   * @default false
    */
-  approvalRequired?: boolean;
+  privilegedMode?: boolean;
   /**
    * @default - No environment variables are passed to pipeline
    */
@@ -76,34 +78,45 @@ interface IEnvironment {
 }
 
 /**
- * @param topicName Name of SNS Topic resource
- * @param notificationsType Type of notifications to receive
- * @param notificationsTargetConfig  Notifications Target Configurations
- * @param cloudwatchRuleName Cloudwatch events rule name
+ * @param - __aliases__: List of aliases to register as an alternate names for cloudfront distribution <br />
+ * i.e for app to be available on `app.example.com` and `www.example.com`,
+ * value for this param needs to be ["app.example.com", "www.example.com"]
+ * @param - __cloudfrontPriceClass__: Cloudfront pricing plan <br />
+ * for more information on pricing see [Cloudfront Pricing Plan](https://aws.amazon.com/cloudfront/pricing/)
+ * @param - __defaultRootObject__: Default object to return when app is requested without any routes
+ * @param - __errorRootObject__: Default object to return when unknown path is requested
+ * @inheritdoc {@link IBaseEnvironment}
  */
-interface INotificationsConfig {
+export interface IFrontendEnvironment extends IBaseEnvironment {
+  aliases: string[];
   /**
-   * @default - Cloudformation generates unique resource Id and uses that as a name
+   * @default PRICE_CLASS_100 - Cheapest plan is selected
    */
-  topicName?: string;
+  cloudfrontPriceClass?: PriceClass;
   /**
-   * @default - Pipeline Execution events
+   * @default index.html
    */
-  notificationsType: NOTIFICATIONS_TYPE;
-  notificationsTargetConfig: INotificationsEmailTargetConfig;
+  defaultRootObject?: string;
   /**
-   * @default - Cloudformation generates unique resource Id and uses that as a name
+   * @default index.html
    */
-  cloudwatchRuleName?: string;
+  errorRootObject?: string;
+  /**
+   * @default none
+   */
+  domainNameRegistrar?: DOMAIN_NAME_REGISTRAR;
 }
 
 /**
- * @param targetType Type of target
- * @param emailAddress Email to send notifications to
- * @param emailSubject Email subject to be used when sending emails
+ * @param - __name__: Environment name
+ * @param - __approvalRequired__: Manual approval to add before deploy action.<br />
+ * This creates an approval action just before current environment's deployment action, and
+ * notifies user using notification target configured in {@link INotificationConfigProps}
  */
-interface INotificationsEmailTargetConfig {
-  targetType: NOTIFICATIONS_TARGET.EMAIL;
-  emailAddress: string;
-  emailSubject: string;
+export interface IBaseEnvironment {
+  name: string;
+  /**
+   * @default - No approval action is added
+   */
+  approvalRequired?: boolean;
 }

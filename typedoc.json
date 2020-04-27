@@ -1,0 +1,13 @@
+{
+  "mode": "modules",
+  "inputFiles": ["./package"],
+  "out": "docs",
+  "theme": "default",
+  "name": "Dootstrapper",
+  "excludeExternals": true,
+  "exclude": ["**/*+(index|.spec|.e2e).ts", "node_modules"],
+  "excludeNotExported": true,
+  "categorizeByGroup": true,
+  "excludePrivate": true,
+  "hideGenerator": true
+}

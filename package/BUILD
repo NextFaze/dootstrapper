@@ -1,0 +1,36 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@build_bazel_rules_nodejs//:index.bzl", "pkg_npm")
+load("//:tools/defaults.bzl", "setup_ts_build")
+
+exports_files(
+    [
+        "package.json",
+        "package-lock.json",
+    ],
+)
+
+setup_ts_build(
+    name = "library",
+    deps = [
+        "//package/handlers:library",
+        "//package/resources:library",
+    ],
+    module_name = '@dootstrapper/dootstrapper',
+)
+
+pkg_npm(
+    name = "dootstrapper",
+    srcs = [
+        "LICENCE",
+        "README.md",
+        "package.json",
+    ],
+    substitutions = {
+        "dootstrapper/package": "dootstrapper",
+    },
+    replace_with_version = "0.0.0-PLACEHOLDER",
+    deps = [
+        ":library"
+    ]
+)

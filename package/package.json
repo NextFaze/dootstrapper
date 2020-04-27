@@ -1,34 +1,42 @@
 {
-  "name": "doostrapper",
-  "version": "0.1.8-alpha.0",
-  "description": "Multi environment deployment boostrapper",
+  "name": "@nf-tools/dootstrapper",
+  "version": "0.0.0-PLACEHOLDER",
+  "private": false,
+  "description": "Multi environment deployment bootstrapper",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/whimzyLive/doostrapper"
+    "url": "https://github.com/nextfaze/dootstrapper"
   },
-  "homepage": "https://github.com/whimzyLive/doostrapper/blob/master/package/README.md",
+  "homepage": "https://github.com/nextfaze/dootstrapper/blob/master/package/README.md",
   "keywords": [
+    "aws",
+    "nextfaze",
     "aws-cdk",
     "continuous delivery",
     "continuous deployment",
-    "boostrapper"
+    "bootstrapper"
   ],
   "module": "ES6",
   "license": "MIT",
   "dependencies": {
-    "@aws-cdk/aws-cloudtrail": "^1.19.0",
-    "@aws-cdk/aws-codebuild": "^1.19.0",
-    "@aws-cdk/aws-codepipeline": "^1.19.0",
-    "@aws-cdk/aws-codepipeline-actions": "^1.19.0",
-    "@aws-cdk/aws-events": "^1.19.0",
-    "@aws-cdk/aws-events-targets": "^1.19.0",
-    "@aws-cdk/aws-iam": "^1.19.0",
-    "@aws-cdk/aws-s3": "^1.19.0",
-    "@aws-cdk/aws-sns": "^1.19.0",
-    "@aws-cdk/aws-sns-subscriptions": "^1.19.0",
-    "@aws-cdk/aws-ssm": "^1.19.0",
-    "@aws-cdk/core": "^1.19.0",
     "change-case": "^4.1.1"
+  },
+  "peerDependencies": {
+    "@aws-cdk/aws-certificatemanager": "^1.23.0",
+    "@aws-cdk/aws-cloudfront": "^1.23.0",
+    "@aws-cdk/aws-cloudtrail": "^1.23.0",
+    "@aws-cdk/aws-codebuild": "^1.23.0",
+    "@aws-cdk/aws-codepipeline": "^1.23.0",
+    "@aws-cdk/aws-codepipeline-actions": "^1.23.0",
+    "@aws-cdk/aws-events": "^1.23.0",
+    "@aws-cdk/aws-events-targets": "^1.23.0",
+    "@aws-cdk/aws-iam": "^1.23.0",
+    "@aws-cdk/aws-route53": "^1.23.0",
+    "@aws-cdk/aws-s3": "^1.23.0",
+    "@aws-cdk/aws-sns": "^1.23.0",
+    "@aws-cdk/aws-sns-subscriptions": "^1.23.0",
+    "@aws-cdk/aws-ssm": "^1.23.0",
+    "@aws-cdk/core": "^1.23.0"
   }
 }

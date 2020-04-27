@@ -1,0 +1,1319 @@
+{
+  "Resources": {
+    "CertificateCertificateRequestorFunctionServiceRoleC04C13DA": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "acm:RequestCertificate",
+                "acm:DescribeCertificate",
+                "acm:DeleteCertificate"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "route53:GetChange",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "route53:changeResourceRecordSets",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":route53:::hostedzone/",
+                    {
+                      "Fn::ImportValue": "Core:ExportsOutputRefHostedZoneDB99F8662BBAE844"
+                    }
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC",
+        "Roles": [
+          {
+            "Ref": "CertificateCertificateRequestorFunctionServiceRoleC04C13DA"
+          }
+        ]
+      }
+    },
+    "CertificateCertificateRequestorFunction5E845413": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0S3Bucket0997A4A0"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0S3VersionKey83D9C166"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0S3VersionKey83D9C166"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Handler": "index.certificateRequestHandler",
+        "Role": {
+          "Fn::GetAtt": [
+            "CertificateCertificateRequestorFunctionServiceRoleC04C13DA",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs10.x",
+        "Timeout": 900
+      },
+      "DependsOn": [
+        "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC",
+        "CertificateCertificateRequestorFunctionServiceRoleC04C13DA"
+      ]
+    },
+    "CertificateCertificateRequestorResource2890C6B7": {
+      "Type": "AWS::CloudFormation::CustomResource",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CertificateCertificateRequestorFunction5E845413",
+            "Arn"
+          ]
+        },
+        "DomainName": "example.com",
+        "SubjectAlternativeNames": ["*.example.com"],
+        "HostedZoneId": {
+          "Fn::ImportValue": "Core:ExportsOutputRefHostedZoneDB99F8662BBAE844"
+        },
+        "Region": "us-east-1"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
+    "FrontendCDNPipelineArtifactBucketA7C7CF08": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "FrontendCDNPipelineArtifactBucketFrontendDeploymentFrontendCDNPipelineCD99430FSourceEventRulepathtoartifactzipA1A26F46": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "EventPattern": {
+          "source": ["aws.s3"],
+          "detail-type": ["AWS API Call via CloudTrail"],
+          "detail": {
+            "resources": {
+              "ARN": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "Arn"
+                        ]
+                      },
+                      "/path/to/artifact.zip"
+                    ]
+                  ]
+                }
+              ]
+            },
+            "eventName": ["CompleteMultipartUpload", "CopyObject", "PutObject"],
+            "requestParameters": {
+              "bucketName": [
+                {
+                  "Ref": "FrontendCDNPipelineArtifactBucketA7C7CF08"
+                }
+              ],
+              "key": ["path/to/artifact.zip"]
+            }
+          }
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":codepipeline:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "FrontendCDNPipelineA052AB79"
+                  }
+                ]
+              ]
+            },
+            "Id": "Target0",
+            "RoleArn": {
+              "Fn::GetAtt": ["FrontendCDNPipelineEventsRoleC82912B6", "Arn"]
+            }
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelineS3ArtifactTrailS3178FC05A": {
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "FrontendCDNPipelineS3ArtifactTrailS3Policy310DA546": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "FrontendCDNPipelineS3ArtifactTrailS3178FC05A"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:GetBucketAcl",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudtrail.amazonaws.com"
+              },
+              "Resource": {
+                "Fn::GetAtt": [
+                  "FrontendCDNPipelineS3ArtifactTrailS3178FC05A",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "s3:PutObject",
+              "Condition": {
+                "StringEquals": {
+                  "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudtrail.amazonaws.com"
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FrontendCDNPipelineS3ArtifactTrailS3178FC05A",
+                        "Arn"
+                      ]
+                    },
+                    "/AWSLogs/",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelineS3ArtifactTrailLogGroup55254AFD": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "RetentionInDays": 365
+      }
+    },
+    "FrontendCDNPipelineS3ArtifactTrailLogsRole9A5B2AC6": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudtrail.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicy95E271D6": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": ["logs:PutLogEvents", "logs:CreateLogStream"],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "FrontendCDNPipelineS3ArtifactTrailLogGroup55254AFD",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicy95E271D6",
+        "Roles": [
+          {
+            "Ref": "FrontendCDNPipelineS3ArtifactTrailLogsRole9A5B2AC6"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelineS3ArtifactTrailA5BAFCF2": {
+      "Type": "AWS::CloudTrail::Trail",
+      "Properties": {
+        "IsLogging": true,
+        "S3BucketName": {
+          "Ref": "FrontendCDNPipelineS3ArtifactTrailS3178FC05A"
+        },
+        "CloudWatchLogsLogGroupArn": {
+          "Fn::GetAtt": [
+            "FrontendCDNPipelineS3ArtifactTrailLogGroup55254AFD",
+            "Arn"
+          ]
+        },
+        "CloudWatchLogsRoleArn": {
+          "Fn::GetAtt": [
+            "FrontendCDNPipelineS3ArtifactTrailLogsRole9A5B2AC6",
+            "Arn"
+          ]
+        },
+        "EnableLogFileValidation": true,
+        "EventSelectors": [
+          {
+            "DataResources": [
+              {
+                "Type": "AWS::S3::Object",
+                "Values": [
+                  {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": [
+                            "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                            "Arn"
+                          ]
+                        },
+                        "/path/to/artifact.zip"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ReadWriteType": "WriteOnly"
+          }
+        ],
+        "IncludeGlobalServiceEvents": true,
+        "IsMultiRegionTrail": true
+      },
+      "DependsOn": [
+        "FrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicy95E271D6",
+        "FrontendCDNPipelineS3ArtifactTrailLogsRole9A5B2AC6",
+        "FrontendCDNPipelineS3ArtifactTrailS3Policy310DA546"
+      ]
+    },
+    "FrontendCDNPipelineNotificationTopicB88DDA2B": {
+      "Type": "AWS::SNS::Topic"
+    },
+    "FrontendCDNPipelineNotificationTopicPolicyAA7F62DB": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com"
+              },
+              "Resource": {
+                "Ref": "FrontendCDNPipelineNotificationTopicB88DDA2B"
+              },
+              "Sid": "0"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Topics": [
+          {
+            "Ref": "FrontendCDNPipelineNotificationTopicB88DDA2B"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelineNotificationTopicsupportexamplecomB50A3016": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "FrontendCDNPipelineNotificationTopicB88DDA2B"
+        },
+        "Endpoint": "support@example.com"
+      }
+    },
+    "FrontendCDNPipelineRole5712C195": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codepipeline.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelineRoleDefaultPolicy9F2B3730": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleC06A327D",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRole2220A8FC",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "FrontendCDNPipelineProdDeployCodePipelineActionRoleF3696F05",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FrontendCDNPipelineRoleDefaultPolicy9F2B3730",
+        "Roles": [
+          {
+            "Ref": "FrontendCDNPipelineRole5712C195"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelineA052AB79": {
+      "Type": "AWS::CodePipeline::Pipeline",
+      "Properties": {
+        "RoleArn": {
+          "Fn::GetAtt": ["FrontendCDNPipelineRole5712C195", "Arn"]
+        },
+        "Stages": [
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Source",
+                  "Owner": "AWS",
+                  "Provider": "S3",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "S3Bucket": {
+                    "Ref": "FrontendCDNPipelineArtifactBucketA7C7CF08"
+                  },
+                  "S3ObjectKey": "path/to/artifact.zip",
+                  "PollForSourceChanges": false
+                },
+                "Name": "S3Source",
+                "OutputArtifacts": [
+                  {
+                    "Name": "S3Source"
+                  }
+                ],
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleC06A327D",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              }
+            ],
+            "Name": "Checkout"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "FrontendCDNPipelinePipelineProject3231D48E"
+                  },
+                  "EnvironmentVariables": "[{\"name\":\"deployPath\",\"type\":\"PLAINTEXT\",\"value\":\"prod\"}]"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "S3Source"
+                  }
+                ],
+                "Name": "Prepare",
+                "OutputArtifacts": [
+                  {
+                    "Name": "ProdPrepareSource"
+                  }
+                ],
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRole2220A8FC",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "S3",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "BucketName": {
+                    "Ref": "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F"
+                  },
+                  "Extract": "true"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "ProdPrepareSource"
+                  }
+                ],
+                "Name": "Deploy",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineProdDeployCodePipelineActionRoleF3696F05",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 2
+              }
+            ],
+            "Name": "ProdDeploy"
+          }
+        ],
+        "ArtifactStore": {
+          "Location": {
+            "Ref": "FrontendCDNPipelineArtifactBucketA7C7CF08"
+          },
+          "Type": "S3"
+        }
+      },
+      "DependsOn": [
+        "FrontendCDNPipelineRoleDefaultPolicy9F2B3730",
+        "FrontendCDNPipelineRole5712C195"
+      ]
+    },
+    "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleC06A327D": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyEE441C71": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": ["s3:GetObject*", "s3:GetBucket*", "s3:List*"],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": ["s3:DeleteObject*", "s3:PutObject*", "s3:Abort*"],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyEE441C71",
+        "Roles": [
+          {
+            "Ref": "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleC06A327D"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelineEventsRoleC82912B6": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelineEventsRoleDefaultPolicy8AEF134C": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "codepipeline:StartPipelineExecution",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codepipeline:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "FrontendCDNPipelineA052AB79"
+                    }
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FrontendCDNPipelineEventsRoleDefaultPolicy8AEF134C",
+        "Roles": [
+          {
+            "Ref": "FrontendCDNPipelineEventsRoleC82912B6"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRole2220A8FC": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleDefaultPolicy6F0854A6": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "FrontendCDNPipelinePipelineProject3231D48E",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleDefaultPolicy6F0854A6",
+        "Roles": [
+          {
+            "Ref": "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRole2220A8FC"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelineProdDeployCodePipelineActionRoleF3696F05": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelineProdDeployCodePipelineActionRoleDefaultPolicyBD8DBE9D": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": ["s3:DeleteObject*", "s3:PutObject*", "s3:Abort*"],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": ["s3:GetObject*", "s3:GetBucket*", "s3:List*"],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FrontendCDNPipelineProdDeployCodePipelineActionRoleDefaultPolicyBD8DBE9D",
+        "Roles": [
+          {
+            "Ref": "FrontendCDNPipelineProdDeployCodePipelineActionRoleF3696F05"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelinePipelineNotificationsRuleDFABF0AE": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Dootstrapper Pipeline notifications Cloudwatch Rule",
+        "EventPattern": {
+          "source": ["aws.codepipeline"],
+          "detail-type": ["CodePipeline Pipeline Execution State Change"],
+          "resources": [
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":codepipeline:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "FrontendCDNPipelineA052AB79"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Ref": "FrontendCDNPipelineNotificationTopicB88DDA2B"
+            },
+            "Id": "Target0"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelinePipelineProjectRole7A5430C5": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelinePipelineProjectRoleDefaultPolicy928E8AE1": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":log-group:/aws/codebuild/",
+                      {
+                        "Ref": "FrontendCDNPipelinePipelineProject3231D48E"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":log-group:/aws/codebuild/",
+                      {
+                        "Ref": "FrontendCDNPipelinePipelineProject3231D48E"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FrontendCDNPipelinePipelineProjectRoleDefaultPolicy928E8AE1",
+        "Roles": [
+          {
+            "Ref": "FrontendCDNPipelinePipelineProjectRole7A5430C5"
+          }
+        ]
+      }
+    },
+    "FrontendCDNPipelinePipelineProject3231D48E": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/nodejs:10.14.1",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "FrontendCDNPipelinePipelineProjectRole7A5430C5",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": 0.2,\n  \"phases\": {\n    \"build\": {\n      \"commands\": \"echo Preparing artifacts for deployment to: $deployPath\"\n    }\n  },\n  \"artifacts\": {\n    \"files\": [\n      \"**/*\"\n    ],\n    \"base-directory\": \"$deployPath\"\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "Description": "Dootstrapper Pipeline Deploy Prepare Project",
+        "Name": "Prepare"
+      }
+    },
+    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "WebsiteConfiguration": {
+          "ErrorDocument": "index.html",
+          "IndexDocument": "index.html"
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "FrontendCDNPipelineProdWebDistributionOriginBucketPolicy2614B257": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": ["s3:GetObject*", "s3:GetBucket*", "s3:List*"],
+              "Effect": "Allow",
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E",
+                    "S3CanonicalUserId"
+                  ]
+                }
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E": {
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+      "Properties": {
+        "CloudFrontOriginAccessIdentityConfig": {
+          "Comment": "Origin Access Identity for app.example.com"
+        }
+      }
+    },
+    "FrontendCDNPipelineProdWebDistributionCloudFrontWebDistributionCFDistribution14A42620": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": ["app.example.com"],
+          "Comment": "Cloudfront Distribution for app.example.com",
+          "CustomErrorResponses": [
+            {
+              "ErrorCode": 404,
+              "ResponseCode": 200,
+              "ResponsePagePath": "/index.html"
+            }
+          ],
+          "DefaultCacheBehavior": {
+            "AllowedMethods": ["GET", "HEAD"],
+            "CachedMethods": ["GET", "HEAD"],
+            "Compress": true,
+            "ForwardedValues": {
+              "Cookies": {
+                "Forward": "none"
+              },
+              "QueryString": true
+            },
+            "TargetOriginId": "origin1",
+            "ViewerProtocolPolicy": "redirect-to-https"
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": [
+            {
+              "DomainName": {
+                "Fn::GetAtt": [
+                  "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                  "RegionalDomainName"
+                ]
+              },
+              "Id": "origin1",
+              "S3OriginConfig": {
+                "OriginAccessIdentity": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "origin-access-identity/cloudfront/",
+                      {
+                        "Ref": "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": {
+            "AcmCertificateArn": {
+              "Fn::GetAtt": [
+                "CertificateCertificateRequestorResource2890C6B7",
+                "Arn"
+              ]
+            },
+            "MinimumProtocolVersion": "TLSv1.2_2018",
+            "SslSupportMethod": "sni-only"
+          }
+        }
+      }
+    }
+  },
+  "Parameters": {
+    "AssetParameters0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0S3Bucket0997A4A0": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0\""
+    },
+    "AssetParameters0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0S3VersionKey83D9C166": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0\""
+    },
+    "AssetParameters0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0ArtifactHashF8F836D1": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"0b9723d54b7db3fbfc1a143398b02392e5fe080a68535480782a949b4372d0f0\""
+    }
+  }
+}

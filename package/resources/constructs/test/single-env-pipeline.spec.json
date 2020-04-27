@@ -11,7 +11,7 @@
           },
           "Configuration": {
             "S3Bucket": {
-              "Ref": "Bucket83908E77"
+              "Ref": "MultiEnvPipelineArtifactBucket18578669"
             },
             "S3ObjectKey": "path/to/atifact.zip",
             "PollForSourceChanges": false

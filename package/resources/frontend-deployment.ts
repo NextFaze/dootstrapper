@@ -1,0 +1,103 @@
+import { Stack, App } from '@aws-cdk/core';
+import { IBaseDeploymentProps, IFrontendEnvironment } from './interfaces';
+import { HostedZone } from '@aws-cdk/aws-route53';
+import {
+  DnsValidatedCertificate,
+  Certificate,
+  ICertificate,
+} from '@aws-cdk/aws-certificatemanager';
+import { FrontendCDNPipeline } from './constructs/frontend-cdn-pipeline';
+import { EMAIL_VALIDATOR } from './constants';
+import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
+
+/**
+ * @param - __baseDomainName__: Base Domain name to serve application on. <br />
+ * i.e For application `app.example.com` this value will be `example.com`.
+ * @param - __hostedZoneName__: Hosted Zone name to lookup for when `baseDomainName` is different
+ *  than the hostedZoneName
+ * @param - __certificateArn__: Certificate to use when delivering content over cdn
+ * @inheritdoc {@link IBaseDeploymentProps}
+ * <br /><br />
+ * __Notes__: If _certificateArn_ value is provided, Cloudfront will be configured to use that as a
+ * viewer certificate.<br />
+ * Requires an hosted zone to be created before deploying Frontend Deployment app
+ */
+export interface IFrontendDeploymentProps
+  extends IBaseDeploymentProps<IFrontendEnvironment> {
+  baseDomainName: string;
+  /**
+   * @default baseDomainName When hostedZoneName is not defined, baseDomainName is used instead
+   */
+  hostedZoneName?: string;
+  /**
+   * @default none a certificate is requested and validated using route53
+   */
+  certificateArn?: string;
+}
+
+/** Create all required resources on AWS cloud to enable continuous delivery/deployment for modern web apps.<br />
+ *  Additionally, it also configures notification channels to report deployment notifications to your developers.
+ * @noInheritDoc
+ *
+ */
+export class FrontendDeployment extends Stack {
+  constructor(scope: App, id: string, props: IFrontendDeploymentProps) {
+    super(scope, id, props);
+    const {
+      pipelineConfig,
+      hostedZoneName,
+      certificateArn,
+      baseDomainName,
+      notificationConfig: {
+        notificationsTargetConfig: { emailAddress },
+      },
+    } = props;
+
+    const hostedZone = HostedZone.fromLookup(this, 'HostedZone', {
+      domainName: hostedZoneName || baseDomainName,
+      privateZone: false,
+    });
+
+    if (!HostedZone.isConstruct(hostedZone)) {
+      throw new Error('No Hosted Zone found for given domain name!');
+    }
+
+    let certificate: ICertificate;
+    if (certificateArn) {
+      certificate = Certificate.fromCertificateArn(
+        this,
+        'Certificate',
+        certificateArn
+      );
+    } else {
+      certificate = new DnsValidatedCertificate(this, 'Certificate', {
+        domainName: baseDomainName,
+        hostedZone,
+        // When using ACM certificate with cloudfront, it must be requested in US East (N. Virginia) region
+        // Ref: https://docs.aws.amazon.com/acm/latest/userguide/acm-services.html
+        region: 'us-east-1',
+        subjectAlternativeNames: [`*.${baseDomainName}`],
+      });
+    }
+
+    const pipelineConstruct = new FrontendCDNPipeline(
+      this,
+      'FrontendCDNPipeline',
+      {
+        ...pipelineConfig,
+        certificate,
+        hostedZone,
+      }
+    );
+    pipelineConstruct.notificationTopic.addSubscription(
+      this._createSnsSubscription(emailAddress)
+    );
+  }
+
+  private _createSnsSubscription(emailAddress: string) {
+    if (!EMAIL_VALIDATOR.test(String(emailAddress).toLocaleLowerCase())) {
+      throw new Error('Invalid Email Address.');
+    }
+    return new EmailSubscription(emailAddress);
+  }
+}

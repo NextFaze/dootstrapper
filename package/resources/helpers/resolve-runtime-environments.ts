@@ -1,6 +1,9 @@
 import { BuildEnvironmentVariableType } from '@aws-cdk/aws-codebuild';
 
 // Pipeline Runtime environment variables support is limited to type PLAIN TEXT
+/**
+ * @hidden
+ */
 export function resolveRuntimeEnvironments(runtimeVariables: {
   [key: string]: string;
 }) {

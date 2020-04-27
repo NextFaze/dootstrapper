@@ -4,23 +4,21 @@ import {
   haveResource,
   haveResourceLike,
 } from '@aws-cdk/assert';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Topic } from '@aws-cdk/aws-sns';
 import { Stack } from '@aws-cdk/core';
-import { MultiEnvPipeline } from './multi-env-pipeline';
+import { CdkAppPipeline } from './cdk-app-pipeline';
+import { NOTIFICATIONS_TYPE } from '../enums';
 const singleEnvPipeline = require('./test/single-env-pipeline.spec.json');
 const multiEnvNoApproval = require('./test/multi-env-pipeline-no-approval.spec.json');
 const multiEnvApproval = require('./test/multi-env-approval-pipeline.spec.json');
-describe('MultiEnvPipeline', () => {
+describe('CdkAppPipeline', () => {
   let stack: Stack;
 
   describe('with minimum environment config', () => {
     beforeAll(() => {
       stack = new Stack();
-      new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
-        artifactsBucket: new Bucket(stack, 'Bucket'),
+      new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
-        notificationTopic: new Topic(stack, 'Topic'),
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         environments: [
           {
             name: 'test',
@@ -55,7 +53,7 @@ describe('MultiEnvPipeline', () => {
       expectCDK(stack).to(countResources('AWS::CodeBuild::Project', 1));
     });
 
-    it('should crete pipeline with two stages', () => {
+    it('should crete pipeline with single environment', () => {
       expectCDK(stack).to(countResources('AWS::CodePipeline::Pipeline', 1));
       expectCDK(stack).to(
         haveResource('AWS::CodePipeline::Pipeline', singleEnvPipeline)
@@ -151,7 +149,7 @@ describe('MultiEnvPipeline', () => {
                       ':parameter',
                       {
                         Ref:
-                          'MultiEnvPipelinetestDoostrapperCoreDeployAccessKeyId6E97CF1F',
+                          'MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78',
                       },
                     ],
                   ],
@@ -184,7 +182,7 @@ describe('MultiEnvPipeline', () => {
                       ':parameter',
                       {
                         Ref:
-                          'MultiEnvPipelinetestDoostrapperCoreDeploySecretAccessKey89E012B2',
+                          'MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey90E4971B',
                       },
                     ],
                   ],
@@ -202,14 +200,20 @@ describe('MultiEnvPipeline', () => {
                 Effect: 'Allow',
                 Resource: [
                   {
-                    'Fn::GetAtt': ['Bucket83908E77', 'Arn'],
+                    'Fn::GetAtt': [
+                      'MultiEnvPipelineArtifactBucket18578669',
+                      'Arn',
+                    ],
                   },
                   {
                     'Fn::Join': [
                       '',
                       [
                         {
-                          'Fn::GetAtt': ['Bucket83908E77', 'Arn'],
+                          'Fn::GetAtt': [
+                            'MultiEnvPipelineArtifactBucket18578669',
+                            'Arn',
+                          ],
                         },
                         '/*',
                       ],
@@ -228,10 +232,9 @@ describe('MultiEnvPipeline', () => {
   describe('with multiple environments and no approval', () => {
     beforeAll(() => {
       stack = new Stack();
-      new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
-        artifactsBucket: new Bucket(stack, 'Bucket'),
+      new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
-        notificationTopic: new Topic(stack, 'Topic'),
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         environments: [
           {
             name: 'test',
@@ -282,10 +285,9 @@ describe('MultiEnvPipeline', () => {
   describe('with custom environments and approval config', () => {
     beforeAll(() => {
       stack = new Stack();
-      new MultiEnvPipeline(stack, 'MultiEnvPipeline', {
-        artifactsBucket: new Bucket(stack, 'Bucket'),
+      new CdkAppPipeline(stack, 'MultiEnvPipeline', {
         artifactsSourceKey: 'path/to/atifact.zip',
-        notificationTopic: new Topic(stack, 'Topic'),
+        notificationsType: NOTIFICATIONS_TYPE.NONE,
         environments: [
           {
             name: 'test',
