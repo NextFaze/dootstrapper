@@ -1,9 +1,11 @@
 import { App } from '@aws-cdk/core';
 import {
-  DootstrapperDelivery,
+  BackendDeployment,
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
 } from '@dootstrapper/dootstrapper';
+import { FrontendDeployment } from '@dootstrapper/dootstrapper';
+import { DOMAIN_NAME_REGISTRAR } from '@dootstrapper/dootstrapper';
 
 const buildSpec = {
   version: 0.2,
@@ -21,12 +23,42 @@ const buildSpec = {
 
 const app = new App();
 
-new DootstrapperDelivery(app, 'Dootstrapper', {
+new FrontendDeployment(app, 'FrontendDeployment', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
   pipelineConfig: {
+    artifactsSourceKey: 'artifacts/app.zip',
+    environments: [
+      {
+        aliases: ['app-test.example.com'],
+        name: 'test',
+        domainNameRegistrar: DOMAIN_NAME_REGISTRAR.AWS,
+      },
+    ],
+    notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
+  },
+  baseDomainName: 'example.com',
+  notificationConfig: {
+    notificationsTargetConfig: {
+      emailAddress: 'deployments@example.com',
+      targetType: NOTIFICATIONS_TARGET.EMAIL,
+    },
+  },
+});
+
+new BackendDeployment(app, 'BackendDeployment', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  pipelineConfig: {
+    notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
     artifactsSourceKey: 'artifacts/example.zip',
     environments: [
       {
-        name: 'Dev',
+        name: 'dev',
         privilegedMode: true,
         adminPermissions: true,
         runtimeVariables: {
@@ -35,7 +67,7 @@ new DootstrapperDelivery(app, 'Dootstrapper', {
         buildSpec,
       },
       {
-        name: 'Uat',
+        name: 'uat',
         privilegedMode: true,
         adminPermissions: true,
         runtimeVariables: {
@@ -44,7 +76,7 @@ new DootstrapperDelivery(app, 'Dootstrapper', {
         buildSpec,
       },
       {
-        name: 'Prod',
+        name: 'prod',
         privilegedMode: true,
         adminPermissions: true,
         approvalRequired: true,
@@ -55,15 +87,10 @@ new DootstrapperDelivery(app, 'Dootstrapper', {
       },
     ],
   },
-  notificationsConfig: {
+  notificationConfig: {
     notificationsTargetConfig: {
       emailAddress: 'rpatel@nextfaze.com',
-      emailSubject: 'Deployment Notifications',
       targetType: NOTIFICATIONS_TARGET.EMAIL,
     },
-    notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
-  },
-  artifactsBucketConfig: {
-    bucketName: 'example-dootstrapper-artifacts-bucket',
   },
 });

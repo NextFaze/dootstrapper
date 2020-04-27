@@ -1,6 +1,6 @@
-# Development Bootstrapper Project
+# <div align="center"> Development Bootstrapper Project</div>
 
-![Build Status](https://github.com/nextfaze/dootstrapper/workflows/ci/badge.svg)
+[![Build Status](https://img.shields.io/github/workflow/status/nextfaze/dootstrapper/ci?style=for-the-badge)](https://github.com/NextFaze/dootstrapper) [![NPM Release](https://img.shields.io/npm/v/@nf-tools/dootstrapper?style=for-the-badge)](https://www.npmjs.com/package/@nf-tools/dootstrapper) [![Package Size](https://img.shields.io/bundlephobia/min/@nf-tools/dootstrapper?style=for-the-badge)](https://www.npmjs.com/package/@nf-tools/dootstrapper) [![Github Issues](https://img.shields.io/github/issues-raw/nextfaze/dootstrapper?style=for-the-badge)](https://github.com/NextFaze/dootstrapper) [![AWS CDK](https://img.shields.io/npm/dependency-version/@nf-tools/dootstrapper/peer/@aws-cdk/core?style=for-the-badge)](https://github.com/aws/aws-cdk) [![Dootstrapper stars](https://img.shields.io/github/stars/nextfaze/dootstrapper?color=orange&style=for-the-badge)](https://github.com/NextFaze/dootstrapper/stargazers)
 
 Creates a CD (Continuous delivery/deployment) pipeline to declaratively deploy to multiple environments.
 

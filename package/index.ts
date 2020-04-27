@@ -1,6 +1,7 @@
-export * from './resources/dootstrapper-delivery';
-export { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './resources/enums';
+export * from './resources/backend-deployment';
+export * from './resources/frontend-deployment';
 export {
-  IDootstrapperDelivery,
-  IDootstrapperDeliveryProps,
-} from './resources/interfaces';
+  NOTIFICATIONS_TARGET,
+  NOTIFICATIONS_TYPE,
+  DOMAIN_NAME_REGISTRAR,
+} from './resources/enums';

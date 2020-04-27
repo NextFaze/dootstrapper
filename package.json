@@ -33,6 +33,8 @@
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.1.0",
+    "typedoc": "^0.16.11",
+    "typedoc-plugin-no-inherit": "^1.1.10",
     "typescript": "~3.7.5"
   },
   "scripts": {
@@ -40,6 +42,7 @@
     "check": "bazel version",
     "test": "bazel test //...",
     "install:all": "bazel run @nodejs//:npm_node_repositories install",
+    "build:docs": "typedoc",
     "pack": "bazel run //package:dootstrapper.pack",
     "publish": "bazel run //package:dootstrapper.publish",
     "build:watch": "ibazel build //...",
@@ -56,6 +59,8 @@
     "clean:deep": "bazel clean --expunge"
   },
   "dependencies": {
+    "@aws-cdk/aws-certificatemanager": "^1.23.0",
+    "@aws-cdk/aws-cloudfront": "^1.23.0",
     "@aws-cdk/aws-cloudtrail": "^1.23.0",
     "@aws-cdk/aws-codebuild": "^1.23.0",
     "@aws-cdk/aws-codepipeline": "^1.23.0",
@@ -63,6 +68,7 @@
     "@aws-cdk/aws-events": "^1.23.0",
     "@aws-cdk/aws-events-targets": "^1.23.0",
     "@aws-cdk/aws-iam": "^1.23.0",
+    "@aws-cdk/aws-route53": "^1.23.0",
     "@aws-cdk/aws-s3": "^1.23.0",
     "@aws-cdk/aws-sns": "^1.23.0",
     "@aws-cdk/aws-sns-subscriptions": "^1.23.0",
