@@ -20,7 +20,8 @@
   "module": "ES6",
   "license": "MIT",
   "dependencies": {
-    "change-case": "^4.1.1"
+    "change-case": "^4.1.1",
+    "ajv": "^6.12.2"
   },
   "peerDependencies": {
     "@aws-cdk/aws-certificatemanager": "^1.23.0",

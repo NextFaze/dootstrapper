@@ -74,6 +74,7 @@
     "@aws-cdk/aws-sns-subscriptions": "^1.23.0",
     "@aws-cdk/aws-ssm": "^1.23.0",
     "@aws-cdk/core": "^1.23.0",
+    "ajv": "^6.12.2",
     "aws-cdk": "^1.23.0",
     "change-case": "^4.1.1"
   },

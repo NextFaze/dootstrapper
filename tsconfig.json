@@ -3,6 +3,7 @@
     "lib": ["es2015.promise", "es5", "es6", "es2017.object"],
     "target": "esNext",
     "module": "commonjs",
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "declaration": true,
     "strict": true,
