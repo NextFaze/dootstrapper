@@ -30,9 +30,35 @@ export interface IFrontendDeploymentProps
    */
   hostedZoneName?: string;
   /**
-   * @default none a certificate is requested and validated using route53
+   * @default none A certificate is requested and validated using route53
    */
   certificateArn?: string;
+  /**
+   * @default none A deployment pipeline is created with compile time environment configuration
+   */
+  runtimeEnvironmentConfig?: IRuntimeEnvironmentProps;
+}
+
+/**
+ * @param - __configsDirectory__: Directory where configs for all environment live
+ * i.e this can be `assets/config`
+ * @param - __configFileName__: Origin config file name
+ * i.e config.json (so the config location as per earlier directory be, assets/config/config.json )
+ * @param - __configSeparator__: Key used to differentiate configs among environments
+ * i.e for file config.dev.json, this value will be "."
+ * @param - __fileExtension__: Config file's extension
+ */
+export interface IRuntimeEnvironmentProps {
+  directory: string;
+  fileName: string;
+  /**
+   * @default . "dot" is used by default
+   */
+  separator?: string;
+  /**
+   * @default json config files are expected to have "json" extension
+   */
+  fileExtension?: string;
 }
 
 /** Create all required resources on AWS cloud to enable continuous delivery/deployment for modern web apps.<br />
