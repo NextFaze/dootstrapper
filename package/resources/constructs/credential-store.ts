@@ -2,19 +2,19 @@ import { CfnAccessKey, ManagedPolicy, User } from '@aws-cdk/aws-iam';
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import { Construct } from '@aws-cdk/core';
 
-interface ICoreProps {
+interface ICredentialStore {
   adminPermissions: boolean;
   environmentName: string;
 }
 
-export class Core extends Construct {
+export class CredentialStore extends Construct {
   public readonly accessKeyId: StringParameter;
   public readonly secretAccessKey: StringParameter;
   private readonly credentials: CfnAccessKey;
   constructor(
     scope: Construct,
     id: string,
-    { adminPermissions, environmentName }: ICoreProps
+    { adminPermissions, environmentName }: ICredentialStore
   ) {
     super(scope, id);
 

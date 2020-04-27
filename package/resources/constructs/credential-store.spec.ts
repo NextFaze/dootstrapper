@@ -4,7 +4,7 @@ import {
   haveResource,
 } from '@aws-cdk/assert';
 import { Stack } from '@aws-cdk/core';
-import { Core } from './core';
+import { CredentialStore } from './credential-store';
 
 describe('Core construct ', () => {
   let stack: Stack;
@@ -12,7 +12,7 @@ describe('Core construct ', () => {
   describe('with admin permissions', () => {
     beforeAll(() => {
       stack = new Stack();
-      new Core(stack, 'Core', {
+      new CredentialStore(stack, 'Core', {
         adminPermissions: true,
         environmentName: 'test',
       });
@@ -75,7 +75,7 @@ describe('Core construct ', () => {
   describe('without admin permissions', () => {
     beforeAll(() => {
       stack = new Stack();
-      new Core(stack, 'Core', {
+      new CredentialStore(stack, 'Core', {
         adminPermissions: false,
         environmentName: 'test',
       });
