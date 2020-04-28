@@ -40,11 +40,11 @@ export interface IFrontendDeploymentProps
 }
 
 /**
- * @param - __configsDirectory__: Directory where configs for all environment live
+ * @param - __directory__: Directory where configs for all environment live
  * i.e this can be `assets/config`
- * @param - __configFileName__: Origin config file name
+ * @param - __fileName__: Original config file name without
  * i.e config.json (so the config location as per earlier directory be, assets/config/config.json )
- * @param - __configSeparator__: Key used to differentiate configs among environments
+ * @param - __separator__: Key used to differentiate configs among environments
  * i.e for file config.dev.json, this value will be "."
  * @param - __fileExtension__: Config file's extension
  */
@@ -73,6 +73,7 @@ export class FrontendDeployment extends Stack {
       pipelineConfig,
       hostedZoneName,
       certificateArn,
+      runtimeEnvironmentConfig,
       baseDomainName,
       notificationConfig: {
         notificationsTargetConfig: { emailAddress },
@@ -111,6 +112,7 @@ export class FrontendDeployment extends Stack {
       'FrontendCDNPipeline',
       {
         ...pipelineConfig,
+        runtimeEnvironmentConfig,
         certificate,
         hostedZone,
       }
