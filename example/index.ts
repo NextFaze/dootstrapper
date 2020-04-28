@@ -57,19 +57,19 @@ new FrontendDeployment(app, 'FrontendDeploymentWithRuntimeConfig', {
     artifactsSourceKey: 'artifacts/app.zip',
     environments: [
       {
-        aliases: ['doopper-test.faze.biz'],
+        aliases: ['app-test.example.com'],
         name: 'test',
         domainNameRegistrar: DOMAIN_NAME_REGISTRAR.AWS,
       },
       {
-        aliases: ['doopper.faze.biz'],
+        aliases: ['app.example.com'],
         name: 'prod',
         domainNameRegistrar: DOMAIN_NAME_REGISTRAR.AWS,
       },
     ],
     notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
   },
-  baseDomainName: 'faze.biz',
+  baseDomainName: 'example.com',
   runtimeEnvironmentConfig: {
     directory: 'assets/config',
     fileName: 'config',
