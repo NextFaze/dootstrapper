@@ -17,11 +17,13 @@ import {
   ComputeType,
   BuildEnvironmentVariableType,
 } from '@aws-cdk/aws-codebuild';
+import { IRuntimeEnvironmentProps } from '../frontend-deployment';
 
 interface IFrontendCDNPipelineProps
   extends IBasePipelineProps<IFrontendEnvironment> {
   certificate: ICertificate;
   hostedZone: IHostedZone;
+  runtimeEnvironmentConfig?: IRuntimeEnvironmentProps;
 }
 
 /**
@@ -33,22 +35,19 @@ export class FrontendCDNPipeline extends BasePipeline {
       artifactSourceKey: props.artifactsSourceKey,
       notificationsType: props.notificationsType,
     });
-    const { environments, certificate, hostedZone } = props;
+    const {
+      environments,
+      certificate,
+      hostedZone,
+      runtimeEnvironmentConfig,
+    } = props;
+
     // this will extract only required files for current deployment
     const prepareDeployProject = new PipelineProject(this, 'PipelineProject', {
       projectName: 'Prepare',
-      buildSpec: BuildSpec.fromObject({
-        version: 0.2,
-        phases: {
-          build: {
-            commands: 'echo Preparing artifacts for deployment to: $deployPath',
-          },
-        },
-        artifacts: {
-          files: ['**/*'],
-          'base-directory': '$deployPath',
-        },
-      }),
+      buildSpec: runtimeEnvironmentConfig
+        ? this.getBuildSpecForRuntimeConfig(runtimeEnvironmentConfig)
+        : this.getBuildSpecForCompiledConfig(),
       environment: {
         buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
         computeType: ComputeType.SMALL,
@@ -101,7 +100,7 @@ export class FrontendCDNPipeline extends BasePipeline {
           input: this.checkoutSource,
           runOrder: ++runOrder,
           environmentVariables: {
-            deployPath: {
+            environment: {
               value: name,
               type: BuildEnvironmentVariableType.PLAINTEXT,
             },
@@ -125,6 +124,54 @@ export class FrontendCDNPipeline extends BasePipeline {
         actions,
         stageName: pascalCase(`${name}Deploy`),
       });
+    });
+  }
+
+  private getBuildSpecForCompiledConfig() {
+    return BuildSpec.fromObject({
+      version: 0.2,
+      phases: {
+        build: {
+          commands: 'echo Preparing artifacts for deployment to: $environment',
+        },
+      },
+      artifacts: {
+        files: ['**/*'],
+        'base-directory': '$environment',
+      },
+    });
+  }
+
+  /**
+   * This will replace environment specific file with default environment file
+   * i.e when running in environment with name `dev`, config file named
+   * configs/config.dev.json will replace configs/config.json
+   */
+  private getBuildSpecForRuntimeConfig(config: IRuntimeEnvironmentProps) {
+    const {
+      fileName,
+      directory,
+      separator = '.',
+      fileExtension = 'json',
+    } = config;
+
+    const environmentConfigFile = `${directory}/${fileName +
+      separator}$environment.${fileExtension}`;
+    const mainConfigFile = `${directory}/${fileName}.${fileExtension}`;
+
+    return BuildSpec.fromObject({
+      version: 0.2,
+      phases: {
+        pre_build: {
+          commands: 'echo Preparing artifacts with runtime config',
+        },
+        build: {
+          commands: [`cp -f ${environmentConfigFile} ${mainConfigFile}`],
+        },
+      },
+      artifacts: {
+        files: ['**/*'],
+      },
     });
   }
 }
