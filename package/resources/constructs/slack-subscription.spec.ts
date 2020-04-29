@@ -24,7 +24,7 @@ describe('SlackSubscription', () => {
   it('should create function to send notification', () => {
     expectCDK(stack).to(
       haveResource('AWS::Lambda::Function', {
-        Handler: 'bundle.handler',
+        Handler: 'index.handler',
         Runtime: 'nodejs10.x',
       })
     );
