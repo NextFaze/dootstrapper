@@ -20,7 +20,8 @@
   "module": "ES6",
   "license": "MIT",
   "dependencies": {
-    "change-case": "^4.1.1"
+    "change-case": "^4.1.1",
+    "@slack/web-api": "^5.8.0"
   },
   "peerDependencies": {
     "@aws-cdk/aws-certificatemanager": "^1.23.0",
@@ -37,6 +38,7 @@
     "@aws-cdk/aws-sns": "^1.23.0",
     "@aws-cdk/aws-sns-subscriptions": "^1.23.0",
     "@aws-cdk/aws-ssm": "^1.23.0",
+    "@aws-cdk/aws-lambda": "^1.23.0",
     "@aws-cdk/core": "^1.23.0"
   }
 }
