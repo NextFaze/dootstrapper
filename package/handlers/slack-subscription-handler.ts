@@ -1,42 +1,17 @@
-import { BaseHandler } from './base-handler';
+import { BaseHandler } from './helpers/base-handler';
 import { SNSEvent } from 'aws-lambda';
-import { WebClient, ChatPostMessageArguments } from '@slack/web-api';
-import { SSM } from 'aws-sdk';
-import { getDeploymentStatusBlocks } from './blocks';
+import { WebClient } from '@slack/web-api';
+import { createDeploymentStatusBlocks } from './helpers/create-deployment-status-blocks';
 
 export class SlackSubscriptionHandler extends BaseHandler {
-  constructor() {
+  constructor(private webClient: WebClient) {
     super();
   }
   protected async runExec(event: SNSEvent): Promise<any> {
-    const paramName = process.env.AUTH_TOKEN_PARAM;
-    const channelName = process.env.CHANNEL_NAME;
     const channelTypes = process.env.CHANNEL_TYPES;
+    const channelName = process.env.CHANNEL_NAME;
 
-    if (!paramName || !channelName) {
-      console.error('One ore more required parameter is missing.');
-      return this.bail();
-    }
-
-    // This wil almost never happen, mainly because aws guarantees that sns will always have single message instance
-    if (event.Records.length > 1) {
-      console.error(
-        'Something went wrong, there should not be more than one message in an event.'
-      );
-      return this.bail();
-    }
-
-    const ssm = new SSM();
-    const response = await ssm
-      .getParameter({
-        Name: paramName,
-        WithDecryption: true,
-      })
-      .promise();
-
-    const webClient = new WebClient(response.Parameter?.Value);
-
-    const channelsResponse = await webClient.conversations.list({
+    const channelsResponse = await this.webClient.conversations.list({
       types: channelTypes,
     });
     if (!channelsResponse.ok) {
@@ -66,7 +41,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
       return this.bail(message);
     }
 
-    const postMessageResponse = await webClient.chat.postMessage({
+    const postMessageResponse = await this.webClient.chat.postMessage({
       channel: channelId,
       ...this.getPostMessageBody(message),
     });
@@ -91,7 +66,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
 
       parsedMessageBody = {
         text: 'Anything Really', // this will get ignored
-        blocks: getDeploymentStatusBlocks({
+        blocks: createDeploymentStatusBlocks({
           body: {
             title: detail?.pipeline,
             fields: [

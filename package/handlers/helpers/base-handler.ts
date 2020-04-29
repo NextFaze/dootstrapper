@@ -5,7 +5,7 @@ export abstract class BaseHandler {
 
   async run(event: SNSEvent, ctx?: any) {
     try {
-      await this.runExec(event);
+      return this.runExec(event);
     } catch (err) {
       // when unable to send notification via slack
       console.error(err);
@@ -16,7 +16,8 @@ export abstract class BaseHandler {
   protected bail(error?: any) {
     if (error) {
       console.error(error);
+      return { success: false, error };
     }
-    return { success: false, error };
+    return { success: false };
   }
 }

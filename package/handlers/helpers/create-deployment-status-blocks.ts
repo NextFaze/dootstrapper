@@ -1,4 +1,4 @@
-export function getDeploymentStatusBlocks({
+export function createDeploymentStatusBlocks({
   body: { title, fields, imgUrl },
   actions,
   footer,
@@ -13,7 +13,7 @@ export function getDeploymentStatusBlocks({
 }) {
   const blocks = [];
 
-  const bodySection = {
+  const bodySection: { [key: string]: any } = {
     type: 'section',
     text: {
       type: 'mrkdwn',
@@ -22,19 +22,18 @@ export function getDeploymentStatusBlocks({
   };
 
   if (fields.length) {
-    Object.defineProperty(bodySection, 'fields', {
-      value: fields.map(field => ({ type: 'mrkdwn', text: field })),
-    });
+    bodySection.fields = fields.map(field => ({
+      type: 'mrkdwn',
+      text: field,
+    }));
   }
 
   if (imgUrl) {
-    Object.defineProperty(bodySection, 'accessory', {
-      value: {
-        type: 'image',
-        image_url: imgUrl,
-        alt_text: title,
-      },
-    });
+    bodySection.accessory = {
+      type: 'image',
+      image_url: imgUrl,
+      alt_text: title,
+    };
   }
 
   blocks.push(bodySection);
@@ -42,7 +41,7 @@ export function getDeploymentStatusBlocks({
   const actionsSection = {
     type: 'actions',
     elements: actions.map(action => {
-      const actionElement = {
+      const actionElement: { [key: string]: any } = {
         type: 'button',
         text: {
           type: 'plain_text',
@@ -51,7 +50,7 @@ export function getDeploymentStatusBlocks({
         url: action.url,
       };
       if (action.style) {
-        Object.defineProperty(actionElement, 'style', { value: action.style });
+        actionElement.style = action.style;
       }
       return actionElement;
     }),
