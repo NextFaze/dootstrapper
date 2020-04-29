@@ -21,7 +21,7 @@ export class SlackSubscription extends Construct {
     const lambda = new Function(this, 'Handler', {
       runtime: Runtime.NODEJS_10_X,
       code: Code.fromAsset('handlers'),
-      handler: 'bundle.handler',
+      handler: 'index.handler',
       description: 'Handler to send deployment notifications to slack',
       environment: {
         AUTH_TOKEN_PARAM: param.parameterName,

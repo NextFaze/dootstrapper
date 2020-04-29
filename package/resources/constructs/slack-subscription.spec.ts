@@ -16,7 +16,9 @@ describe('SlackSubscription', () => {
 
   beforeEach(() => {
     stack = new Stack();
-    new SlackSubscription(stack, 'SlackSubscription', {});
+    new SlackSubscription(stack, 'SlackSubscription', {
+      channel: 'notify-me',
+    });
   });
 
   it('should create function to send notification', () => {
