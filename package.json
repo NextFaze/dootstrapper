@@ -34,6 +34,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules-recommended": "^1.2.0",
     "tslint-plugin-prettier": "^2.1.0",
     "typedoc": "^0.16.11",
     "typedoc-plugin-no-inherit": "^1.1.10",

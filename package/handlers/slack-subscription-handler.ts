@@ -8,28 +8,20 @@ export class SlackSubscriptionHandler extends BaseHandler {
     super();
   }
   protected async runExec(event: SNSEvent): Promise<any> {
-    const channelTypes = process.env.CHANNEL_TYPES;
-    const channelName = process.env.CHANNEL_NAME;
+    const channelName = process.env.CHANNEL_NAME as string;
+    const channelTypes = process.env.CHANNEL_TYPES as string;
 
-    const channelsResponse = await this.webClient.conversations.list({
-      types: channelTypes,
-    });
-    if (!channelsResponse.ok) {
-      console.error(
-        `Could not retrieve channel id.`,
-        'Please request permissions for scope "channels:read:bot", and try again '
-      );
-      return this.bail(channelsResponse.error);
+    const channelResponse = await this.getChannelIdByName(
+      channelName,
+      channelTypes
+    );
+    const { id, success, error } = channelResponse;
+
+    if (!success) {
+      return this.bail(error);
     }
-    const channels = channelsResponse.channels as {
-      id: string;
-      name: string;
-      [key: string]: any;
-    }[];
 
-    const channelId = channels?.find(channel => channel.name === channelName)
-      ?.id;
-    if (!channelId) {
+    if (!id) {
       console.error('No channel with given name exists');
       return this.bail();
     }
@@ -42,7 +34,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
     }
 
     const postMessageResponse = await this.webClient.chat.postMessage({
-      channel: channelId,
+      channel: id,
       ...this.getPostMessageBody(message),
     });
 
@@ -54,6 +46,51 @@ export class SlackSubscriptionHandler extends BaseHandler {
       return this.bail(postMessageResponse.error);
     }
     return { success: true };
+  }
+
+  private async getChannelIdByName(
+    channelName: string,
+    channelTypes: string,
+    cursor = ''
+  ): Promise<{ success: boolean; id?: string; error?: string }> {
+    const channelsResponse = await this.webClient.conversations.list({
+      types: channelTypes,
+      limit: 200,
+      cursor,
+    });
+
+    if (!channelsResponse.ok) {
+      console.error(
+        `Could not retrieve channel id.`,
+        'Please request permissions for scope "channels:read:bot", and try again '
+      );
+      return this.bail(channelsResponse.error);
+    }
+
+    const channels = channelsResponse.channels as {
+      id: string;
+      name: string;
+      [key: string]: any;
+    }[];
+
+    const channelFound = channels?.find(
+      channel => channel.name === channelName
+    );
+
+    const next_cursor = channelsResponse.response_metadata?.next_cursor;
+
+    // if there are more items, do another scan
+    if (!channelFound && next_cursor) {
+      return this.getChannelIdByName(
+        channelName,
+        channelTypes,
+        channelsResponse.response_metadata?.next_cursor
+      );
+    }
+    return {
+      success: true,
+      id: channelFound?.id,
+    };
   }
 
   private getPostMessageBody(message: string) {

@@ -2,7 +2,6 @@ import { Construct } from '@aws-cdk/core';
 import { LambdaSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
 import { StringParameter } from '@aws-cdk/aws-ssm';
-import { resolve } from 'path';
 
 interface ISlackSubscriptionProps {
   channel: string;
@@ -22,7 +21,7 @@ export class SlackSubscription extends Construct {
 
     const lambda = new Function(this, 'Handler', {
       runtime: Runtime.NODEJS_10_X,
-      code: Code.fromAsset('./handlers'),
+      code: Code.fromAsset('handlers'),
       handler: 'bundle.handler',
       description: 'Handler to send deployment notifications to slack',
       environment: {

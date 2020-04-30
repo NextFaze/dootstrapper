@@ -53,6 +53,50 @@ describe('SlackSubscriptionHandler', () => {
     expect(response).toEqual({ success: false });
   });
 
+  it('should make multiple requests when channel could not be found in first request', async () => {
+    let count = 0;
+    const listSubSpy = jasmine.createSpy().and.callFake(() => {
+      count++;
+      if (count === 1) {
+        return {
+          ok: true,
+          channels: [{ id: '123', name: 'notify-you' }],
+          response_metadata: {
+            next_cursor: 'some_key',
+          },
+        };
+      }
+      if (count === 2) {
+        return {
+          ok: true,
+          channels: [{ id: '123', name: 'notify-me' }],
+        };
+      }
+      return;
+    });
+
+    slackSubHandler = new SlackSubscriptionHandler({
+      conversations: {
+        list: listSubSpy,
+      },
+      chat: {
+        postMessage: jasmine.createSpy().and.returnValue({ success: true }),
+      },
+    } as any);
+
+    const response = await slackSubHandler.run({
+      Records: [
+        {
+          Sns: {
+            Message: 'Hi There!',
+          },
+        },
+      ],
+    } as any);
+    expect(listSubSpy).toHaveBeenCalledTimes(2);
+    expect(response).toEqual({ success: false });
+  });
+
   it('should bail out if no channels found for given name', async () => {
     slackSubHandler = new SlackSubscriptionHandler({
       conversations: {

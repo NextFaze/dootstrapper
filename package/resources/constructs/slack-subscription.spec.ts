@@ -1,4 +1,4 @@
-import { Stack, App } from '@aws-cdk/core';
+import { Stack } from '@aws-cdk/core';
 import { SlackSubscription } from './slack-subscription';
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 import { mkdirSync, rmdirSync } from 'fs';

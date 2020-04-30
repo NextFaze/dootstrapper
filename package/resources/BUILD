@@ -9,6 +9,6 @@ setup_ts_build(
 setup_ts_specs(
     name = "specs",
     deps = [
-        ":library",
+        ":library"
     ],
 )

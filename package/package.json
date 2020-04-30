@@ -24,7 +24,7 @@
     "@slack/web-api": "^5.8.0"
   },
   "scripts": {
-    "postinstall": "cp -r node_modules ./handlers"
+    "postinstall": "mkdir ./handlers/node_modules && cp -r ./node_modules/@slack ./handlers/node_modules/@slack"
   },
   "peerDependencies": {
     "@aws-cdk/aws-certificatemanager": "^1.23.0",
