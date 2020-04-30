@@ -9,6 +9,7 @@ interface ISlackSubscriptionProps {
 }
 
 export class SlackSubscription extends Construct {
+  readonly subscription: LambdaSubscription;
   constructor(scope: Construct, id: string, props: ISlackSubscriptionProps) {
     super(scope, id);
     const { channel, types = '' } = props;
@@ -31,6 +32,6 @@ export class SlackSubscription extends Construct {
     });
     param.grantRead(lambda);
 
-    new LambdaSubscription(lambda);
+    this.subscription = new LambdaSubscription(lambda);
   }
 }

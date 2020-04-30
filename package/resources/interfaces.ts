@@ -1,21 +1,9 @@
-import { StackProps } from '@aws-cdk/core';
 import {
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
   DOMAIN_NAME_REGISTRAR,
 } from './enums';
 import { PriceClass } from '@aws-cdk/aws-cloudfront';
-
-/**
- * @param - __pipelineConfig__: Deploy pipeline configurations
- * @param - __notificationConfig__: Deployment notifications configuration
- * @typeParam T value for this type will be either {@link IFrontendEnvironment} or {@link IBackendEnvironment}
- * @noInheritDoc
- */
-export interface IBaseDeploymentProps<T> extends StackProps {
-  notificationConfig: INotificationConfigProps;
-  pipelineConfig: IBasePipelineProps<T>;
-}
 
 /**
  * @param - __artifactsSourceKey__: Fully qualified s3 path to target artifact (i.e path/to/some/file.zip)
@@ -36,17 +24,34 @@ export interface IBasePipelineProps<T> {
  * @param - __notificationsTargetConfig__:  Notifications Target config
  */
 export interface INotificationConfigProps {
-  notificationsTargetConfig: INotificationsEmailTargetConfig;
+  notificationsTargetConfig:
+    | INotificationsEmailTargetConfig
+    | INotificationsSlackTargetConfig;
 }
 
 /**
- * @param - __targetType__: Type of notification target <br />
- * currently only supports notification by email
+ * @param - __targetType__: Type of notification target
  * @param - __emailAddress__: Email to send notifications to
  */
 export interface INotificationsEmailTargetConfig {
   targetType: NOTIFICATIONS_TARGET.EMAIL;
   emailAddress: string;
+}
+
+/**
+ * @param - __targetType__: Type of notification target
+ * @param - __channelName__: Tame of the slack channel
+ * @param - __channelTypes__: Comma separated list of channel types we are dealing with
+ * see [Slack api reference](https://api.slack.com/methods/conversations.list#arg_types)
+ */
+export interface INotificationsSlackTargetConfig {
+  targetType: NOTIFICATIONS_TARGET.SLACK;
+  channelName: string;
+  /**
+   * @default public_channel
+   * When using private channels, value for this field must be provided
+   */
+  channelTypes?: string;
 }
 
 /**
