@@ -130,3 +130,50 @@ new BackendDeployment(app, 'BackendDeployment', {
     },
   },
 });
+
+new BackendDeployment(app, 'BackendDeploymentWithSlack', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  pipelineConfig: {
+    notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
+    artifactsSourceKey: 'artifacts/example.zip',
+    environments: [
+      {
+        name: 'dev',
+        privilegedMode: true,
+        adminPermissions: true,
+        runtimeVariables: {
+          currEnv: 'Development',
+        },
+        buildSpec,
+      },
+      {
+        name: 'uat',
+        privilegedMode: true,
+        adminPermissions: true,
+        runtimeVariables: {
+          currEnv: 'User Acceptance Testing',
+        },
+        buildSpec,
+      },
+      {
+        name: 'prod',
+        privilegedMode: true,
+        adminPermissions: true,
+        approvalRequired: true,
+        runtimeVariables: {
+          currEnv: 'production',
+        },
+        buildSpec,
+      },
+    ],
+  },
+  notificationConfig: {
+    notificationsTargetConfig: {
+      targetType: NOTIFICATIONS_TARGET.SLACK,
+      channelName: 'notify-caromel',
+    },
+  },
+});

@@ -59,7 +59,7 @@ def setup_ts_specs(name, deps, data_dir = "", suffix = ".json"):
         install_source_map_support = True,
     )
 
-def gen_bundle(name, dir_name, deps, srcs = []):
+def gen_bundle(name, deps, dir_name = "", srcs = []):
     """Generate tar containing bundled js.
         index.ts must exist next to BUILD file
         rollup.config.js must exist next to WORKSPACE
@@ -82,7 +82,7 @@ def gen_bundle(name, dir_name, deps, srcs = []):
             ":bundle",
         ],
         extension = "tar.gz",
-        package_dir = "",
+        package_dir = dir_name,
     )
 
 def gen_artifacts(name, srcs, configs, deps):

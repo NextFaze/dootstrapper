@@ -1,7 +1,7 @@
-package(default_visibility = ["//visibility:public"])
-
 load("@build_bazel_rules_nodejs//:index.bzl", "pkg_npm")
 load("//:tools/defaults.bzl", "setup_ts_build")
+
+package(default_visibility = ["//visibility:public"])
 
 exports_files(
     [
@@ -12,11 +12,11 @@ exports_files(
 
 setup_ts_build(
     name = "library",
+    module_name = "@dootstrapper/dootstrapper",
     deps = [
         "//package/handlers:library",
         "//package/resources:library",
     ],
-    module_name = '@dootstrapper/dootstrapper',
 )
 
 pkg_npm(
@@ -26,11 +26,11 @@ pkg_npm(
         "README.md",
         "package.json",
     ],
+    replace_with_version = "0.0.0-PLACEHOLDER",
     substitutions = {
         "dootstrapper/package": "dootstrapper",
     },
-    replace_with_version = "0.0.0-PLACEHOLDER",
     deps = [
-        ":library"
-    ]
+        ":library",
+    ],
 )

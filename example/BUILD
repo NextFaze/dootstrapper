@@ -1,10 +1,10 @@
-load("//:tools/defaults.bzl", "gen_bundle", "setup_ts_build", "setup_ts_specs", "gen_artifacts")
+load("//:tools/defaults.bzl", "gen_artifacts", "gen_bundle", "setup_ts_build", "setup_ts_specs")
 
 setup_ts_build(
     name = "library",
     deps = [
-        "//package:library"
-    ]
+        "//package:library",
+    ],
 )
 
 setup_ts_specs(
@@ -15,8 +15,7 @@ setup_ts_specs(
 )
 
 gen_bundle(
-    name = "example",
-    dir_name = "resources",
+    name = "example_bundle",
     deps = [
         ":library",
     ],
@@ -25,17 +24,18 @@ gen_bundle(
 gen_artifacts(
     name = "example",
     srcs = [
-        "cdk.json",
         "buildspec.json",
+        "cdk.json",
         "//:package.json",
-        "//:package-lock.json"
+        "//:package-lock.json",
     ],
     configs = {
-        'dev': 'config.dev.json'
+        "dev": "config.dev.json",
+        "uat": "config.uat.json",
+        "prod": "config.prod.json",
     },
     deps = [
-        ":example"
-    ]
+        ":example_bundle",
+        "//package/handlers",
+    ],
 )
-
-
