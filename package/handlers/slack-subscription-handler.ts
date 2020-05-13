@@ -141,7 +141,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
         },
         actions: [
           {
-            text: 'View',
+            text: 'Approve or Reject',
             style: 'primary',
             url: consoleLink,
           },
@@ -164,7 +164,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
             `*Id:* ${id}`,
             `*Region:* ${region}`,
             `*Account:* ${account}`,
-            `*State:* ${detail?.state}`,
+            `*State:* \`${detail?.state}\``,
           ],
         },
         actions: [
