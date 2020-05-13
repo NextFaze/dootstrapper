@@ -130,7 +130,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
     return {
       text: 'Approval required',
       blocks: createDeploymentStatusBlocks({
-        message: 'Deployment status updated',
+        message: 'Approval required',
         body: {
           title: approval.pipelineName,
           fields: [
@@ -142,6 +142,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
         actions: [
           {
             text: 'View',
+            style: 'primary',
             url: consoleLink,
           },
         ],

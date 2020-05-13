@@ -1,4 +1,4 @@
-import { Construct } from '@aws-cdk/core';
+import { Construct, Duration } from '@aws-cdk/core';
 import { LambdaSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
 import { StringParameter } from '@aws-cdk/aws-ssm';
@@ -21,6 +21,7 @@ export class SlackSubscription extends Construct {
 
     const lambda = new Function(this, 'Handler', {
       runtime: Runtime.NODEJS_10_X,
+      timeout: Duration.seconds(30),
       code: Code.fromAsset('handlers'),
       handler: 'bundle.handler',
       description: 'Handler to send deployment notifications to slack',
