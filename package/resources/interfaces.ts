@@ -42,6 +42,7 @@ export interface INotificationsEmailTargetConfig {
  * @param - __targetType__: Type of notification target
  * @param - __channelName__: Tame of the slack channel
  * @param - __channelTypes__: Comma separated list of channel types we are dealing with
+ * @param - __channelId__: Id of the channel to send notifications to
  * see [Slack api reference](https://api.slack.com/methods/conversations.list#arg_types)
  */
 export interface INotificationsSlackTargetConfig {
@@ -52,6 +53,10 @@ export interface INotificationsSlackTargetConfig {
    * When using private channels, value for this field must be provided
    */
   channelTypes?: string;
+  /**
+   * @default - channel name will be used to find channel id
+   */
+  channelId?: string;
 }
 
 /**

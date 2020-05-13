@@ -45,9 +45,17 @@ export class BaseDeployment extends Stack {
         break;
       }
       case NOTIFICATIONS_TARGET.SLACK: {
-        const { channelName, channelTypes } = notificationsTargetConfig;
+        const {
+          channelName,
+          channelTypes,
+          channelId,
+        } = notificationsTargetConfig;
         pipeline.notificationTopic.addSubscription(
-          this.createSlackSubscription(channelName, channelTypes)
+          this.createSlackSubscription({
+            channel: channelName,
+            types: channelTypes,
+            channelId,
+          })
         );
         break;
       }
@@ -64,10 +72,19 @@ export class BaseDeployment extends Stack {
     return new EmailSubscription(emailAddress);
   }
 
-  private createSlackSubscription(channel: string, types?: string) {
+  private createSlackSubscription({
+    channel,
+    types,
+    channelId,
+  }: {
+    channel: string;
+    types?: string;
+    channelId?: string;
+  }) {
     const lambdaSub = new SlackSubscription(this, 'SlackSubscription', {
       channel,
       types,
+      channelId,
     });
     return lambdaSub.subscription;
   }

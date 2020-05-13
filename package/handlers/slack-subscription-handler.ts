@@ -8,33 +8,37 @@ export class SlackSubscriptionHandler extends BaseHandler {
     super();
   }
   protected async runExec(event: SNSEvent): Promise<any> {
+    let channelId = process.env.CHANNEL_ID as string;
     const channelName = process.env.CHANNEL_NAME as string;
     const channelTypes = process.env.CHANNEL_TYPES as string;
 
-    const channelResponse = await this.getChannelIdByName(
-      channelName,
-      channelTypes
-    );
-    const { id, success, error } = channelResponse;
+    if (!channelId) {
+      const channelResponse = await this.getChannelIdByName(
+        channelName,
+        channelTypes
+      );
+      const { id, success, error } = channelResponse;
 
-    if (!success) {
-      return this.bail(error);
-    }
+      if (!success) {
+        return this.bail(error);
+      }
 
-    if (!id) {
-      console.error('No channel with given name exists');
-      return this.bail();
+      if (!id) {
+        console.error('No channel with given name exists');
+        return this.bail();
+      }
+
+      channelId = id;
     }
 
     const message = event.Records.pop()?.Sns.Message;
-
     if (!message) {
       console.error('Empty Message received!');
       return this.bail(message);
     }
 
     const postMessageResponse = await this.webClient.chat.postMessage({
-      channel: id,
+      channel: channelId,
       ...this.getPostMessageBody(message),
     });
 

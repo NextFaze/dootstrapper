@@ -6,13 +6,14 @@ import { StringParameter } from '@aws-cdk/aws-ssm';
 interface ISlackSubscriptionProps {
   channel: string;
   types?: string;
+  channelId?: string;
 }
 
 export class SlackSubscription extends Construct {
   readonly subscription: LambdaSubscription;
   constructor(scope: Construct, id: string, props: ISlackSubscriptionProps) {
     super(scope, id);
-    const { channel, types = '' } = props;
+    const { channel, types = '', channelId = '' } = props;
 
     const param = new StringParameter(this, 'AuthParameter', {
       stringValue: 'Dummy Auth Token',
@@ -29,6 +30,7 @@ export class SlackSubscription extends Construct {
         AUTH_TOKEN_PARAM: param.parameterName,
         CHANNEL_NAME: channel,
         CHANNEL_TYPES: types,
+        CHANNEL_ID: channelId,
       },
     });
     param.grantRead(lambda);
