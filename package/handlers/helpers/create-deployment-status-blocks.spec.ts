@@ -3,6 +3,7 @@ import { createDeploymentStatusBlocks } from './create-deployment-status-blocks'
 describe('createDeploymentStatusBlocks', () => {
   it('should create', () => {
     const blocks = createDeploymentStatusBlocks({
+      message: 'Test Message',
       body: {
         title: 'Notification-test-pipeline',
         fields: [
@@ -23,6 +24,17 @@ describe('createDeploymentStatusBlocks', () => {
     });
 
     expect(blocks).toEqual([
+      {
+        type: 'section',
+        text: {
+          type: 'plain_text',
+          emoji: true,
+          text: 'Test Message',
+        },
+      },
+      {
+        type: 'divider',
+      },
       {
         type: 'section',
         text: { type: 'mrkdwn', text: '*Notification-test-pipeline*' },

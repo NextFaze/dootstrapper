@@ -53,7 +53,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
     channelTypes: string,
     cursor = ''
   ): Promise<{ success: boolean; id?: string; error?: string }> {
-    const channelsResponse = await this.webClient.conversations.list({
+    const channelsResponse = await this.webClient.channels.list({
       types: channelTypes,
       limit: 200,
       cursor,
@@ -94,39 +94,86 @@ export class SlackSubscriptionHandler extends BaseHandler {
   }
 
   private getPostMessageBody(message: string) {
-    let parsedMessageBody: { text: string; blocks?: any };
+    let messageBody: { text: string; blocks?: any };
 
     try {
+      // tslint:disable-next-line: no-console
+      console.log('New Message Received:', message);
+
       const parsedMessage = JSON.parse(message);
 
-      const { region, account, detail, id, time } = parsedMessage;
-
-      parsedMessageBody = {
-        text: 'Anything Really', // this will get ignored
-        blocks: createDeploymentStatusBlocks({
-          body: {
-            title: detail?.pipeline,
-            fields: [
-              `*Id:* ${id}`,
-              `*Region:* ${region}`,
-              `*Account:* ${account}`,
-              `*State:* ${detail?.state}`,
-            ],
-          },
-          actions: [
-            {
-              text: 'View',
-              url: `https://console.aws.amazon.com/codepipeline/home?region=${region}#/view/${detail?.pipeline}`,
-            },
-          ],
-          footer: `Last Updated at ${new Date(time).toString()}`,
-        }),
-      };
+      if (parsedMessage.approval) {
+        // when notification is of type approval
+        messageBody = this.getApprovalMessageBody(parsedMessage);
+      } else if (parsedMessage.detail) {
+        // when notification is of type details (status update)
+        messageBody = this.getStatusUpdateMessageBody(parsedMessage);
+      } else {
+        // when no matching template found
+        messageBody = {
+          text: message,
+        };
+      }
     } catch (err) {
-      parsedMessageBody = {
+      messageBody = {
         text: message,
       };
     }
-    return parsedMessageBody;
+    return messageBody;
+  }
+
+  private getApprovalMessageBody(message: {
+    [key: string]: string;
+    approval: any;
+  }) {
+    const { approval, region, consoleLink } = message;
+    return {
+      text: 'Approval required',
+      blocks: createDeploymentStatusBlocks({
+        message: 'Deployment status updated',
+        body: {
+          title: approval.pipelineName,
+          fields: [
+            `*Stage:* ${approval.stageName}`,
+            `*Action:* ${approval.actionName}`,
+            `*Region:* ${region}`,
+          ],
+        },
+        actions: [
+          {
+            text: 'View',
+            url: consoleLink,
+          },
+        ],
+        footer: `Last Updated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`,
+      }),
+    };
+  }
+
+  private getStatusUpdateMessageBody(message: any) {
+    const { region, account, detail, id, time } = message;
+
+    return {
+      text: 'Deployment state updated',
+      blocks: createDeploymentStatusBlocks({
+        message: 'Deployment state updated',
+        body: {
+          title: detail?.pipeline,
+          fields: [
+            `*Id:* ${id}`,
+            `*Region:* ${region}`,
+            `*Account:* ${account}`,
+            `*State:* ${detail?.state}`,
+          ],
+        },
+        actions: [
+          {
+            text: 'View',
+            url: `https://console.aws.amazon.com/codesuite/codepipeline/pipelines/${detail?.pipeline}/view?region=${region}`,
+          },
+        ],
+        footer: `Last Updated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`,
+      }),
+    };
   }
 }

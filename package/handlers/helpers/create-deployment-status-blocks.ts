@@ -1,8 +1,10 @@
 export function createDeploymentStatusBlocks({
+  message,
   body: { title, fields, imgUrl },
   actions,
   footer,
 }: {
+  message: string;
   body: {
     title: string;
     fields: string[];
@@ -13,6 +15,22 @@ export function createDeploymentStatusBlocks({
 }) {
   const blocks = [];
 
+  // header
+  blocks.push(
+    {
+      type: 'section',
+      text: {
+        type: 'plain_text',
+        emoji: true,
+        text: message,
+      },
+    },
+    {
+      type: 'divider',
+    }
+  );
+
+  // body
   const bodySection: { [key: string]: any } = {
     type: 'section',
     text: {
@@ -38,6 +56,7 @@ export function createDeploymentStatusBlocks({
 
   blocks.push(bodySection);
 
+  // actions
   const actionsSection = {
     type: 'actions',
     elements: actions.map(action => {

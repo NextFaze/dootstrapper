@@ -28,7 +28,7 @@ describe('SlackSubscriptionHandler', () => {
 
   it('should bail out if there was an error retrieving channels', async () => {
     slackSubHandler = new SlackSubscriptionHandler({
-      conversations: {
+      channels: {
         list: jasmine
           .createSpy()
           .and.returnValue({ ok: false, error: 'no such channel' }),
@@ -41,7 +41,7 @@ describe('SlackSubscriptionHandler', () => {
 
   it('should bail out if no channels found for given name', async () => {
     slackSubHandler = new SlackSubscriptionHandler({
-      conversations: {
+      channels: {
         list: jasmine.createSpy().and.returnValue({
           ok: true,
           channels: [{ id: '123', name: 'notify-you' }],
@@ -76,7 +76,7 @@ describe('SlackSubscriptionHandler', () => {
     });
 
     slackSubHandler = new SlackSubscriptionHandler({
-      conversations: {
+      channels: {
         list: listSubSpy,
       },
       chat: {
@@ -99,7 +99,7 @@ describe('SlackSubscriptionHandler', () => {
 
   it('should bail out if no channels found for given name', async () => {
     slackSubHandler = new SlackSubscriptionHandler({
-      conversations: {
+      channels: {
         list: jasmine.createSpy().and.returnValue({
           ok: true,
           channels: [{ id: '123', name: 'notify-you' }],
@@ -111,10 +111,61 @@ describe('SlackSubscriptionHandler', () => {
     expect(response).toEqual({ success: false });
   });
 
-  it('should post message in blocks structure', async () => {
+  it('should post approval message', async () => {
     const postMessageSpy = jasmine.createSpy().and.returnValue({ ok: true });
     slackSubHandler = new SlackSubscriptionHandler({
-      conversations: {
+      channels: {
+        list: jasmine.createSpy().and.returnValue({
+          ok: true,
+          channels: [{ id: '123', name: 'notify-me' }],
+        }),
+      },
+      chat: {
+        postMessage: postMessageSpy,
+      },
+    } as any);
+
+    const response = await slackSubHandler.run({
+      Records: [
+        {
+          Sns: {
+            Message: JSON.stringify({
+              region: 'ap-southeast-2',
+              consoleLink:
+                'https://console.aws.amazon.com/codesuite/codepipeline/pipelines/test-pipeline/view?region=ap-southeast-2',
+              approval: {
+                pipelineName: 'test-pipeline',
+                stageName: 'ProdDeploy',
+                actionName: 'prod-approve',
+                token: '000000-0000',
+                expires: '2020-05-07T09:41Z',
+                externalEntityLink: null,
+                approvalReviewLink:
+                  'https://console.aws.amazon.com/codesuite/codepipeline/pipelines/test-pipeline/view?region=ap-southeast-2#/ProdDeploy/prod-approve/approve/000000-0000',
+                customData: null,
+              },
+            }),
+          },
+        },
+      ],
+    } as any);
+
+    expect(postMessageSpy).toHaveBeenCalledTimes(1);
+    expect(postMessageSpy).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        channel: '123',
+        text: 'Approval required',
+      })
+    );
+    expect(response).toEqual({ success: true });
+  });
+
+  it('should post status update message', async () => {
+    const date = new Date();
+    jasmine.clock().mockDate(date);
+    const postMessageSpy = jasmine.createSpy().and.returnValue({ ok: true });
+    slackSubHandler = new SlackSubscriptionHandler({
+      channels: {
         list: jasmine.createSpy().and.returnValue({
           ok: true,
           channels: [{ id: '123', name: 'notify-me' }],
@@ -148,50 +199,19 @@ describe('SlackSubscriptionHandler', () => {
       ],
     } as any);
     expect(postMessageSpy).toHaveBeenCalledTimes(1);
-    expect(postMessageSpy).toHaveBeenCalledWith({
-      channel: '123',
-      text: 'Anything Really',
-      blocks: [
-        {
-          type: 'section',
-          text: { type: 'mrkdwn', text: '*Notification-test-pipeline*' },
-          fields: [
-            { type: 'mrkdwn', text: '*Id:* 123-123-123-123' },
-            { type: 'mrkdwn', text: '*Region:* ap-southeast-1' },
-            { type: 'mrkdwn', text: '*Account:* 0000000012' },
-            { type: 'mrkdwn', text: '*State:* FAILED' },
-          ],
-        },
-        {
-          type: 'actions',
-          elements: [
-            {
-              type: 'button',
-              text: { type: 'plain_text', text: 'View' },
-              url:
-                'https://console.aws.amazon.com/codepipeline/home?region=ap-southeast-1#/view/Notification-test-pipeline',
-            },
-          ],
-        },
-        {
-          type: 'context',
-          elements: [
-            {
-              type: 'mrkdwn',
-              text:
-                'Last Updated at Tue Apr 28 2020 02:36:06 GMT+0000 (Coordinated Universal Time)',
-            },
-          ],
-        },
-      ],
-    });
+    expect(postMessageSpy).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        channel: '123',
+        text: 'Deployment state updated',
+      })
+    );
     expect(response).toEqual({ success: true });
   });
 
   it('should post message as simple string when message could not be formatted', async () => {
     const postMessageSpy = jasmine.createSpy().and.returnValue({ ok: true });
     slackSubHandler = new SlackSubscriptionHandler({
-      conversations: {
+      channels: {
         list: jasmine.createSpy().and.returnValue({
           ok: true,
           channels: [{ id: '123', name: 'notify-me' }],
