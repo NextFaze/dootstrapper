@@ -1,5 +1,5 @@
-import { Stack, App } from '@aws-cdk/core';
-import { IBaseDeploymentProps, IFrontendEnvironment } from './interfaces';
+import { App } from '@aws-cdk/core';
+import { IFrontendEnvironment } from './interfaces';
 import { HostedZone } from '@aws-cdk/aws-route53';
 import {
   DnsValidatedCertificate,
@@ -7,8 +7,7 @@ import {
   ICertificate,
 } from '@aws-cdk/aws-certificatemanager';
 import { FrontendCDNPipeline } from './constructs/frontend-cdn-pipeline';
-import { EMAIL_VALIDATOR } from './constants';
-import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
+import { IBaseDeploymentProps, BaseDeployment } from './base-deployment';
 
 /**
  * @param - __baseDomainName__: Base Domain name to serve application on. <br />
@@ -63,10 +62,9 @@ export interface IRuntimeEnvironmentProps {
 
 /** Create all required resources on AWS cloud to enable continuous delivery/deployment for modern web apps.<br />
  *  Additionally, it also configures notification channels to report deployment notifications to your developers.
- * @noInheritDoc
  *
  */
-export class FrontendDeployment extends Stack {
+export class FrontendDeployment extends BaseDeployment {
   constructor(scope: App, id: string, props: IFrontendDeploymentProps) {
     super(scope, id, props);
     const {
@@ -75,9 +73,7 @@ export class FrontendDeployment extends Stack {
       certificateArn,
       runtimeEnvironmentConfig,
       baseDomainName,
-      notificationConfig: {
-        notificationsTargetConfig: { emailAddress },
-      },
+      notificationConfig: { notificationsTargetConfig },
     } = props;
 
     const hostedZone = HostedZone.fromLookup(this, 'HostedZone', {
@@ -117,15 +113,10 @@ export class FrontendDeployment extends Stack {
         hostedZone,
       }
     );
-    pipelineConstruct.notificationTopic.addSubscription(
-      this._createSnsSubscription(emailAddress)
-    );
-  }
 
-  private _createSnsSubscription(emailAddress: string) {
-    if (!EMAIL_VALIDATOR.test(String(emailAddress).toLocaleLowerCase())) {
-      throw new Error('Invalid Email Address.');
-    }
-    return new EmailSubscription(emailAddress);
+    this.createNotificationSubscription(
+      pipelineConstruct,
+      notificationsTargetConfig
+    );
   }
 }
