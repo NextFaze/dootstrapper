@@ -1,6 +1,12 @@
 {
   "Resources": {
-    "CertificateCertificateRequestorFunctionServiceRoleC04C13DA": {
+    "HostedZoneDB99F866": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+        "Name": "example.com."
+      }
+    },
+    "FrontendDeploymentCertificateCertificateRequestorFunctionServiceRoleCA31BDC5": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -31,7 +37,7 @@
         ]
       }
     },
-    "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC": {
+    "FrontendDeploymentCertificateCertificateRequestorFunctionServiceRoleDefaultPolicy5C419EE8": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -63,7 +69,7 @@
                     },
                     ":route53:::hostedzone/",
                     {
-                      "Fn::ImportValue": "Core:ExportsOutputRefHostedZoneDB99F8662BBAE844"
+                      "Ref": "HostedZoneDB99F866"
                     }
                   ]
                 ]
@@ -72,15 +78,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC",
+        "PolicyName": "FrontendDeploymentCertificateCertificateRequestorFunctionServiceRoleDefaultPolicy5C419EE8",
         "Roles": [
           {
-            "Ref": "CertificateCertificateRequestorFunctionServiceRoleC04C13DA"
+            "Ref": "FrontendDeploymentCertificateCertificateRequestorFunctionServiceRoleCA31BDC5"
           }
         ]
       }
     },
-    "CertificateCertificateRequestorFunction5E845413": {
+    "FrontendDeploymentCertificateCertificateRequestorFunction1DBA0CDD": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
@@ -124,7 +130,7 @@
         "Handler": "index.certificateRequestHandler",
         "Role": {
           "Fn::GetAtt": [
-            "CertificateCertificateRequestorFunctionServiceRoleC04C13DA",
+            "FrontendDeploymentCertificateCertificateRequestorFunctionServiceRoleCA31BDC5",
             "Arn"
           ]
         },
@@ -132,30 +138,30 @@
         "Timeout": 900
       },
       "DependsOn": [
-        "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC",
-        "CertificateCertificateRequestorFunctionServiceRoleC04C13DA"
+        "FrontendDeploymentCertificateCertificateRequestorFunctionServiceRoleDefaultPolicy5C419EE8",
+        "FrontendDeploymentCertificateCertificateRequestorFunctionServiceRoleCA31BDC5"
       ]
     },
-    "CertificateCertificateRequestorResource2890C6B7": {
+    "FrontendDeploymentCertificateCertificateRequestorResource3AAE567F": {
       "Type": "AWS::CloudFormation::CustomResource",
       "Properties": {
         "ServiceToken": {
           "Fn::GetAtt": [
-            "CertificateCertificateRequestorFunction5E845413",
+            "FrontendDeploymentCertificateCertificateRequestorFunction1DBA0CDD",
             "Arn"
           ]
         },
         "DomainName": "example.com",
         "SubjectAlternativeNames": ["*.example.com"],
         "HostedZoneId": {
-          "Fn::ImportValue": "Core:ExportsOutputRefHostedZoneDB99F8662BBAE844"
+          "Ref": "HostedZoneDB99F866"
         },
         "Region": "us-east-1"
       },
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete"
     },
-    "FrontendCDNPipelineArtifactBucketA7C7CF08": {
+    "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
         "VersioningConfiguration": {
@@ -165,7 +171,7 @@
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "FrontendCDNPipelineArtifactBucketFrontendDeploymentFrontendCDNPipelineCD99430FSourceEventRulepathtoartifactzipA1A26F46": {
+    "FrontendDeploymentFrontendCDNPipelineArtifactBucketStackFrontendDeploymentFrontendCDNPipeline1246D889SourceEventRulepathtoartifactzipE1E9E17B": {
       "Type": "AWS::Events::Rule",
       "Properties": {
         "EventPattern": {
@@ -180,7 +186,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                           "Arn"
                         ]
                       },
@@ -194,7 +200,7 @@
             "requestParameters": {
               "bucketName": [
                 {
-                  "Ref": "FrontendCDNPipelineArtifactBucketA7C7CF08"
+                  "Ref": "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D"
                 }
               ],
               "key": ["path/to/artifact.zip"]
@@ -222,29 +228,32 @@
                   },
                   ":",
                   {
-                    "Ref": "FrontendCDNPipelineA052AB79"
+                    "Ref": "FrontendDeploymentFrontendCDNPipeline1D4D4EE1"
                   }
                 ]
               ]
             },
             "Id": "Target0",
             "RoleArn": {
-              "Fn::GetAtt": ["FrontendCDNPipelineEventsRoleC82912B6", "Arn"]
+              "Fn::GetAtt": [
+                "FrontendDeploymentFrontendCDNPipelineEventsRole882C4F54",
+                "Arn"
+              ]
             }
           }
         ]
       }
     },
-    "FrontendCDNPipelineS3ArtifactTrailS3178FC05A": {
+    "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailS3DEBA7434": {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "FrontendCDNPipelineS3ArtifactTrailS3Policy310DA546": {
+    "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailS3PolicyA5170270": {
       "Type": "AWS::S3::BucketPolicy",
       "Properties": {
         "Bucket": {
-          "Ref": "FrontendCDNPipelineS3ArtifactTrailS3178FC05A"
+          "Ref": "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailS3DEBA7434"
         },
         "PolicyDocument": {
           "Statement": [
@@ -256,7 +265,7 @@
               },
               "Resource": {
                 "Fn::GetAtt": [
-                  "FrontendCDNPipelineS3ArtifactTrailS3178FC05A",
+                  "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailS3DEBA7434",
                   "Arn"
                 ]
               }
@@ -278,7 +287,7 @@
                   [
                     {
                       "Fn::GetAtt": [
-                        "FrontendCDNPipelineS3ArtifactTrailS3178FC05A",
+                        "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailS3DEBA7434",
                         "Arn"
                       ]
                     },
@@ -296,7 +305,7 @@
         }
       }
     },
-    "FrontendCDNPipelineS3ArtifactTrailLogGroupEEA49B86": {
+    "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogGroupA1B554DB": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
         "RetentionInDays": 365
@@ -304,7 +313,7 @@
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "FrontendCDNPipelineS3ArtifactTrailLogsRole9A5B2AC6": {
+    "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogsRole100A2A91": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -321,7 +330,7 @@
         }
       }
     },
-    "FrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicy95E271D6": {
+    "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicyDE87DCC6": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -331,7 +340,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "FrontendCDNPipelineS3ArtifactTrailLogGroupEEA49B86",
+                  "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogGroupA1B554DB",
                   "Arn"
                 ]
               }
@@ -339,30 +348,30 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "FrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicy95E271D6",
+        "PolicyName": "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicyDE87DCC6",
         "Roles": [
           {
-            "Ref": "FrontendCDNPipelineS3ArtifactTrailLogsRole9A5B2AC6"
+            "Ref": "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogsRole100A2A91"
           }
         ]
       }
     },
-    "FrontendCDNPipelineS3ArtifactTrailA5BAFCF2": {
+    "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrail5EFA2EDA": {
       "Type": "AWS::CloudTrail::Trail",
       "Properties": {
         "IsLogging": true,
         "S3BucketName": {
-          "Ref": "FrontendCDNPipelineS3ArtifactTrailS3178FC05A"
+          "Ref": "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailS3DEBA7434"
         },
         "CloudWatchLogsLogGroupArn": {
           "Fn::GetAtt": [
-            "FrontendCDNPipelineS3ArtifactTrailLogGroupEEA49B86",
+            "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogGroupA1B554DB",
             "Arn"
           ]
         },
         "CloudWatchLogsRoleArn": {
           "Fn::GetAtt": [
-            "FrontendCDNPipelineS3ArtifactTrailLogsRole9A5B2AC6",
+            "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogsRole100A2A91",
             "Arn"
           ]
         },
@@ -379,7 +388,7 @@
                       [
                         {
                           "Fn::GetAtt": [
-                            "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                            "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                             "Arn"
                           ]
                         },
@@ -397,15 +406,15 @@
         "IsMultiRegionTrail": true
       },
       "DependsOn": [
-        "FrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicy95E271D6",
-        "FrontendCDNPipelineS3ArtifactTrailLogsRole9A5B2AC6",
-        "FrontendCDNPipelineS3ArtifactTrailS3Policy310DA546"
+        "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogsRoleDefaultPolicyDE87DCC6",
+        "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailLogsRole100A2A91",
+        "FrontendDeploymentFrontendCDNPipelineS3ArtifactTrailS3PolicyA5170270"
       ]
     },
-    "FrontendCDNPipelineNotificationTopicB88DDA2B": {
+    "FrontendDeploymentFrontendCDNPipelineNotificationTopic6FA6367C": {
       "Type": "AWS::SNS::Topic"
     },
-    "FrontendCDNPipelineNotificationTopicPolicyAA7F62DB": {
+    "FrontendDeploymentFrontendCDNPipelineNotificationTopicPolicyB4EA30C5": {
       "Type": "AWS::SNS::TopicPolicy",
       "Properties": {
         "PolicyDocument": {
@@ -417,7 +426,7 @@
                 "Service": "events.amazonaws.com"
               },
               "Resource": {
-                "Ref": "FrontendCDNPipelineNotificationTopicB88DDA2B"
+                "Ref": "FrontendDeploymentFrontendCDNPipelineNotificationTopic6FA6367C"
               },
               "Sid": "0"
             }
@@ -426,22 +435,22 @@
         },
         "Topics": [
           {
-            "Ref": "FrontendCDNPipelineNotificationTopicB88DDA2B"
+            "Ref": "FrontendDeploymentFrontendCDNPipelineNotificationTopic6FA6367C"
           }
         ]
       }
     },
-    "FrontendCDNPipelineNotificationTopicsupportexamplecomB50A3016": {
+    "FrontendDeploymentFrontendCDNPipelineNotificationTopicsupportexamplecom63661A0E": {
       "Type": "AWS::SNS::Subscription",
       "Properties": {
         "Protocol": "email",
         "TopicArn": {
-          "Ref": "FrontendCDNPipelineNotificationTopicB88DDA2B"
+          "Ref": "FrontendDeploymentFrontendCDNPipelineNotificationTopic6FA6367C"
         },
         "Endpoint": "support@example.com"
       }
     },
-    "FrontendCDNPipelineRole5712C195": {
+    "FrontendDeploymentFrontendCDNPipelineRole7B483FF5": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -458,7 +467,7 @@
         }
       }
     },
-    "FrontendCDNPipelineRoleDefaultPolicy9F2B3730": {
+    "FrontendDeploymentFrontendCDNPipelineRoleDefaultPolicy3DFAB486": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -476,7 +485,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                     "Arn"
                   ]
                 },
@@ -486,7 +495,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                           "Arn"
                         ]
                       },
@@ -501,7 +510,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleC06A327D",
+                  "FrontendDeploymentFrontendCDNPipelineCheckoutS3SourceCodePipelineActionRole260C7D4A",
                   "Arn"
                 ]
               }
@@ -511,7 +520,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRole2220A8FC",
+                  "FrontendDeploymentFrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleA6D2E5B8",
                   "Arn"
                 ]
               }
@@ -521,7 +530,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "FrontendCDNPipelineProdDeployCodePipelineActionRoleF3696F05",
+                  "FrontendDeploymentFrontendCDNPipelineProdDeployCodePipelineActionRole2CE3F056",
                   "Arn"
                 ]
               }
@@ -529,19 +538,22 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "FrontendCDNPipelineRoleDefaultPolicy9F2B3730",
+        "PolicyName": "FrontendDeploymentFrontendCDNPipelineRoleDefaultPolicy3DFAB486",
         "Roles": [
           {
-            "Ref": "FrontendCDNPipelineRole5712C195"
+            "Ref": "FrontendDeploymentFrontendCDNPipelineRole7B483FF5"
           }
         ]
       }
     },
-    "FrontendCDNPipelineA052AB79": {
+    "FrontendDeploymentFrontendCDNPipeline1D4D4EE1": {
       "Type": "AWS::CodePipeline::Pipeline",
       "Properties": {
         "RoleArn": {
-          "Fn::GetAtt": ["FrontendCDNPipelineRole5712C195", "Arn"]
+          "Fn::GetAtt": [
+            "FrontendDeploymentFrontendCDNPipelineRole7B483FF5",
+            "Arn"
+          ]
         },
         "Stages": [
           {
@@ -555,7 +567,7 @@
                 },
                 "Configuration": {
                   "S3Bucket": {
-                    "Ref": "FrontendCDNPipelineArtifactBucketA7C7CF08"
+                    "Ref": "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D"
                   },
                   "S3ObjectKey": "path/to/artifact.zip",
                   "PollForSourceChanges": false
@@ -568,7 +580,7 @@
                 ],
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleC06A327D",
+                    "FrontendDeploymentFrontendCDNPipelineCheckoutS3SourceCodePipelineActionRole260C7D4A",
                     "Arn"
                   ]
                 },
@@ -588,7 +600,7 @@
                 },
                 "Configuration": {
                   "ProjectName": {
-                    "Ref": "FrontendCDNPipelinePipelineProject3231D48E"
+                    "Ref": "FrontendDeploymentFrontendCDNPipelinePipelineProjectB554597B"
                   },
                   "EnvironmentVariables": "[{\"name\":\"environment\",\"type\":\"PLAINTEXT\",\"value\":\"prod\"}]"
                 },
@@ -605,7 +617,7 @@
                 ],
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRole2220A8FC",
+                    "FrontendDeploymentFrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleA6D2E5B8",
                     "Arn"
                   ]
                 },
@@ -620,7 +632,7 @@
                 },
                 "Configuration": {
                   "BucketName": {
-                    "Ref": "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F"
+                    "Ref": "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucket09F0B485"
                   },
                   "Extract": "true"
                 },
@@ -632,7 +644,7 @@
                 "Name": "Deploy",
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineProdDeployCodePipelineActionRoleF3696F05",
+                    "FrontendDeploymentFrontendCDNPipelineProdDeployCodePipelineActionRole2CE3F056",
                     "Arn"
                   ]
                 },
@@ -644,17 +656,17 @@
         ],
         "ArtifactStore": {
           "Location": {
-            "Ref": "FrontendCDNPipelineArtifactBucketA7C7CF08"
+            "Ref": "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D"
           },
           "Type": "S3"
         }
       },
       "DependsOn": [
-        "FrontendCDNPipelineRoleDefaultPolicy9F2B3730",
-        "FrontendCDNPipelineRole5712C195"
+        "FrontendDeploymentFrontendCDNPipelineRoleDefaultPolicy3DFAB486",
+        "FrontendDeploymentFrontendCDNPipelineRole7B483FF5"
       ]
     },
-    "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleC06A327D": {
+    "FrontendDeploymentFrontendCDNPipelineCheckoutS3SourceCodePipelineActionRole260C7D4A": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -686,7 +698,7 @@
         }
       }
     },
-    "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyEE441C71": {
+    "FrontendDeploymentFrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicy08AF0B8A": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -697,7 +709,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                     "Arn"
                   ]
                 },
@@ -707,7 +719,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                           "Arn"
                         ]
                       },
@@ -723,7 +735,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                     "Arn"
                   ]
                 },
@@ -733,7 +745,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                           "Arn"
                         ]
                       },
@@ -746,15 +758,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyEE441C71",
+        "PolicyName": "FrontendDeploymentFrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicy08AF0B8A",
         "Roles": [
           {
-            "Ref": "FrontendCDNPipelineCheckoutS3SourceCodePipelineActionRoleC06A327D"
+            "Ref": "FrontendDeploymentFrontendCDNPipelineCheckoutS3SourceCodePipelineActionRole260C7D4A"
           }
         ]
       }
     },
-    "FrontendCDNPipelineEventsRoleC82912B6": {
+    "FrontendDeploymentFrontendCDNPipelineEventsRole882C4F54": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -771,7 +783,7 @@
         }
       }
     },
-    "FrontendCDNPipelineEventsRoleDefaultPolicy8AEF134C": {
+    "FrontendDeploymentFrontendCDNPipelineEventsRoleDefaultPolicy43EADFA7": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -797,7 +809,7 @@
                     },
                     ":",
                     {
-                      "Ref": "FrontendCDNPipelineA052AB79"
+                      "Ref": "FrontendDeploymentFrontendCDNPipeline1D4D4EE1"
                     }
                   ]
                 ]
@@ -806,15 +818,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "FrontendCDNPipelineEventsRoleDefaultPolicy8AEF134C",
+        "PolicyName": "FrontendDeploymentFrontendCDNPipelineEventsRoleDefaultPolicy43EADFA7",
         "Roles": [
           {
-            "Ref": "FrontendCDNPipelineEventsRoleC82912B6"
+            "Ref": "FrontendDeploymentFrontendCDNPipelineEventsRole882C4F54"
           }
         ]
       }
     },
-    "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRole2220A8FC": {
+    "FrontendDeploymentFrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleA6D2E5B8": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -846,7 +858,7 @@
         }
       }
     },
-    "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleDefaultPolicy6F0854A6": {
+    "FrontendDeploymentFrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleDefaultPolicy4CA4BE7F": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -860,7 +872,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "FrontendCDNPipelinePipelineProject3231D48E",
+                  "FrontendDeploymentFrontendCDNPipelinePipelineProjectB554597B",
                   "Arn"
                 ]
               }
@@ -868,15 +880,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleDefaultPolicy6F0854A6",
+        "PolicyName": "FrontendDeploymentFrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleDefaultPolicy4CA4BE7F",
         "Roles": [
           {
-            "Ref": "FrontendCDNPipelineProdDeployPrepareCodePipelineActionRole2220A8FC"
+            "Ref": "FrontendDeploymentFrontendCDNPipelineProdDeployPrepareCodePipelineActionRoleA6D2E5B8"
           }
         ]
       }
     },
-    "FrontendCDNPipelineProdDeployCodePipelineActionRoleF3696F05": {
+    "FrontendDeploymentFrontendCDNPipelineProdDeployCodePipelineActionRole2CE3F056": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -908,7 +920,7 @@
         }
       }
     },
-    "FrontendCDNPipelineProdDeployCodePipelineActionRoleDefaultPolicyBD8DBE9D": {
+    "FrontendDeploymentFrontendCDNPipelineProdDeployCodePipelineActionRoleDefaultPolicy4DFE6E04": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -919,7 +931,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                    "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucket09F0B485",
                     "Arn"
                   ]
                 },
@@ -929,7 +941,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                          "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucket09F0B485",
                           "Arn"
                         ]
                       },
@@ -945,7 +957,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                     "Arn"
                   ]
                 },
@@ -955,7 +967,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                           "Arn"
                         ]
                       },
@@ -968,15 +980,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "FrontendCDNPipelineProdDeployCodePipelineActionRoleDefaultPolicyBD8DBE9D",
+        "PolicyName": "FrontendDeploymentFrontendCDNPipelineProdDeployCodePipelineActionRoleDefaultPolicy4DFE6E04",
         "Roles": [
           {
-            "Ref": "FrontendCDNPipelineProdDeployCodePipelineActionRoleF3696F05"
+            "Ref": "FrontendDeploymentFrontendCDNPipelineProdDeployCodePipelineActionRole2CE3F056"
           }
         ]
       }
     },
-    "FrontendCDNPipelinePipelineNotificationsRuleDFABF0AE": {
+    "FrontendDeploymentFrontendCDNPipelinePipelineNotificationsRuleE61D64F9": {
       "Type": "AWS::Events::Rule",
       "Properties": {
         "Description": "Dootstrapper Pipeline notifications Cloudwatch Rule",
@@ -1002,7 +1014,7 @@
                   },
                   ":",
                   {
-                    "Ref": "FrontendCDNPipelineA052AB79"
+                    "Ref": "FrontendDeploymentFrontendCDNPipeline1D4D4EE1"
                   }
                 ]
               ]
@@ -1013,14 +1025,14 @@
         "Targets": [
           {
             "Arn": {
-              "Ref": "FrontendCDNPipelineNotificationTopicB88DDA2B"
+              "Ref": "FrontendDeploymentFrontendCDNPipelineNotificationTopic6FA6367C"
             },
             "Id": "Target0"
           }
         ]
       }
     },
-    "FrontendCDNPipelinePipelineProjectRole7A5430C5": {
+    "FrontendDeploymentFrontendCDNPipelinePipelineProjectRoleFE128974": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -1037,7 +1049,7 @@
         }
       }
     },
-    "FrontendCDNPipelinePipelineProjectRoleDefaultPolicy928E8AE1": {
+    "FrontendDeploymentFrontendCDNPipelinePipelineProjectRoleDefaultPolicy294A6621": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -1068,7 +1080,7 @@
                       },
                       ":log-group:/aws/codebuild/",
                       {
-                        "Ref": "FrontendCDNPipelinePipelineProject3231D48E"
+                        "Ref": "FrontendDeploymentFrontendCDNPipelinePipelineProjectB554597B"
                       }
                     ]
                   ]
@@ -1091,7 +1103,7 @@
                       },
                       ":log-group:/aws/codebuild/",
                       {
-                        "Ref": "FrontendCDNPipelinePipelineProject3231D48E"
+                        "Ref": "FrontendDeploymentFrontendCDNPipelinePipelineProjectB554597B"
                       },
                       ":*"
                     ]
@@ -1125,7 +1137,7 @@
                     },
                     ":report-group/",
                     {
-                      "Ref": "FrontendCDNPipelinePipelineProject3231D48E"
+                      "Ref": "FrontendDeploymentFrontendCDNPipelinePipelineProjectB554597B"
                     },
                     "-*"
                   ]
@@ -1145,7 +1157,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                    "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                     "Arn"
                   ]
                 },
@@ -1155,7 +1167,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineArtifactBucketA7C7CF08",
+                          "FrontendDeploymentFrontendCDNPipelineArtifactBucket4713466D",
                           "Arn"
                         ]
                       },
@@ -1168,15 +1180,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "FrontendCDNPipelinePipelineProjectRoleDefaultPolicy928E8AE1",
+        "PolicyName": "FrontendDeploymentFrontendCDNPipelinePipelineProjectRoleDefaultPolicy294A6621",
         "Roles": [
           {
-            "Ref": "FrontendCDNPipelinePipelineProjectRole7A5430C5"
+            "Ref": "FrontendDeploymentFrontendCDNPipelinePipelineProjectRoleFE128974"
           }
         ]
       }
     },
-    "FrontendCDNPipelinePipelineProject3231D48E": {
+    "FrontendDeploymentFrontendCDNPipelinePipelineProjectB554597B": {
       "Type": "AWS::CodeBuild::Project",
       "Properties": {
         "Artifacts": {
@@ -1190,7 +1202,7 @@
         },
         "ServiceRole": {
           "Fn::GetAtt": [
-            "FrontendCDNPipelinePipelineProjectRole7A5430C5",
+            "FrontendDeploymentFrontendCDNPipelinePipelineProjectRoleFE128974",
             "Arn"
           ]
         },
@@ -1202,7 +1214,7 @@
         "Name": "Prepare"
       }
     },
-    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F": {
+    "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucket09F0B485": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
         "WebsiteConfiguration": {
@@ -1213,11 +1225,11 @@
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "FrontendCDNPipelineProdWebDistributionOriginBucketPolicy2614B257": {
+    "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucketPolicyC38A6F12": {
       "Type": "AWS::S3::BucketPolicy",
       "Properties": {
         "Bucket": {
-          "Ref": "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F"
+          "Ref": "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucket09F0B485"
         },
         "PolicyDocument": {
           "Statement": [
@@ -1227,7 +1239,7 @@
               "Principal": {
                 "CanonicalUser": {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E",
+                    "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginAccessIdentityAFDC9BFB",
                     "S3CanonicalUserId"
                   ]
                 }
@@ -1235,7 +1247,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                    "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucket09F0B485",
                     "Arn"
                   ]
                 },
@@ -1245,7 +1257,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                          "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucket09F0B485",
                           "Arn"
                         ]
                       },
@@ -1260,7 +1272,7 @@
         }
       }
     },
-    "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E": {
+    "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginAccessIdentityAFDC9BFB": {
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
       "Properties": {
         "CloudFrontOriginAccessIdentityConfig": {
@@ -1268,7 +1280,7 @@
         }
       }
     },
-    "FrontendCDNPipelineProdWebDistributionCloudFrontWebDistributionCFDistribution14A42620": {
+    "FrontendDeploymentFrontendCDNPipelineProdWebDistributionCloudFrontWebDistributionCFDistribution864770D1": {
       "Type": "AWS::CloudFront::Distribution",
       "Properties": {
         "DistributionConfig": {
@@ -1302,7 +1314,7 @@
             {
               "DomainName": {
                 "Fn::GetAtt": [
-                  "FrontendCDNPipelineProdWebDistributionOriginBucket0EC40C7F",
+                  "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginBucket09F0B485",
                   "RegionalDomainName"
                 ]
               },
@@ -1314,7 +1326,7 @@
                     [
                       "origin-access-identity/cloudfront/",
                       {
-                        "Ref": "FrontendCDNPipelineProdWebDistributionOriginAccessIdentity62FB4B2E"
+                        "Ref": "FrontendDeploymentFrontendCDNPipelineProdWebDistributionOriginAccessIdentityAFDC9BFB"
                       }
                     ]
                   ]
@@ -1326,7 +1338,7 @@
           "ViewerCertificate": {
             "AcmCertificateArn": {
               "Fn::GetAtt": [
-                "CertificateCertificateRequestorResource2890C6B7",
+                "FrontendDeploymentCertificateCertificateRequestorResource3AAE567F",
                 "Arn"
               ]
             },

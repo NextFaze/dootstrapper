@@ -1,4 +1,4 @@
-import { IBasePipelineProps, IBackendEnvironment } from './../interfaces';
+import { IBasePipelineProps, IBackendEnvironment } from '../interfaces';
 import { BasePipeline } from './base-pipeline';
 import { Artifact } from '@aws-cdk/aws-codepipeline';
 import { Construct } from '@aws-cdk/core';

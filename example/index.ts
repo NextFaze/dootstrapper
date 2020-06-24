@@ -1,4 +1,4 @@
-import { App } from '@aws-cdk/core';
+import { App, Stack } from '@aws-cdk/core';
 import {
   BackendDeployment,
   NOTIFICATIONS_TARGET,
@@ -23,11 +23,15 @@ const buildSpec = {
 
 const app = new App();
 
-new FrontendDeployment(app, 'FrontendDeployment', {
+const deploymentStack = new Stack(app, 'DeploymentTools', {
+  stackName: 'Frontend and Backend Deployment Tools',
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
   },
+});
+
+new FrontendDeployment(deploymentStack, 'FrontendDeployment', {
   pipelineConfig: {
     artifactsSourceKey: 'artifacts/app.zip',
     environments: [
@@ -48,11 +52,7 @@ new FrontendDeployment(app, 'FrontendDeployment', {
   },
 });
 
-new FrontendDeployment(app, 'FrontendDeploymentWithRuntimeConfig', {
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+new FrontendDeployment(deploymentStack, 'FrontendDeploymentWithRuntimeConfig', {
   pipelineConfig: {
     artifactsSourceKey: 'artifacts/app.zip',
     environments: [
@@ -84,11 +84,7 @@ new FrontendDeployment(app, 'FrontendDeploymentWithRuntimeConfig', {
   },
 });
 
-new BackendDeployment(app, 'BackendDeployment', {
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+new BackendDeployment(deploymentStack, 'BackendDeployment', {
   pipelineConfig: {
     notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
     artifactsSourceKey: 'artifacts/example.zip',
@@ -131,11 +127,7 @@ new BackendDeployment(app, 'BackendDeployment', {
   },
 });
 
-new BackendDeployment(app, 'BackendDeploymentWithSlack', {
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
+new BackendDeployment(deploymentStack, 'BackendDeploymentWithSlack', {
   pipelineConfig: {
     notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
     artifactsSourceKey: 'artifacts/example.zip',

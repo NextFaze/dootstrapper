@@ -1,5 +1,5 @@
-export * from './resources/backend-deployment';
-export * from './resources/frontend-deployment';
+export * from './resources/constructs/backend-deployment';
+export * from './resources/constructs/frontend-deployment';
 export {
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
