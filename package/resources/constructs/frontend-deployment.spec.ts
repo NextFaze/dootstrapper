@@ -10,13 +10,14 @@ describe('FrontendDeployment', () => {
 
   beforeAll(() => {
     const app = new App();
+    stack = new Stack(app, 'Stack');
     spyOn(HostedZone, 'fromLookup').and.returnValue(
-      new HostedZone(new Stack(app, 'Core'), 'HostedZone', {
+      new HostedZone(stack, 'HostedZone', {
         zoneName: 'example.com',
       })
     );
 
-    stack = new FrontendDeployment(app, 'FrontendDeployment', {
+    new FrontendDeployment(stack, 'FrontendDeployment', {
       baseDomainName: 'example.com',
       notificationConfig: {
         notificationsTargetConfig: {

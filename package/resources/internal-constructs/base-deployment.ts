@@ -17,7 +17,7 @@ import { BasePipeline } from './base-pipeline';
  * @typeParam T value for this type will be either {@link IFrontendEnvironment} or {@link IBackendEnvironment}
  * @noInheritDoc
  */
-export interface IBaseDeploymentProps<T> extends StackProps {
+export interface IBaseDeploymentProps<T> {
   notificationConfig: INotificationConfigProps;
   pipelineConfig: IBasePipelineProps<T>;
 }
@@ -26,7 +26,7 @@ export interface IBaseDeploymentProps<T> extends StackProps {
  * @noInheritDoc
  */
 export class BaseDeployment extends Construct {
-  constructor(scope: Construct, id: string, props: IBaseDeploymentProps<any>) {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
   }
 

@@ -1,4 +1,4 @@
-import { App } from '@aws-cdk/core';
+import { App, Construct } from '@aws-cdk/core';
 import { IFrontendEnvironment } from '../interfaces';
 import { HostedZone } from '@aws-cdk/aws-route53';
 import {
@@ -68,8 +68,8 @@ export interface IRuntimeEnvironmentProps {
  *
  */
 export class FrontendDeployment extends BaseDeployment {
-  constructor(scope: App, id: string, props: IFrontendDeploymentProps) {
-    super(scope, id, props);
+  constructor(scope: Construct, id: string, props: IFrontendDeploymentProps) {
+    super(scope, id);
     const {
       pipelineConfig,
       hostedZoneName,

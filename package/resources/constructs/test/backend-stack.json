@@ -1,6 +1,6 @@
 {
   "Resources": {
-    "MultiEnvPipelineArtifactBucket18578669": {
+    "TestStackMultiEnvPipelineArtifactBucket6271DBB4": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
         "VersioningConfiguration": {
@@ -10,7 +10,7 @@
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "MultiEnvPipelineArtifactBucketTestStackMultiEnvPipeline2412191CSourceEventRulepathtoresourcezip22F37C40": {
+    "TestStackMultiEnvPipelineArtifactBucketStackTestStackMultiEnvPipelineA48EBA40SourceEventRulepathtoresourcezipC5B73EC1": {
       "Type": "AWS::Events::Rule",
       "Properties": {
         "EventPattern": {
@@ -25,7 +25,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "MultiEnvPipelineArtifactBucket18578669",
+                          "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                           "Arn"
                         ]
                       },
@@ -39,7 +39,7 @@
             "requestParameters": {
               "bucketName": [
                 {
-                  "Ref": "MultiEnvPipelineArtifactBucket18578669"
+                  "Ref": "TestStackMultiEnvPipelineArtifactBucket6271DBB4"
                 }
               ],
               "key": ["path/to/resource.zip"]
@@ -67,29 +67,32 @@
                   },
                   ":",
                   {
-                    "Ref": "MultiEnvPipeline44057249"
+                    "Ref": "TestStackMultiEnvPipelineEC22F86D"
                   }
                 ]
               ]
             },
             "Id": "Target0",
             "RoleArn": {
-              "Fn::GetAtt": ["MultiEnvPipelineEventsRoleA222D099", "Arn"]
+              "Fn::GetAtt": [
+                "TestStackMultiEnvPipelineEventsRole84F0E453",
+                "Arn"
+              ]
             }
           }
         ]
       }
     },
-    "MultiEnvPipelineS3ArtifactTrailS3D2E21FAD": {
+    "TestStackMultiEnvPipelineS3ArtifactTrailS3EC02BA72": {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "MultiEnvPipelineS3ArtifactTrailS3Policy69951751": {
+    "TestStackMultiEnvPipelineS3ArtifactTrailS3Policy33506F94": {
       "Type": "AWS::S3::BucketPolicy",
       "Properties": {
         "Bucket": {
-          "Ref": "MultiEnvPipelineS3ArtifactTrailS3D2E21FAD"
+          "Ref": "TestStackMultiEnvPipelineS3ArtifactTrailS3EC02BA72"
         },
         "PolicyDocument": {
           "Statement": [
@@ -101,7 +104,7 @@
               },
               "Resource": {
                 "Fn::GetAtt": [
-                  "MultiEnvPipelineS3ArtifactTrailS3D2E21FAD",
+                  "TestStackMultiEnvPipelineS3ArtifactTrailS3EC02BA72",
                   "Arn"
                 ]
               }
@@ -123,7 +126,7 @@
                   [
                     {
                       "Fn::GetAtt": [
-                        "MultiEnvPipelineS3ArtifactTrailS3D2E21FAD",
+                        "TestStackMultiEnvPipelineS3ArtifactTrailS3EC02BA72",
                         "Arn"
                       ]
                     },
@@ -141,7 +144,7 @@
         }
       }
     },
-    "MultiEnvPipelineS3ArtifactTrailLogGroup4B53EC8D": {
+    "TestStackMultiEnvPipelineS3ArtifactTrailLogGroup431A66DA": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
         "RetentionInDays": 365
@@ -149,7 +152,7 @@
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "MultiEnvPipelineS3ArtifactTrailLogsRoleFC331BB0": {
+    "TestStackMultiEnvPipelineS3ArtifactTrailLogsRole7B9B4730": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -166,7 +169,7 @@
         }
       }
     },
-    "MultiEnvPipelineS3ArtifactTrailLogsRoleDefaultPolicy6D2118E8": {
+    "TestStackMultiEnvPipelineS3ArtifactTrailLogsRoleDefaultPolicy889F3307": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -176,7 +179,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "MultiEnvPipelineS3ArtifactTrailLogGroup4B53EC8D",
+                  "TestStackMultiEnvPipelineS3ArtifactTrailLogGroup431A66DA",
                   "Arn"
                 ]
               }
@@ -184,30 +187,30 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "MultiEnvPipelineS3ArtifactTrailLogsRoleDefaultPolicy6D2118E8",
+        "PolicyName": "TestStackMultiEnvPipelineS3ArtifactTrailLogsRoleDefaultPolicy889F3307",
         "Roles": [
           {
-            "Ref": "MultiEnvPipelineS3ArtifactTrailLogsRoleFC331BB0"
+            "Ref": "TestStackMultiEnvPipelineS3ArtifactTrailLogsRole7B9B4730"
           }
         ]
       }
     },
-    "MultiEnvPipelineS3ArtifactTrail3D202057": {
+    "TestStackMultiEnvPipelineS3ArtifactTrailE0DD7A25": {
       "Type": "AWS::CloudTrail::Trail",
       "Properties": {
         "IsLogging": true,
         "S3BucketName": {
-          "Ref": "MultiEnvPipelineS3ArtifactTrailS3D2E21FAD"
+          "Ref": "TestStackMultiEnvPipelineS3ArtifactTrailS3EC02BA72"
         },
         "CloudWatchLogsLogGroupArn": {
           "Fn::GetAtt": [
-            "MultiEnvPipelineS3ArtifactTrailLogGroup4B53EC8D",
+            "TestStackMultiEnvPipelineS3ArtifactTrailLogGroup431A66DA",
             "Arn"
           ]
         },
         "CloudWatchLogsRoleArn": {
           "Fn::GetAtt": [
-            "MultiEnvPipelineS3ArtifactTrailLogsRoleFC331BB0",
+            "TestStackMultiEnvPipelineS3ArtifactTrailLogsRole7B9B4730",
             "Arn"
           ]
         },
@@ -224,7 +227,7 @@
                       [
                         {
                           "Fn::GetAtt": [
-                            "MultiEnvPipelineArtifactBucket18578669",
+                            "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                             "Arn"
                           ]
                         },
@@ -242,15 +245,15 @@
         "IsMultiRegionTrail": true
       },
       "DependsOn": [
-        "MultiEnvPipelineS3ArtifactTrailLogsRoleDefaultPolicy6D2118E8",
-        "MultiEnvPipelineS3ArtifactTrailLogsRoleFC331BB0",
-        "MultiEnvPipelineS3ArtifactTrailS3Policy69951751"
+        "TestStackMultiEnvPipelineS3ArtifactTrailLogsRoleDefaultPolicy889F3307",
+        "TestStackMultiEnvPipelineS3ArtifactTrailLogsRole7B9B4730",
+        "TestStackMultiEnvPipelineS3ArtifactTrailS3Policy33506F94"
       ]
     },
-    "MultiEnvPipelineNotificationTopicDF7464D3": {
+    "TestStackMultiEnvPipelineNotificationTopic459654DD": {
       "Type": "AWS::SNS::Topic"
     },
-    "MultiEnvPipelineNotificationTopicPolicyEC45173F": {
+    "TestStackMultiEnvPipelineNotificationTopicPolicyA778FB90": {
       "Type": "AWS::SNS::TopicPolicy",
       "Properties": {
         "PolicyDocument": {
@@ -262,7 +265,7 @@
                 "Service": "events.amazonaws.com"
               },
               "Resource": {
-                "Ref": "MultiEnvPipelineNotificationTopicDF7464D3"
+                "Ref": "TestStackMultiEnvPipelineNotificationTopic459654DD"
               },
               "Sid": "0"
             }
@@ -271,22 +274,22 @@
         },
         "Topics": [
           {
-            "Ref": "MultiEnvPipelineNotificationTopicDF7464D3"
+            "Ref": "TestStackMultiEnvPipelineNotificationTopic459654DD"
           }
         ]
       }
     },
-    "MultiEnvPipelineNotificationTopicexampleexamplecom539BED63": {
+    "TestStackMultiEnvPipelineNotificationTopicexampleexamplecomA4FECB4A": {
       "Type": "AWS::SNS::Subscription",
       "Properties": {
         "Protocol": "email",
         "TopicArn": {
-          "Ref": "MultiEnvPipelineNotificationTopicDF7464D3"
+          "Ref": "TestStackMultiEnvPipelineNotificationTopic459654DD"
         },
         "Endpoint": "example@example.com"
       }
     },
-    "MultiEnvPipelineRole142940FD": {
+    "TestStackMultiEnvPipelineRole961137AB": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -303,7 +306,7 @@
         }
       }
     },
-    "MultiEnvPipelineRoleDefaultPolicyAD690EB1": {
+    "TestStackMultiEnvPipelineRoleDefaultPolicy0F8F8C4D": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -321,7 +324,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "MultiEnvPipelineArtifactBucket18578669",
+                    "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                     "Arn"
                   ]
                 },
@@ -331,7 +334,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "MultiEnvPipelineArtifactBucket18578669",
+                          "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                           "Arn"
                         ]
                       },
@@ -346,7 +349,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRole1382D76F",
+                  "TestStackMultiEnvPipelineCheckoutS3SourceCodePipelineActionRole5EA08A48",
                   "Arn"
                 ]
               }
@@ -356,7 +359,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "MultiEnvPipelineTestDeployCodePipelineActionRole068F06FC",
+                  "TestStackMultiEnvPipelineTestDeployCodePipelineActionRole7E66EA30",
                   "Arn"
                 ]
               }
@@ -364,19 +367,19 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "MultiEnvPipelineRoleDefaultPolicyAD690EB1",
+        "PolicyName": "TestStackMultiEnvPipelineRoleDefaultPolicy0F8F8C4D",
         "Roles": [
           {
-            "Ref": "MultiEnvPipelineRole142940FD"
+            "Ref": "TestStackMultiEnvPipelineRole961137AB"
           }
         ]
       }
     },
-    "MultiEnvPipeline44057249": {
+    "TestStackMultiEnvPipelineEC22F86D": {
       "Type": "AWS::CodePipeline::Pipeline",
       "Properties": {
         "RoleArn": {
-          "Fn::GetAtt": ["MultiEnvPipelineRole142940FD", "Arn"]
+          "Fn::GetAtt": ["TestStackMultiEnvPipelineRole961137AB", "Arn"]
         },
         "Stages": [
           {
@@ -390,7 +393,7 @@
                 },
                 "Configuration": {
                   "S3Bucket": {
-                    "Ref": "MultiEnvPipelineArtifactBucket18578669"
+                    "Ref": "TestStackMultiEnvPipelineArtifactBucket6271DBB4"
                   },
                   "S3ObjectKey": "path/to/resource.zip",
                   "PollForSourceChanges": false
@@ -403,7 +406,7 @@
                 ],
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRole1382D76F",
+                    "TestStackMultiEnvPipelineCheckoutS3SourceCodePipelineActionRole5EA08A48",
                     "Arn"
                   ]
                 },
@@ -423,7 +426,7 @@
                 },
                 "Configuration": {
                   "ProjectName": {
-                    "Ref": "MultiEnvPipelineTestPipelineProject2C47B493"
+                    "Ref": "TestStackMultiEnvPipelineTestPipelineProjectC8CD0F58"
                   }
                 },
                 "InputArtifacts": [
@@ -439,7 +442,7 @@
                 ],
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "MultiEnvPipelineTestDeployCodePipelineActionRole068F06FC",
+                    "TestStackMultiEnvPipelineTestDeployCodePipelineActionRole7E66EA30",
                     "Arn"
                   ]
                 },
@@ -451,17 +454,17 @@
         ],
         "ArtifactStore": {
           "Location": {
-            "Ref": "MultiEnvPipelineArtifactBucket18578669"
+            "Ref": "TestStackMultiEnvPipelineArtifactBucket6271DBB4"
           },
           "Type": "S3"
         }
       },
       "DependsOn": [
-        "MultiEnvPipelineRoleDefaultPolicyAD690EB1",
-        "MultiEnvPipelineRole142940FD"
+        "TestStackMultiEnvPipelineRoleDefaultPolicy0F8F8C4D",
+        "TestStackMultiEnvPipelineRole961137AB"
       ]
     },
-    "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRole1382D76F": {
+    "TestStackMultiEnvPipelineCheckoutS3SourceCodePipelineActionRole5EA08A48": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -493,7 +496,7 @@
         }
       }
     },
-    "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyE2B5A9E9": {
+    "TestStackMultiEnvPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyA2BD7B2A": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -504,7 +507,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "MultiEnvPipelineArtifactBucket18578669",
+                    "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                     "Arn"
                   ]
                 },
@@ -514,7 +517,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "MultiEnvPipelineArtifactBucket18578669",
+                          "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                           "Arn"
                         ]
                       },
@@ -530,7 +533,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "MultiEnvPipelineArtifactBucket18578669",
+                    "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                     "Arn"
                   ]
                 },
@@ -540,7 +543,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "MultiEnvPipelineArtifactBucket18578669",
+                          "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                           "Arn"
                         ]
                       },
@@ -553,15 +556,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyE2B5A9E9",
+        "PolicyName": "TestStackMultiEnvPipelineCheckoutS3SourceCodePipelineActionRoleDefaultPolicyA2BD7B2A",
         "Roles": [
           {
-            "Ref": "MultiEnvPipelineCheckoutS3SourceCodePipelineActionRole1382D76F"
+            "Ref": "TestStackMultiEnvPipelineCheckoutS3SourceCodePipelineActionRole5EA08A48"
           }
         ]
       }
     },
-    "MultiEnvPipelineEventsRoleA222D099": {
+    "TestStackMultiEnvPipelineEventsRole84F0E453": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -578,7 +581,7 @@
         }
       }
     },
-    "MultiEnvPipelineEventsRoleDefaultPolicy76D2FC63": {
+    "TestStackMultiEnvPipelineEventsRoleDefaultPolicy1AA6ED55": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -604,7 +607,7 @@
                     },
                     ":",
                     {
-                      "Ref": "MultiEnvPipeline44057249"
+                      "Ref": "TestStackMultiEnvPipelineEC22F86D"
                     }
                   ]
                 ]
@@ -613,15 +616,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "MultiEnvPipelineEventsRoleDefaultPolicy76D2FC63",
+        "PolicyName": "TestStackMultiEnvPipelineEventsRoleDefaultPolicy1AA6ED55",
         "Roles": [
           {
-            "Ref": "MultiEnvPipelineEventsRoleA222D099"
+            "Ref": "TestStackMultiEnvPipelineEventsRole84F0E453"
           }
         ]
       }
     },
-    "MultiEnvPipelineTestDeployCodePipelineActionRole068F06FC": {
+    "TestStackMultiEnvPipelineTestDeployCodePipelineActionRole7E66EA30": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -653,7 +656,7 @@
         }
       }
     },
-    "MultiEnvPipelineTestDeployCodePipelineActionRoleDefaultPolicy738AC1CD": {
+    "TestStackMultiEnvPipelineTestDeployCodePipelineActionRoleDefaultPolicy8DDF7E39": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -667,7 +670,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "MultiEnvPipelineTestPipelineProject2C47B493",
+                  "TestStackMultiEnvPipelineTestPipelineProjectC8CD0F58",
                   "Arn"
                 ]
               }
@@ -675,15 +678,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "MultiEnvPipelineTestDeployCodePipelineActionRoleDefaultPolicy738AC1CD",
+        "PolicyName": "TestStackMultiEnvPipelineTestDeployCodePipelineActionRoleDefaultPolicy8DDF7E39",
         "Roles": [
           {
-            "Ref": "MultiEnvPipelineTestDeployCodePipelineActionRole068F06FC"
+            "Ref": "TestStackMultiEnvPipelineTestDeployCodePipelineActionRole7E66EA30"
           }
         ]
       }
     },
-    "MultiEnvPipelinePipelineNotificationsRule3FBAE618": {
+    "TestStackMultiEnvPipelinePipelineNotificationsRule94EE4846": {
       "Type": "AWS::Events::Rule",
       "Properties": {
         "Description": "Dootstrapper Pipeline notifications Cloudwatch Rule",
@@ -709,7 +712,7 @@
                   },
                   ":",
                   {
-                    "Ref": "MultiEnvPipeline44057249"
+                    "Ref": "TestStackMultiEnvPipelineEC22F86D"
                   }
                 ]
               ]
@@ -720,14 +723,14 @@
         "Targets": [
           {
             "Arn": {
-              "Ref": "MultiEnvPipelineNotificationTopicDF7464D3"
+              "Ref": "TestStackMultiEnvPipelineNotificationTopic459654DD"
             },
             "Id": "Target0"
           }
         ]
       }
     },
-    "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78": {
+    "TestStackMultiEnvPipelinetestDootstrapperCoreDeployAccessKeyIdC2A7865F": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
         "Type": "String",
@@ -735,7 +738,7 @@
         "Name": "/dootstrapper/test/access_key_id"
       }
     },
-    "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey90E4971B": {
+    "TestStackMultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKeyC4DE8BED": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
         "Type": "String",
@@ -743,7 +746,7 @@
         "Name": "/dootstrapper/test/secret_access_key"
       }
     },
-    "MultiEnvPipelineTestPipelineProjectRoleCE42161B": {
+    "TestStackMultiEnvPipelineTestPipelineProjectRole18252C58": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -760,7 +763,7 @@
         }
       }
     },
-    "MultiEnvPipelineTestPipelineProjectRoleDefaultPolicy054C61D8": {
+    "TestStackMultiEnvPipelineTestPipelineProjectRoleDefaultPolicy355B2910": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -791,7 +794,7 @@
                       },
                       ":log-group:/aws/codebuild/",
                       {
-                        "Ref": "MultiEnvPipelineTestPipelineProject2C47B493"
+                        "Ref": "TestStackMultiEnvPipelineTestPipelineProjectC8CD0F58"
                       }
                     ]
                   ]
@@ -814,7 +817,7 @@
                       },
                       ":log-group:/aws/codebuild/",
                       {
-                        "Ref": "MultiEnvPipelineTestPipelineProject2C47B493"
+                        "Ref": "TestStackMultiEnvPipelineTestPipelineProjectC8CD0F58"
                       },
                       ":*"
                     ]
@@ -848,7 +851,7 @@
                     },
                     ":report-group/",
                     {
-                      "Ref": "MultiEnvPipelineTestPipelineProject2C47B493"
+                      "Ref": "TestStackMultiEnvPipelineTestPipelineProjectC8CD0F58"
                     },
                     "-*"
                   ]
@@ -881,7 +884,7 @@
                     },
                     ":parameter",
                     {
-                      "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78"
+                      "Ref": "TestStackMultiEnvPipelinetestDootstrapperCoreDeployAccessKeyIdC2A7865F"
                     }
                   ]
                 ]
@@ -913,7 +916,7 @@
                     },
                     ":parameter",
                     {
-                      "Ref": "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey90E4971B"
+                      "Ref": "TestStackMultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKeyC4DE8BED"
                     }
                   ]
                 ]
@@ -932,7 +935,7 @@
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "MultiEnvPipelineArtifactBucket18578669",
+                    "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                     "Arn"
                   ]
                 },
@@ -942,7 +945,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "MultiEnvPipelineArtifactBucket18578669",
+                          "TestStackMultiEnvPipelineArtifactBucket6271DBB4",
                           "Arn"
                         ]
                       },
@@ -955,15 +958,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "MultiEnvPipelineTestPipelineProjectRoleDefaultPolicy054C61D8",
+        "PolicyName": "TestStackMultiEnvPipelineTestPipelineProjectRoleDefaultPolicy355B2910",
         "Roles": [
           {
-            "Ref": "MultiEnvPipelineTestPipelineProjectRoleCE42161B"
+            "Ref": "TestStackMultiEnvPipelineTestPipelineProjectRole18252C58"
           }
         ]
       }
     },
-    "MultiEnvPipelineTestPipelineProject2C47B493": {
+    "TestStackMultiEnvPipelineTestPipelineProjectC8CD0F58": {
       "Type": "AWS::CodeBuild::Project",
       "Properties": {
         "Artifacts": {
@@ -977,7 +980,7 @@
         },
         "ServiceRole": {
           "Fn::GetAtt": [
-            "MultiEnvPipelineTestPipelineProjectRoleCE42161B",
+            "TestStackMultiEnvPipelineTestPipelineProjectRole18252C58",
             "Arn"
           ]
         },
@@ -988,11 +991,11 @@
               [
                 "{\n  \"env\": {\n    \"parameter-store\": {\n      \"AWS_ACCESS_KEY_ID\": \"",
                 {
-                  "Ref": "MultiEnvPipelinetestDootstrapperCoreDeployAccessKeyId1ABD3E78"
+                  "Ref": "TestStackMultiEnvPipelinetestDootstrapperCoreDeployAccessKeyIdC2A7865F"
                 },
                 "\",\n      \"AWS_SECRET_ACCESS_KEY\": \"",
                 {
-                  "Ref": "MultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKey90E4971B"
+                  "Ref": "TestStackMultiEnvPipelinetestDootstrapperCoreDeploySecretAccessKeyC4DE8BED"
                 },
                 "\"\n    }\n  }\n}"
               ]

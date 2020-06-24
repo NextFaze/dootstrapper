@@ -20,7 +20,7 @@ export interface IBackendDeploymentProps
  */
 export class BackendDeployment extends BaseDeployment {
   constructor(scope: Construct, id: string, props: IBackendDeploymentProps) {
-    super(scope, id, props);
+    super(scope, id);
 
     const {
       pipelineConfig,
