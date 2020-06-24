@@ -78,7 +78,7 @@ export class SlackSubscriptionHandler extends BaseHandler {
     }[];
 
     const channelFound = channels?.find(
-      channel => channel.name === channelName
+      (channel) => channel.name === channelName
     );
 
     const next_cursor = channelsResponse.response_metadata?.next_cursor;

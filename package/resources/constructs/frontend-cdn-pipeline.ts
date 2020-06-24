@@ -56,7 +56,7 @@ export class FrontendCDNPipeline extends BasePipeline {
     });
 
     // create distribution for each environment
-    environments.forEach(environment => {
+    environments.forEach((environment) => {
       const {
         name,
         approvalRequired,
@@ -155,8 +155,9 @@ export class FrontendCDNPipeline extends BasePipeline {
       fileExtension = 'json',
     } = config;
 
-    const environmentConfigFile = `${directory}/${fileName +
-      separator}$environment.${fileExtension}`;
+    const environmentConfigFile = `${directory}/${
+      fileName + separator
+    }$environment.${fileExtension}`;
     const mainConfigFile = `${directory}/${fileName}.${fileExtension}`;
 
     return BuildSpec.fromObject({
