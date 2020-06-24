@@ -1,7 +1,10 @@
-import { IBackendEnvironment } from './interfaces';
+import { IBackendEnvironment } from '../interfaces';
 import { App } from '@aws-cdk/core';
-import { CdkAppPipeline } from './constructs/cdk-app-pipeline';
-import { IBaseDeploymentProps, BaseDeployment } from './base-deployment';
+import { CdkAppPipeline } from '../internal-constructs/cdk-app-pipeline';
+import {
+  IBaseDeploymentProps,
+  BaseDeployment,
+} from '../internal-constructs/base-deployment';
 
 /**
  * @inheritdoc {@link IBaseDeploymentProps}

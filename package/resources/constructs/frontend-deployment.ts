@@ -1,13 +1,16 @@
 import { App } from '@aws-cdk/core';
-import { IFrontendEnvironment } from './interfaces';
+import { IFrontendEnvironment } from '../interfaces';
 import { HostedZone } from '@aws-cdk/aws-route53';
 import {
   DnsValidatedCertificate,
   Certificate,
   ICertificate,
 } from '@aws-cdk/aws-certificatemanager';
-import { FrontendCDNPipeline } from './constructs/frontend-cdn-pipeline';
-import { IBaseDeploymentProps, BaseDeployment } from './base-deployment';
+import { FrontendCDNPipeline } from '../internal-constructs/frontend-cdn-pipeline';
+import {
+  IBaseDeploymentProps,
+  BaseDeployment,
+} from '../internal-constructs/base-deployment';
 
 /**
  * @param - __baseDomainName__: Base Domain name to serve application on. <br />

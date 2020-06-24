@@ -1,7 +1,7 @@
 import { expect as expectCDK, haveResource, MatchStyle } from '@aws-cdk/assert';
 import { App, Stack } from '@aws-cdk/core';
 import { BackendDeployment } from './backend-deployment';
-import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from './enums';
+import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from '../enums';
 const stackWithMinConfig = require('./test/backend-stack.json');
 
 describe('BackendDeployment', () => {

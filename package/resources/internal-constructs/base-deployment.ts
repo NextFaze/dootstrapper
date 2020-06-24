@@ -4,12 +4,12 @@ import {
   IBasePipelineProps,
   INotificationsSlackTargetConfig,
   INotificationsEmailTargetConfig,
-} from './interfaces';
+} from '../interfaces';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import { EMAIL_VALIDATOR } from './constants';
-import { SlackSubscription } from './constructs/slack-subscription';
-import { NOTIFICATIONS_TARGET } from './enums';
-import { BasePipeline } from './constructs/base-pipeline';
+import { EMAIL_VALIDATOR } from '../constants';
+import { SlackSubscription } from './slack-subscription';
+import { NOTIFICATIONS_TARGET } from '../enums';
+import { BasePipeline } from './base-pipeline';
 
 /**
  * @param - __pipelineConfig__: Deploy pipeline configurations
