@@ -27,7 +27,7 @@ export class CdkAppPipeline extends BasePipeline {
     const { environments } = this.props;
 
     // Deploy stages
-    environments.forEach(environment => {
+    environments.forEach((environment) => {
       const { adminPermissions = false, privilegedMode } = environment;
       const { accessKeyId, secretAccessKey } = new CredentialStore(
         this,

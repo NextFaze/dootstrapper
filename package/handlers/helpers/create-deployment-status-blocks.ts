@@ -40,7 +40,7 @@ export function createDeploymentStatusBlocks({
   };
 
   if (fields.length) {
-    bodySection.fields = fields.map(field => ({
+    bodySection.fields = fields.map((field) => ({
       type: 'mrkdwn',
       text: field,
     }));
@@ -59,7 +59,7 @@ export function createDeploymentStatusBlocks({
   // actions
   const actionsSection = {
     type: 'actions',
-    elements: actions.map(action => {
+    elements: actions.map((action) => {
       const actionElement: { [key: string]: any } = {
         type: 'button',
         text: {

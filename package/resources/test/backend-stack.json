@@ -141,11 +141,13 @@
         }
       }
     },
-    "MultiEnvPipelineS3ArtifactTrailLogGroup332D6E61": {
+    "MultiEnvPipelineS3ArtifactTrailLogGroup4B53EC8D": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
         "RetentionInDays": 365
-      }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
     },
     "MultiEnvPipelineS3ArtifactTrailLogsRoleFC331BB0": {
       "Type": "AWS::IAM::Role",
@@ -174,7 +176,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "MultiEnvPipelineS3ArtifactTrailLogGroup332D6E61",
+                  "MultiEnvPipelineS3ArtifactTrailLogGroup4B53EC8D",
                   "Arn"
                 ]
               }
@@ -199,7 +201,7 @@
         },
         "CloudWatchLogsLogGroupArn": {
           "Fn::GetAtt": [
-            "MultiEnvPipelineS3ArtifactTrailLogGroup332D6E61",
+            "MultiEnvPipelineS3ArtifactTrailLogGroup4B53EC8D",
             "Arn"
           ]
         },
@@ -819,6 +821,39 @@
                   ]
                 }
               ]
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":report-group/",
+                    {
+                      "Ref": "MultiEnvPipelineTestPipelineProject2C47B493"
+                    },
+                    "-*"
+                  ]
+                ]
+              }
             },
             {
               "Action": [

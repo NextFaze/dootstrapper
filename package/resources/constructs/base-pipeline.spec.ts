@@ -86,7 +86,7 @@ describe('BasePipeline', () => {
           Ref: 'PipelineS3ArtifactTrailS3FCBF849B',
         },
         CloudWatchLogsLogGroupArn: {
-          'Fn::GetAtt': ['PipelineS3ArtifactTrailLogGroup5B0E4B40', 'Arn'],
+          'Fn::GetAtt': ['PipelineS3ArtifactTrailLogGroup0A11313E', 'Arn'],
         },
         CloudWatchLogsRoleArn: {
           'Fn::GetAtt': ['PipelineS3ArtifactTrailLogsRole0F28D2C9', 'Arn'],

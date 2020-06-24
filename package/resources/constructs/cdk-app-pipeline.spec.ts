@@ -60,7 +60,7 @@ describe('CdkAppPipeline', () => {
       );
     });
 
-    it('should create IAM policy to allow codebuild access required resources', () => {
+    it('should create IAM policy to allow codebuild to access required resources', () => {
       expectCDK(stack).to(
         haveResourceLike('AWS::IAM::Policy', {
           PolicyDocument: {
@@ -121,6 +121,39 @@ describe('CdkAppPipeline', () => {
                     ],
                   },
                 ],
+              },
+              {
+                Action: [
+                  'codebuild:CreateReportGroup',
+                  'codebuild:CreateReport',
+                  'codebuild:UpdateReport',
+                  'codebuild:BatchPutTestCases',
+                ],
+                Effect: 'Allow',
+                Resource: {
+                  'Fn::Join': [
+                    '',
+                    [
+                      'arn:',
+                      {
+                        Ref: 'AWS::Partition',
+                      },
+                      ':codebuild:',
+                      {
+                        Ref: 'AWS::Region',
+                      },
+                      ':',
+                      {
+                        Ref: 'AWS::AccountId',
+                      },
+                      ':report-group/',
+                      {
+                        Ref: 'MultiEnvPipelineTestPipelineProject2C47B493',
+                      },
+                      '-*',
+                    ],
+                  ],
+                },
               },
               {
                 Action: [

@@ -98,7 +98,7 @@ export class WebDistribution extends Construct {
 
     // register record in route53
     if (domainNameRegistrar === DOMAIN_NAME_REGISTRAR.AWS) {
-      aliases.forEach(alias => {
+      aliases.forEach((alias) => {
         new CnameRecord(this, pascalCase(`${alias}CnameRecord`), {
           zone: hostedZone,
           recordName: alias,
