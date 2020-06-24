@@ -1,4 +1,4 @@
-import { Stack, StackProps, App } from '@aws-cdk/core';
+import { StackProps, Construct } from '@aws-cdk/core';
 import {
   INotificationConfigProps,
   IBasePipelineProps,
@@ -25,9 +25,9 @@ export interface IBaseDeploymentProps<T> extends StackProps {
 /**
  * @noInheritDoc
  */
-export class BaseDeployment extends Stack {
-  constructor(scope: App, id: string, props: IBaseDeploymentProps<any>) {
-    super(scope, id, props);
+export class BaseDeployment extends Construct {
+  constructor(scope: Construct, id: string, props: IBaseDeploymentProps<any>) {
+    super(scope, id);
   }
 
   protected createNotificationSubscription(

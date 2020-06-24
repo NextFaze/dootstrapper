@@ -4,11 +4,12 @@ import { BackendDeployment } from './backend-deployment';
 import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from '../enums';
 const stackWithMinConfig = require('./test/backend-stack.json');
 
-describe('BackendDeployment', () => {
+fdescribe('BackendDeployment', () => {
   let stack: Stack;
   beforeAll(() => {
     const app = new App();
-    stack = new BackendDeployment(app, 'TestStack', {
+    stack = new Stack(app);
+    new BackendDeployment(stack, 'TestStack', {
       stackName: 'test-stack',
       pipelineConfig: {
         notificationsType: NOTIFICATIONS_TYPE.PIPELINE_EXECUTION,
