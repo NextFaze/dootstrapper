@@ -45,7 +45,12 @@ export abstract class BasePipeline extends Construct {
       sendToCloudWatchLogs: true,
     });
     trail.addS3EventSelector(
-      [artifactsBucket.arnForObjects(artifactSourceKey)],
+      [
+        {
+          bucket: artifactsBucket,
+          objectPrefix: artifactSourceKey,
+        },
+      ],
       { readWriteType: ReadWriteType.WRITE_ONLY }
     );
     this.notificationTopic = new Topic(this, 'NotificationTopic');
