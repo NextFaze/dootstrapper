@@ -115,6 +115,11 @@ export interface IFrontendEnvironment extends IBaseEnvironment {
    * @default none
    */
   domainNameRegistrar?: DOMAIN_NAME_REGISTRAR;
+  assetsAliases?: string[];
+}
+
+export interface IAssetsDistributionConfig {
+  aliases: string[];
 }
 
 /**
