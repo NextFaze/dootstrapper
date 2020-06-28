@@ -1,15 +1,15 @@
-import { Stack, StackProps, App } from '@aws-cdk/core';
+import { StackProps, Construct } from '@aws-cdk/core';
 import {
   INotificationConfigProps,
   IBasePipelineProps,
   INotificationsSlackTargetConfig,
   INotificationsEmailTargetConfig,
-} from './interfaces';
+} from '../interfaces';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import { EMAIL_VALIDATOR } from './constants';
-import { SlackSubscription } from './constructs/slack-subscription';
-import { NOTIFICATIONS_TARGET } from './enums';
-import { BasePipeline } from './constructs/base-pipeline';
+import { EMAIL_VALIDATOR } from '../constants';
+import { SlackSubscription } from './slack-subscription';
+import { NOTIFICATIONS_TARGET } from '../enums';
+import { BasePipeline } from './base-pipeline';
 
 /**
  * @param - __pipelineConfig__: Deploy pipeline configurations
@@ -17,7 +17,7 @@ import { BasePipeline } from './constructs/base-pipeline';
  * @typeParam T value for this type will be either {@link IFrontendEnvironment} or {@link IBackendEnvironment}
  * @noInheritDoc
  */
-export interface IBaseDeploymentProps<T> extends StackProps {
+export interface IBaseDeploymentProps<T> {
   notificationConfig: INotificationConfigProps;
   pipelineConfig: IBasePipelineProps<T>;
 }
@@ -25,9 +25,9 @@ export interface IBaseDeploymentProps<T> extends StackProps {
 /**
  * @noInheritDoc
  */
-export class BaseDeployment extends Stack {
-  constructor(scope: App, id: string, props: IBaseDeploymentProps<any>) {
-    super(scope, id, props);
+export class BaseDeployment extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
   }
 
   protected createNotificationSubscription(

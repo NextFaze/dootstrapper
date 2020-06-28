@@ -1,7 +1,10 @@
-import { IBackendEnvironment } from './interfaces';
-import { App } from '@aws-cdk/core';
-import { CdkAppPipeline } from './constructs/cdk-app-pipeline';
-import { IBaseDeploymentProps, BaseDeployment } from './base-deployment';
+import {
+  IBaseDeploymentProps,
+  BaseDeployment,
+} from '../internal-constructs/base-deployment';
+import { IBackendEnvironment } from '../interfaces';
+import { Construct } from '@aws-cdk/core';
+import { CdkAppPipeline } from '../internal-constructs/cdk-app-pipeline';
 
 /**
  * @inheritdoc {@link IBaseDeploymentProps}
@@ -16,8 +19,8 @@ export interface IBackendDeploymentProps
  * Additionally, it also configures notification channels to report deployment notifications to your developers.
  */
 export class BackendDeployment extends BaseDeployment {
-  constructor(scope: App, id: string, props: IBackendDeploymentProps) {
-    super(scope, id, props);
+  constructor(scope: Construct, id: string, props: IBackendDeploymentProps) {
+    super(scope, id);
 
     const {
       pipelineConfig,

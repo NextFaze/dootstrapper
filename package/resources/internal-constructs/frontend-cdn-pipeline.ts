@@ -17,7 +17,7 @@ import {
   ComputeType,
   BuildEnvironmentVariableType,
 } from '@aws-cdk/aws-codebuild';
-import { IRuntimeEnvironmentProps } from '../frontend-deployment';
+import { IRuntimeEnvironmentProps } from '../constructs/frontend-deployment';
 
 interface IFrontendCDNPipelineProps
   extends IBasePipelineProps<IFrontendEnvironment> {
