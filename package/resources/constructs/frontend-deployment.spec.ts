@@ -32,6 +32,7 @@ describe('FrontendDeployment', () => {
           {
             aliases: ['app.example.com'],
             name: 'prod',
+            assetsAliases: ['assets.example.com'],
           },
         ],
       },
