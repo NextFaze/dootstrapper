@@ -95,6 +95,8 @@ export interface IBackendEnvironment extends IBaseEnvironment {
  * for more information on pricing see [Cloudfront Pricing Plan](https://aws.amazon.com/cloudfront/pricing/)
  * @param - __defaultRootObject__: Default object to return when app is requested without any routes
  * @param - __errorRootObject__: Default object to return when unknown path is requested
+ * @param - __domainNameRegistrar: Domain name registrar to use
+ * @param - __assetsAliases__: List of aliases to register as asset distribution alternate names
  * @inheritdoc {@link IBaseEnvironment}
  */
 export interface IFrontendEnvironment extends IBaseEnvironment {
@@ -115,6 +117,14 @@ export interface IFrontendEnvironment extends IBaseEnvironment {
    * @default none
    */
   domainNameRegistrar?: DOMAIN_NAME_REGISTRAR;
+  /**
+   * @default none - no assets distribution will be created
+   */
+  assetsAliases?: string[];
+}
+
+export interface IAssetsDistributionConfig {
+  aliases: string[];
 }
 
 /**
