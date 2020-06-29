@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>IBasePipelineProps | Dootstrapper</title>
+    <title>IBackendDeploymentProps | Dootstrapper</title>
     <meta name="description" content="Documentation for Dootstrapper" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
@@ -70,17 +70,19 @@
               <a href="../globals.html">Globals</a>
             </li>
             <li>
-              <a href="../modules/_resources_interfaces_.html"
-                >&quot;resources/interfaces&quot;</a
+              <a
+                href="../modules/_resources_constructs_backend_deployment_.html"
+                >&quot;resources/constructs/backend-deployment&quot;</a
               >
             </li>
             <li>
-              <a href="_resources_interfaces_.ibasepipelineprops.html"
-                >IBasePipelineProps</a
+              <a
+                href="_resources_constructs_backend_deployment_.ibackenddeploymentprops.html"
+                >IBackendDeploymentProps</a
               >
             </li>
           </ul>
-          <h1>Interface IBasePipelineProps&lt;T&gt;</h1>
+          <h1>Interface IBackendDeploymentProps</h1>
         </div>
       </div>
     </header>
@@ -90,57 +92,37 @@
           <section class="tsd-panel tsd-comment">
             <div class="tsd-comment tsd-typography">
               <dl class="tsd-comment-tags">
-                <dt>param</dt>
+                <dt>inheritdoc</dt>
                 <dd>
                   <p>
-                    <strong>artifactsSourceKey</strong>: Fully qualified s3 path
-                    to target artifact (i.e path/to/some/file.zip)
-                  </p>
-                </dd>
-                <dt>param</dt>
-                <dd>
-                  <p>
-                    <strong>environments</strong>: List of environments to setup
-                    in a pipeline
-                  </p>
-                </dd>
-                <dt>param</dt>
-                <dd>
-                  <p>
-                    <strong>notificationsType</strong>: Type of deployment
-                    notifications to receive
+                    <a
+                      href="_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html"
+                      >IBaseDeploymentProps</a
+                    >
                   </p>
                 </dd>
               </dl>
             </div>
           </section>
-          <section class="tsd-panel tsd-type-parameters">
-            <h3>Type parameters</h3>
-            <ul class="tsd-type-parameters">
-              <li>
-                <h4>T</h4>
-                <div class="tsd-comment tsd-typography">
-                  <div class="lead">
-                    <p>
-                      value for this type will be either
-                      <a href="_resources_interfaces_.ifrontendenvironment.html"
-                        >IFrontendEnvironment</a
-                      >
-                      or
-                      <a href="_resources_interfaces_.ibackendenvironment.html"
-                        >IBackendEnvironment</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </section>
           <section class="tsd-panel tsd-hierarchy">
             <h3>Hierarchy</h3>
             <ul class="tsd-hierarchy">
               <li>
-                <span class="target">IBasePipelineProps</span>
+                <a
+                  href="_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html"
+                  class="tsd-signature-type"
+                  >IBaseDeploymentProps</a
+                ><span class="tsd-signature-symbol">&lt;</span
+                ><a
+                  href="_resources_interfaces_.ibackendenvironment.html"
+                  class="tsd-signature-type"
+                  >IBackendEnvironment</a
+                ><span class="tsd-signature-symbol">&gt;</span>
+                <ul class="tsd-hierarchy">
+                  <li>
+                    <span class="target">IBackendDeploymentProps</span>
+                  </li>
+                </ul>
               </li>
             </ul>
           </section>
@@ -148,28 +130,25 @@
             <h2>Index</h2>
             <section class="tsd-panel tsd-index-panel">
               <div class="tsd-index-content">
-                <section class="tsd-index-section">
+                <section class="tsd-index-section tsd-is-inherited">
                   <h3>Properties</h3>
                   <ul class="tsd-index-list">
-                    <li class="tsd-kind-property tsd-parent-kind-interface">
+                    <li
+                      class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"
+                    >
                       <a
-                        href="_resources_interfaces_.ibasepipelineprops.html#artifactssourcekey"
+                        href="_resources_constructs_backend_deployment_.ibackenddeploymentprops.html#notificationconfig"
                         class="tsd-kind-icon"
-                        >artifacts<wbr />Source<wbr />Key</a
+                        >notification<wbr />Config</a
                       >
                     </li>
-                    <li class="tsd-kind-property tsd-parent-kind-interface">
+                    <li
+                      class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"
+                    >
                       <a
-                        href="_resources_interfaces_.ibasepipelineprops.html#environments"
+                        href="_resources_constructs_backend_deployment_.ibackenddeploymentprops.html#pipelineconfig"
                         class="tsd-kind-icon"
-                        >environments</a
-                      >
-                    </li>
-                    <li class="tsd-kind-property tsd-parent-kind-interface">
-                      <a
-                        href="_resources_interfaces_.ibasepipelineprops.html#notificationstype"
-                        class="tsd-kind-icon"
-                        >notifications<wbr />Type</a
+                        >pipeline<wbr />Config</a
                       >
                     </li>
                   </ul>
@@ -177,93 +156,84 @@
               </div>
             </section>
           </section>
-          <section class="tsd-panel-group tsd-member-group">
+          <section class="tsd-panel-group tsd-member-group tsd-is-inherited">
             <h2>Properties</h2>
             <section
-              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
+              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"
             >
-              <a name="artifactssourcekey" class="tsd-anchor"></a>
-              <h3>artifacts<wbr />Source<wbr />Key</h3>
+              <a name="notificationconfig" class="tsd-anchor"></a>
+              <h3>notification<wbr />Config</h3>
               <div class="tsd-signature tsd-kind-icon">
-                artifacts<wbr />Source<wbr />Key<span
-                  class="tsd-signature-symbol"
-                  >:</span
-                >
-                <span class="tsd-signature-type">string</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/interfaces.ts#L15"
-                      >package/resources/interfaces.ts:15</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section
-              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
-            >
-              <a name="environments" class="tsd-anchor"></a>
-              <h3>environments</h3>
-              <div class="tsd-signature tsd-kind-icon">
-                environments<span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">T</span
-                ><span class="tsd-signature-symbol">[]</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/interfaces.ts#L16"
-                      >package/resources/interfaces.ts:16</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section
-              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
-            >
-              <a name="notificationstype" class="tsd-anchor"></a>
-              <h3>
-                <span class="tsd-flag ts-flagOptional">Optional</span>
-                notifications<wbr />Type
-              </h3>
-              <div class="tsd-signature tsd-kind-icon">
-                notifications<wbr />Type<span class="tsd-signature-symbol"
+                notification<wbr />Config<span class="tsd-signature-symbol"
                   >:</span
                 >
                 <a
-                  href="../enums/_resources_enums_.notifications_type.html"
+                  href="_resources_interfaces_.inotificationconfigprops.html"
                   class="tsd-signature-type"
-                  >NOTIFICATIONS_TYPE</a
+                  >INotificationConfigProps</a
                 >
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from
+                  <a
+                    href="_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html"
+                    >IBaseDeploymentProps</a
+                  >.<a
+                    href="_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html#notificationconfig"
+                    >notificationConfig</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/interfaces.ts#L20"
-                      >package/resources/interfaces.ts:20</a
+                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/internal-constructs/base-deployment.ts#L21"
+                      >package/resources/internal-constructs/base-deployment.ts:21</a
                     >
                   </li>
                 </ul>
               </aside>
-              <div class="tsd-comment tsd-typography">
-                <dl class="tsd-comment-tags">
-                  <dt>default</dt>
-                  <dd>
-                    <ul>
-                      <li>Pipeline Execution events</li>
-                    </ul>
-                  </dd>
-                </dl>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"
+            >
+              <a name="pipelineconfig" class="tsd-anchor"></a>
+              <h3>pipeline<wbr />Config</h3>
+              <div class="tsd-signature tsd-kind-icon">
+                pipeline<wbr />Config<span class="tsd-signature-symbol">:</span>
+                <a
+                  href="_resources_interfaces_.ibasepipelineprops.html"
+                  class="tsd-signature-type"
+                  >IBasePipelineProps</a
+                ><span class="tsd-signature-symbol">&lt;</span
+                ><a
+                  href="_resources_interfaces_.ibackendenvironment.html"
+                  class="tsd-signature-type"
+                  >IBackendEnvironment</a
+                ><span class="tsd-signature-symbol">&gt;</span>
               </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from
+                  <a
+                    href="_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html"
+                    >IBaseDeploymentProps</a
+                  >.<a
+                    href="_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html#pipelineconfig"
+                    >pipelineConfig</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/internal-constructs/base-deployment.ts#L22"
+                      >package/resources/internal-constructs/base-deployment.ts:22</a
+                    >
+                  </li>
+                </ul>
+              </aside>
             </section>
           </section>
         </div>
@@ -289,7 +259,7 @@
                   >&quot;handlers/slack-<wbr />subscription-<wbr />handler&quot;</a
                 >
               </li>
-              <li class="tsd-kind-module">
+              <li class="current tsd-kind-module">
                 <a
                   href="../modules/_resources_constructs_backend_deployment_.html"
                   >&quot;resources/constructs/backend-<wbr />deployment&quot;</a
@@ -306,7 +276,7 @@
                   >&quot;resources/enums&quot;</a
                 >
               </li>
-              <li class="current tsd-kind-module">
+              <li class="tsd-kind-module">
                 <a href="../modules/_resources_interfaces_.html"
                   >&quot;resources/interfaces&quot;</a
                 >
@@ -327,92 +297,44 @@
           </nav>
           <nav class="tsd-navigation secondary menu-sticky">
             <ul class="before-current">
-              <li class="tsd-kind-interface tsd-parent-kind-module">
+              <li class="tsd-kind-class tsd-parent-kind-module">
                 <a
-                  href="_resources_interfaces_.iassetsdistributionconfig.html"
+                  href="../classes/_resources_constructs_backend_deployment_.backenddeployment.html"
                   class="tsd-kind-icon"
-                  >IAssets<wbr />Distribution<wbr />Config</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.ibackendenvironment.html"
-                  class="tsd-kind-icon"
-                  >IBackend<wbr />Environment</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.ibaseenvironment.html"
-                  class="tsd-kind-icon"
-                  >IBase<wbr />Environment</a
+                  >Backend<wbr />Deployment</a
                 >
               </li>
             </ul>
             <ul class="current">
-              <li
-                class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"
-              >
+              <li class="current tsd-kind-interface tsd-parent-kind-module">
                 <a
-                  href="_resources_interfaces_.ibasepipelineprops.html"
+                  href="_resources_constructs_backend_deployment_.ibackenddeploymentprops.html"
                   class="tsd-kind-icon"
-                  >IBase<wbr />Pipeline<wbr />Props</a
+                  >IBackend<wbr />Deployment<wbr />Props</a
                 >
                 <ul>
-                  <li class="tsd-kind-property tsd-parent-kind-interface">
+                  <li
+                    class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"
+                  >
                     <a
-                      href="_resources_interfaces_.ibasepipelineprops.html#artifactssourcekey"
+                      href="_resources_constructs_backend_deployment_.ibackenddeploymentprops.html#notificationconfig"
                       class="tsd-kind-icon"
-                      >artifacts<wbr />Source<wbr />Key</a
+                      >notification<wbr />Config</a
                     >
                   </li>
-                  <li class="tsd-kind-property tsd-parent-kind-interface">
+                  <li
+                    class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"
+                  >
                     <a
-                      href="_resources_interfaces_.ibasepipelineprops.html#environments"
+                      href="_resources_constructs_backend_deployment_.ibackenddeploymentprops.html#pipelineconfig"
                       class="tsd-kind-icon"
-                      >environments</a
-                    >
-                  </li>
-                  <li class="tsd-kind-property tsd-parent-kind-interface">
-                    <a
-                      href="_resources_interfaces_.ibasepipelineprops.html#notificationstype"
-                      class="tsd-kind-icon"
-                      >notifications<wbr />Type</a
+                      >pipeline<wbr />Config</a
                     >
                   </li>
                 </ul>
               </li>
             </ul>
-            <ul class="after-current">
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.ifrontendenvironment.html"
-                  class="tsd-kind-icon"
-                  >IFrontend<wbr />Environment</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.inotificationconfigprops.html"
-                  class="tsd-kind-icon"
-                  >INotification<wbr />Config<wbr />Props</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.inotificationsemailtargetconfig.html"
-                  class="tsd-kind-icon"
-                  >INotifications<wbr />Email<wbr />Target<wbr />Config</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.inotificationsslacktargetconfig.html"
-                  class="tsd-kind-icon"
-                  >INotifications<wbr />Slack<wbr />Target<wbr />Config</a
-                >
-              </li>
-            </ul>
+            <ul class="after-current"></ul>
           </nav>
         </div>
       </div>
@@ -427,9 +349,6 @@
             </li>
             <li class="tsd-kind-interface tsd-has-type-parameter">
               <span class="tsd-kind-icon">Interface with type parameter</span>
-            </li>
-            <li class="tsd-kind-property tsd-parent-kind-interface">
-              <span class="tsd-kind-icon">Property</span>
             </li>
           </ul>
           <ul class="tsd-legend">

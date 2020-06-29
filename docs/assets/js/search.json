@@ -1,0 +1,1757 @@
+{
+  "kinds": {
+    "1": "Module",
+    "4": "Enumeration",
+    "16": "Enumeration member",
+    "64": "Function",
+    "128": "Class",
+    "256": "Interface",
+    "512": "Constructor",
+    "1024": "Property",
+    "2048": "Method",
+    "65536": "Type literal"
+  },
+  "rows": [
+    {
+      "id": 0,
+      "kind": 1,
+      "name": "\"handlers/helpers/base-handler\"",
+      "url": "modules/_handlers_helpers_base_handler_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 1,
+      "kind": 128,
+      "name": "BaseHandler",
+      "url": "classes/_handlers_helpers_base_handler_.basehandler.html",
+      "classes": "tsd-kind-class tsd-parent-kind-module",
+      "parent": "\"handlers/helpers/base-handler\""
+    },
+    {
+      "id": 2,
+      "kind": 2048,
+      "name": "runExec",
+      "url": "classes/_handlers_helpers_base_handler_.basehandler.html#runexec",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-protected",
+      "parent": "\"handlers/helpers/base-handler\".BaseHandler"
+    },
+    {
+      "id": 3,
+      "kind": 2048,
+      "name": "run",
+      "url": "classes/_handlers_helpers_base_handler_.basehandler.html#run",
+      "classes": "tsd-kind-method tsd-parent-kind-class",
+      "parent": "\"handlers/helpers/base-handler\".BaseHandler"
+    },
+    {
+      "id": 4,
+      "kind": 2048,
+      "name": "bail",
+      "url": "classes/_handlers_helpers_base_handler_.basehandler.html#bail",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-protected",
+      "parent": "\"handlers/helpers/base-handler\".BaseHandler"
+    },
+    {
+      "id": 5,
+      "kind": 1,
+      "name": "\"handlers/helpers/create-deployment-status-blocks\"",
+      "url": "modules/_handlers_helpers_create_deployment_status_blocks_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 6,
+      "kind": 64,
+      "name": "createDeploymentStatusBlocks",
+      "url": "modules/_handlers_helpers_create_deployment_status_blocks_.html#createdeploymentstatusblocks",
+      "classes": "tsd-kind-function tsd-parent-kind-module",
+      "parent": "\"handlers/helpers/create-deployment-status-blocks\""
+    },
+    {
+      "id": 7,
+      "kind": 1,
+      "name": "\"handlers/slack-subscription-handler\"",
+      "url": "modules/_handlers_slack_subscription_handler_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 8,
+      "kind": 128,
+      "name": "SlackSubscriptionHandler",
+      "url": "classes/_handlers_slack_subscription_handler_.slacksubscriptionhandler.html",
+      "classes": "tsd-kind-class tsd-parent-kind-module",
+      "parent": "\"handlers/slack-subscription-handler\""
+    },
+    {
+      "id": 9,
+      "kind": 512,
+      "name": "constructor",
+      "url": "classes/_handlers_slack_subscription_handler_.slacksubscriptionhandler.html#constructor",
+      "classes": "tsd-kind-constructor tsd-parent-kind-class",
+      "parent": "\"handlers/slack-subscription-handler\".SlackSubscriptionHandler"
+    },
+    {
+      "id": 10,
+      "kind": 2048,
+      "name": "runExec",
+      "url": "classes/_handlers_slack_subscription_handler_.slacksubscriptionhandler.html#runexec",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected",
+      "parent": "\"handlers/slack-subscription-handler\".SlackSubscriptionHandler"
+    },
+    {
+      "id": 11,
+      "kind": 2048,
+      "name": "run",
+      "url": "classes/_handlers_slack_subscription_handler_.slacksubscriptionhandler.html#run",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited",
+      "parent": "\"handlers/slack-subscription-handler\".SlackSubscriptionHandler"
+    },
+    {
+      "id": 12,
+      "kind": 2048,
+      "name": "bail",
+      "url": "classes/_handlers_slack_subscription_handler_.slacksubscriptionhandler.html#bail",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected",
+      "parent": "\"handlers/slack-subscription-handler\".SlackSubscriptionHandler"
+    },
+    {
+      "id": 13,
+      "kind": 1,
+      "name": "\"resources/constants\"",
+      "url": "modules/_resources_constants_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 14,
+      "kind": 1,
+      "name": "\"resources/enums\"",
+      "url": "modules/_resources_enums_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 15,
+      "kind": 4,
+      "name": "NOTIFICATIONS_TYPE",
+      "url": "enums/_resources_enums_.notifications_type.html",
+      "classes": "tsd-kind-enum tsd-parent-kind-module",
+      "parent": "\"resources/enums\""
+    },
+    {
+      "id": 16,
+      "kind": 16,
+      "name": "PIPELINE_EXECUTION",
+      "url": "enums/_resources_enums_.notifications_type.html#pipeline_execution",
+      "classes": "tsd-kind-enum-member tsd-parent-kind-enum",
+      "parent": "\"resources/enums\".NOTIFICATIONS_TYPE"
+    },
+    {
+      "id": 17,
+      "kind": 16,
+      "name": "STAGE_EXECUTION",
+      "url": "enums/_resources_enums_.notifications_type.html#stage_execution",
+      "classes": "tsd-kind-enum-member tsd-parent-kind-enum",
+      "parent": "\"resources/enums\".NOTIFICATIONS_TYPE"
+    },
+    {
+      "id": 18,
+      "kind": 16,
+      "name": "ACTION_EXECUTION",
+      "url": "enums/_resources_enums_.notifications_type.html#action_execution",
+      "classes": "tsd-kind-enum-member tsd-parent-kind-enum",
+      "parent": "\"resources/enums\".NOTIFICATIONS_TYPE"
+    },
+    {
+      "id": 19,
+      "kind": 16,
+      "name": "NONE",
+      "url": "enums/_resources_enums_.notifications_type.html#none",
+      "classes": "tsd-kind-enum-member tsd-parent-kind-enum",
+      "parent": "\"resources/enums\".NOTIFICATIONS_TYPE"
+    },
+    {
+      "id": 20,
+      "kind": 4,
+      "name": "NOTIFICATIONS_TARGET",
+      "url": "enums/_resources_enums_.notifications_target.html",
+      "classes": "tsd-kind-enum tsd-parent-kind-module",
+      "parent": "\"resources/enums\""
+    },
+    {
+      "id": 21,
+      "kind": 16,
+      "name": "EMAIL",
+      "url": "enums/_resources_enums_.notifications_target.html#email",
+      "classes": "tsd-kind-enum-member tsd-parent-kind-enum",
+      "parent": "\"resources/enums\".NOTIFICATIONS_TARGET"
+    },
+    {
+      "id": 22,
+      "kind": 16,
+      "name": "SLACK",
+      "url": "enums/_resources_enums_.notifications_target.html#slack",
+      "classes": "tsd-kind-enum-member tsd-parent-kind-enum",
+      "parent": "\"resources/enums\".NOTIFICATIONS_TARGET"
+    },
+    {
+      "id": 23,
+      "kind": 4,
+      "name": "DOMAIN_NAME_REGISTRAR",
+      "url": "enums/_resources_enums_.domain_name_registrar.html",
+      "classes": "tsd-kind-enum tsd-parent-kind-module",
+      "parent": "\"resources/enums\""
+    },
+    {
+      "id": 24,
+      "kind": 16,
+      "name": "AWS",
+      "url": "enums/_resources_enums_.domain_name_registrar.html#aws",
+      "classes": "tsd-kind-enum-member tsd-parent-kind-enum",
+      "parent": "\"resources/enums\".DOMAIN_NAME_REGISTRAR"
+    },
+    {
+      "id": 25,
+      "kind": 1,
+      "name": "\"resources/interfaces\"",
+      "url": "modules/_resources_interfaces_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 26,
+      "kind": 256,
+      "name": "IBasePipelineProps",
+      "url": "interfaces/_resources_interfaces_.ibasepipelineprops.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter",
+      "parent": "\"resources/interfaces\""
+    },
+    {
+      "id": 27,
+      "kind": 1024,
+      "name": "artifactsSourceKey",
+      "url": "interfaces/_resources_interfaces_.ibasepipelineprops.html#artifactssourcekey",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBasePipelineProps"
+    },
+    {
+      "id": 28,
+      "kind": 1024,
+      "name": "environments",
+      "url": "interfaces/_resources_interfaces_.ibasepipelineprops.html#environments",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBasePipelineProps"
+    },
+    {
+      "id": 29,
+      "kind": 1024,
+      "name": "notificationsType",
+      "url": "interfaces/_resources_interfaces_.ibasepipelineprops.html#notificationstype",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBasePipelineProps"
+    },
+    {
+      "id": 30,
+      "kind": 256,
+      "name": "INotificationConfigProps",
+      "url": "interfaces/_resources_interfaces_.inotificationconfigprops.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/interfaces\""
+    },
+    {
+      "id": 31,
+      "kind": 1024,
+      "name": "notificationsTargetConfig",
+      "url": "interfaces/_resources_interfaces_.inotificationconfigprops.html#notificationstargetconfig",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".INotificationConfigProps"
+    },
+    {
+      "id": 32,
+      "kind": 256,
+      "name": "INotificationsEmailTargetConfig",
+      "url": "interfaces/_resources_interfaces_.inotificationsemailtargetconfig.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/interfaces\""
+    },
+    {
+      "id": 33,
+      "kind": 1024,
+      "name": "targetType",
+      "url": "interfaces/_resources_interfaces_.inotificationsemailtargetconfig.html#targettype",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".INotificationsEmailTargetConfig"
+    },
+    {
+      "id": 34,
+      "kind": 1024,
+      "name": "emailAddress",
+      "url": "interfaces/_resources_interfaces_.inotificationsemailtargetconfig.html#emailaddress",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".INotificationsEmailTargetConfig"
+    },
+    {
+      "id": 35,
+      "kind": 256,
+      "name": "INotificationsSlackTargetConfig",
+      "url": "interfaces/_resources_interfaces_.inotificationsslacktargetconfig.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/interfaces\""
+    },
+    {
+      "id": 36,
+      "kind": 1024,
+      "name": "targetType",
+      "url": "interfaces/_resources_interfaces_.inotificationsslacktargetconfig.html#targettype",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".INotificationsSlackTargetConfig"
+    },
+    {
+      "id": 37,
+      "kind": 1024,
+      "name": "channelName",
+      "url": "interfaces/_resources_interfaces_.inotificationsslacktargetconfig.html#channelname",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".INotificationsSlackTargetConfig"
+    },
+    {
+      "id": 38,
+      "kind": 1024,
+      "name": "channelTypes",
+      "url": "interfaces/_resources_interfaces_.inotificationsslacktargetconfig.html#channeltypes",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".INotificationsSlackTargetConfig"
+    },
+    {
+      "id": 39,
+      "kind": 1024,
+      "name": "channelId",
+      "url": "interfaces/_resources_interfaces_.inotificationsslacktargetconfig.html#channelid",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".INotificationsSlackTargetConfig"
+    },
+    {
+      "id": 40,
+      "kind": 256,
+      "name": "IBackendEnvironment",
+      "url": "interfaces/_resources_interfaces_.ibackendenvironment.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/interfaces\""
+    },
+    {
+      "id": 41,
+      "kind": 1024,
+      "name": "adminPermissions",
+      "url": "interfaces/_resources_interfaces_.ibackendenvironment.html#adminpermissions",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBackendEnvironment"
+    },
+    {
+      "id": 42,
+      "kind": 1024,
+      "name": "privilegedMode",
+      "url": "interfaces/_resources_interfaces_.ibackendenvironment.html#privilegedmode",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBackendEnvironment"
+    },
+    {
+      "id": 43,
+      "kind": 1024,
+      "name": "runtimeVariables",
+      "url": "interfaces/_resources_interfaces_.ibackendenvironment.html#runtimevariables",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBackendEnvironment"
+    },
+    {
+      "id": 44,
+      "kind": 1024,
+      "name": "buildSpec",
+      "url": "interfaces/_resources_interfaces_.ibackendenvironment.html#buildspec",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBackendEnvironment"
+    },
+    {
+      "id": 45,
+      "kind": 1024,
+      "name": "name",
+      "url": "interfaces/_resources_interfaces_.ibackendenvironment.html#name",
+      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
+      "parent": "\"resources/interfaces\".IBackendEnvironment"
+    },
+    {
+      "id": 46,
+      "kind": 1024,
+      "name": "approvalRequired",
+      "url": "interfaces/_resources_interfaces_.ibackendenvironment.html#approvalrequired",
+      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
+      "parent": "\"resources/interfaces\".IBackendEnvironment"
+    },
+    {
+      "id": 47,
+      "kind": 256,
+      "name": "IFrontendEnvironment",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/interfaces\""
+    },
+    {
+      "id": 48,
+      "kind": 1024,
+      "name": "aliases",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html#aliases",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IFrontendEnvironment"
+    },
+    {
+      "id": 49,
+      "kind": 1024,
+      "name": "cloudfrontPriceClass",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html#cloudfrontpriceclass",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IFrontendEnvironment"
+    },
+    {
+      "id": 50,
+      "kind": 1024,
+      "name": "defaultRootObject",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html#defaultrootobject",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IFrontendEnvironment"
+    },
+    {
+      "id": 51,
+      "kind": 1024,
+      "name": "errorRootObject",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html#errorrootobject",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IFrontendEnvironment"
+    },
+    {
+      "id": 52,
+      "kind": 1024,
+      "name": "domainNameRegistrar",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html#domainnameregistrar",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IFrontendEnvironment"
+    },
+    {
+      "id": 53,
+      "kind": 1024,
+      "name": "assetsAliases",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html#assetsaliases",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IFrontendEnvironment"
+    },
+    {
+      "id": 54,
+      "kind": 1024,
+      "name": "name",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html#name",
+      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
+      "parent": "\"resources/interfaces\".IFrontendEnvironment"
+    },
+    {
+      "id": 55,
+      "kind": 1024,
+      "name": "approvalRequired",
+      "url": "interfaces/_resources_interfaces_.ifrontendenvironment.html#approvalrequired",
+      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
+      "parent": "\"resources/interfaces\".IFrontendEnvironment"
+    },
+    {
+      "id": 56,
+      "kind": 256,
+      "name": "IAssetsDistributionConfig",
+      "url": "interfaces/_resources_interfaces_.iassetsdistributionconfig.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/interfaces\""
+    },
+    {
+      "id": 57,
+      "kind": 1024,
+      "name": "aliases",
+      "url": "interfaces/_resources_interfaces_.iassetsdistributionconfig.html#aliases",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IAssetsDistributionConfig"
+    },
+    {
+      "id": 58,
+      "kind": 256,
+      "name": "IBaseEnvironment",
+      "url": "interfaces/_resources_interfaces_.ibaseenvironment.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/interfaces\""
+    },
+    {
+      "id": 59,
+      "kind": 1024,
+      "name": "name",
+      "url": "interfaces/_resources_interfaces_.ibaseenvironment.html#name",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBaseEnvironment"
+    },
+    {
+      "id": 60,
+      "kind": 1024,
+      "name": "approvalRequired",
+      "url": "interfaces/_resources_interfaces_.ibaseenvironment.html#approvalrequired",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/interfaces\".IBaseEnvironment"
+    },
+    {
+      "id": 61,
+      "kind": 1,
+      "name": "\"resources/internal-constructs/slack-subscription\"",
+      "url": "modules/_resources_internal_constructs_slack_subscription_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 62,
+      "kind": 128,
+      "name": "SlackSubscription",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html",
+      "classes": "tsd-kind-class tsd-parent-kind-module",
+      "parent": "\"resources/internal-constructs/slack-subscription\""
+    },
+    {
+      "id": 63,
+      "kind": 1024,
+      "name": "subscription",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#subscription",
+      "classes": "tsd-kind-property tsd-parent-kind-class",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 64,
+      "kind": 512,
+      "name": "constructor",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#constructor",
+      "classes": "tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 65,
+      "kind": 2048,
+      "name": "isConstruct",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#isconstruct",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 66,
+      "kind": 1024,
+      "name": "node",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#node",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-inherited",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 67,
+      "kind": 2048,
+      "name": "onValidate",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#onvalidate",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 68,
+      "kind": 2048,
+      "name": "onPrepare",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#onprepare",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 69,
+      "kind": 2048,
+      "name": "onSynthesize",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#onsynthesize",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 70,
+      "kind": 2048,
+      "name": "validate",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#validate",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 71,
+      "kind": 2048,
+      "name": "prepare",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#prepare",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 72,
+      "kind": 2048,
+      "name": "synthesize",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#synthesize",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 73,
+      "kind": 2048,
+      "name": "toString",
+      "url": "classes/_resources_internal_constructs_slack_subscription_.slacksubscription.html#tostring",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited",
+      "parent": "\"resources/internal-constructs/slack-subscription\".SlackSubscription"
+    },
+    {
+      "id": 74,
+      "kind": 1,
+      "name": "\"resources/helpers/create-buildspec-with-credentials\"",
+      "url": "modules/_resources_helpers_create_buildspec_with_credentials_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 75,
+      "kind": 1,
+      "name": "\"resources/internal-constructs/base-pipeline\"",
+      "url": "modules/_resources_internal_constructs_base_pipeline_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 76,
+      "kind": 1,
+      "name": "\"resources/internal-constructs/base-deployment\"",
+      "url": "modules/_resources_internal_constructs_base_deployment_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 77,
+      "kind": 256,
+      "name": "IBaseDeploymentProps",
+      "url": "interfaces/_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter",
+      "parent": "\"resources/internal-constructs/base-deployment\""
+    },
+    {
+      "id": 78,
+      "kind": 1024,
+      "name": "notificationConfig",
+      "url": "interfaces/_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html#notificationconfig",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/internal-constructs/base-deployment\".IBaseDeploymentProps"
+    },
+    {
+      "id": 79,
+      "kind": 1024,
+      "name": "pipelineConfig",
+      "url": "interfaces/_resources_internal_constructs_base_deployment_.ibasedeploymentprops.html#pipelineconfig",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/internal-constructs/base-deployment\".IBaseDeploymentProps"
+    },
+    {
+      "id": 80,
+      "kind": 128,
+      "name": "BaseDeployment",
+      "url": "classes/_resources_internal_constructs_base_deployment_.basedeployment.html",
+      "classes": "tsd-kind-class tsd-parent-kind-module",
+      "parent": "\"resources/internal-constructs/base-deployment\""
+    },
+    {
+      "id": 81,
+      "kind": 512,
+      "name": "constructor",
+      "url": "classes/_resources_internal_constructs_base_deployment_.basedeployment.html#constructor",
+      "classes": "tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite",
+      "parent": "\"resources/internal-constructs/base-deployment\".BaseDeployment"
+    },
+    {
+      "id": 82,
+      "kind": 2048,
+      "name": "createNotificationSubscription",
+      "url": "classes/_resources_internal_constructs_base_deployment_.basedeployment.html#createnotificationsubscription",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-protected",
+      "parent": "\"resources/internal-constructs/base-deployment\".BaseDeployment"
+    },
+    {
+      "id": 83,
+      "kind": 1,
+      "name": "\"resources/helpers/resolve-runtime-environments\"",
+      "url": "modules/_resources_helpers_resolve_runtime_environments_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 84,
+      "kind": 1,
+      "name": "\"resources/internal-constructs/credential-store\"",
+      "url": "modules/_resources_internal_constructs_credential_store_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 85,
+      "kind": 1,
+      "name": "\"resources/internal-constructs/cdk-app-pipeline\"",
+      "url": "modules/_resources_internal_constructs_cdk_app_pipeline_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 86,
+      "kind": 1,
+      "name": "\"resources/constructs/backend-deployment\"",
+      "url": "modules/_resources_constructs_backend_deployment_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 87,
+      "kind": 256,
+      "name": "IBackendDeploymentProps",
+      "url": "interfaces/_resources_constructs_backend_deployment_.ibackenddeploymentprops.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/constructs/backend-deployment\""
+    },
+    {
+      "id": 88,
+      "kind": 1024,
+      "name": "notificationConfig",
+      "url": "interfaces/_resources_constructs_backend_deployment_.ibackenddeploymentprops.html#notificationconfig",
+      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
+      "parent": "\"resources/constructs/backend-deployment\".IBackendDeploymentProps"
+    },
+    {
+      "id": 89,
+      "kind": 1024,
+      "name": "pipelineConfig",
+      "url": "interfaces/_resources_constructs_backend_deployment_.ibackenddeploymentprops.html#pipelineconfig",
+      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
+      "parent": "\"resources/constructs/backend-deployment\".IBackendDeploymentProps"
+    },
+    {
+      "id": 90,
+      "kind": 128,
+      "name": "BackendDeployment",
+      "url": "classes/_resources_constructs_backend_deployment_.backenddeployment.html",
+      "classes": "tsd-kind-class tsd-parent-kind-module",
+      "parent": "\"resources/constructs/backend-deployment\""
+    },
+    {
+      "id": 91,
+      "kind": 512,
+      "name": "constructor",
+      "url": "classes/_resources_constructs_backend_deployment_.backenddeployment.html#constructor",
+      "classes": "tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite",
+      "parent": "\"resources/constructs/backend-deployment\".BackendDeployment"
+    },
+    {
+      "id": 92,
+      "kind": 2048,
+      "name": "createNotificationSubscription",
+      "url": "classes/_resources_constructs_backend_deployment_.backenddeployment.html#createnotificationsubscription",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected",
+      "parent": "\"resources/constructs/backend-deployment\".BackendDeployment"
+    },
+    {
+      "id": 93,
+      "kind": 1,
+      "name": "\"resources/internal-constructs/web-distribution\"",
+      "url": "modules/_resources_internal_constructs_web_distribution_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 94,
+      "kind": 1,
+      "name": "\"resources/internal-constructs/assets-distribution\"",
+      "url": "modules/_resources_internal_constructs_assets_distribution_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 95,
+      "kind": 1,
+      "name": "\"resources/internal-constructs/frontend-cdn-pipeline\"",
+      "url": "modules/_resources_internal_constructs_frontend_cdn_pipeline_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 96,
+      "kind": 1,
+      "name": "\"resources/constructs/frontend-deployment\"",
+      "url": "modules/_resources_constructs_frontend_deployment_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 97,
+      "kind": 256,
+      "name": "IFrontendDeploymentProps",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.ifrontenddeploymentprops.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/constructs/frontend-deployment\""
+    },
+    {
+      "id": 98,
+      "kind": 1024,
+      "name": "baseDomainName",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.ifrontenddeploymentprops.html#basedomainname",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/constructs/frontend-deployment\".IFrontendDeploymentProps"
+    },
+    {
+      "id": 99,
+      "kind": 1024,
+      "name": "hostedZoneName",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.ifrontenddeploymentprops.html#hostedzonename",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/constructs/frontend-deployment\".IFrontendDeploymentProps"
+    },
+    {
+      "id": 100,
+      "kind": 1024,
+      "name": "certificateArn",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.ifrontenddeploymentprops.html#certificatearn",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/constructs/frontend-deployment\".IFrontendDeploymentProps"
+    },
+    {
+      "id": 101,
+      "kind": 1024,
+      "name": "runtimeEnvironmentConfig",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.ifrontenddeploymentprops.html#runtimeenvironmentconfig",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/constructs/frontend-deployment\".IFrontendDeploymentProps"
+    },
+    {
+      "id": 102,
+      "kind": 1024,
+      "name": "notificationConfig",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.ifrontenddeploymentprops.html#notificationconfig",
+      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
+      "parent": "\"resources/constructs/frontend-deployment\".IFrontendDeploymentProps"
+    },
+    {
+      "id": 103,
+      "kind": 1024,
+      "name": "pipelineConfig",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.ifrontenddeploymentprops.html#pipelineconfig",
+      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
+      "parent": "\"resources/constructs/frontend-deployment\".IFrontendDeploymentProps"
+    },
+    {
+      "id": 104,
+      "kind": 256,
+      "name": "IRuntimeEnvironmentProps",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html",
+      "classes": "tsd-kind-interface tsd-parent-kind-module",
+      "parent": "\"resources/constructs/frontend-deployment\""
+    },
+    {
+      "id": 105,
+      "kind": 1024,
+      "name": "directory",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#directory",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/constructs/frontend-deployment\".IRuntimeEnvironmentProps"
+    },
+    {
+      "id": 106,
+      "kind": 1024,
+      "name": "fileName",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#filename",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/constructs/frontend-deployment\".IRuntimeEnvironmentProps"
+    },
+    {
+      "id": 107,
+      "kind": 1024,
+      "name": "separator",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#separator",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/constructs/frontend-deployment\".IRuntimeEnvironmentProps"
+    },
+    {
+      "id": 108,
+      "kind": 1024,
+      "name": "fileExtension",
+      "url": "interfaces/_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#fileextension",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "\"resources/constructs/frontend-deployment\".IRuntimeEnvironmentProps"
+    },
+    {
+      "id": 109,
+      "kind": 128,
+      "name": "FrontendDeployment",
+      "url": "classes/_resources_constructs_frontend_deployment_.frontenddeployment.html",
+      "classes": "tsd-kind-class tsd-parent-kind-module",
+      "parent": "\"resources/constructs/frontend-deployment\""
+    },
+    {
+      "id": 110,
+      "kind": 1024,
+      "name": "assetStorages",
+      "url": "classes/_resources_constructs_frontend_deployment_.frontenddeployment.html#assetstorages",
+      "classes": "tsd-kind-property tsd-parent-kind-class",
+      "parent": "\"resources/constructs/frontend-deployment\".FrontendDeployment"
+    },
+    {
+      "id": 111,
+      "kind": 65536,
+      "name": "__type",
+      "url": "classes/_resources_constructs_frontend_deployment_.frontenddeployment.html#assetstorages.__type",
+      "classes": "tsd-kind-type-literal tsd-parent-kind-property",
+      "parent": "\"resources/constructs/frontend-deployment\".FrontendDeployment.assetStorages"
+    },
+    {
+      "id": 112,
+      "kind": 512,
+      "name": "constructor",
+      "url": "classes/_resources_constructs_frontend_deployment_.frontenddeployment.html#constructor",
+      "classes": "tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite",
+      "parent": "\"resources/constructs/frontend-deployment\".FrontendDeployment"
+    },
+    {
+      "id": 113,
+      "kind": 2048,
+      "name": "createNotificationSubscription",
+      "url": "classes/_resources_constructs_frontend_deployment_.frontenddeployment.html#createnotificationsubscription",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected",
+      "parent": "\"resources/constructs/frontend-deployment\".FrontendDeployment"
+    }
+  ],
+  "index": {
+    "version": "2.3.8",
+    "fields": ["name", "parent"],
+    "fieldVectors": [
+      ["name/0", [0, 24.633, 1, 26.259]],
+      ["parent/0", []],
+      ["name/1", [2, 47.554]],
+      ["parent/1", [0, 2.683, 1, 2.86]],
+      ["name/2", [3, 41.956]],
+      ["parent/2", [0, 2.683, 4, 3.082]],
+      ["name/3", [5, 41.956]],
+      ["parent/3", [0, 2.683, 4, 3.082]],
+      ["name/4", [6, 41.956]],
+      ["parent/4", [0, 2.683, 4, 3.082]],
+      ["name/5", [7, 20.393, 8, 11.82, 9, 20.393, 10, 20.393]],
+      ["parent/5", []],
+      ["name/6", [11, 47.554]],
+      ["parent/6", [7, 2.285, 8, 1.325, 9, 2.285, 10, 2.285]],
+      ["name/7", [1, 20.831, 12, 18.467, 13, 16.028]],
+      ["parent/7", []],
+      ["name/8", [14, 47.554]],
+      ["parent/8", [1, 2.308, 12, 2.046, 13, 1.776]],
+      ["name/9", [15, 33.316]],
+      ["parent/9", [12, 2.046, 13, 1.776, 16, 2.308]],
+      ["name/10", [3, 41.956]],
+      ["parent/10", [12, 2.046, 13, 1.776, 16, 2.308]],
+      ["name/11", [5, 41.956]],
+      ["parent/11", [12, 2.046, 13, 1.776, 16, 2.308]],
+      ["name/12", [6, 41.956]],
+      ["parent/12", [12, 2.046, 13, 1.776, 16, 2.308]],
+      ["name/13", [17, 47.554]],
+      ["parent/13", []],
+      ["name/14", [18, 35.515]],
+      ["parent/14", []],
+      ["name/15", [19, 47.554]],
+      ["parent/15", [18, 3.759]],
+      ["name/16", [20, 47.554]],
+      ["parent/16", [21, 3.759]],
+      ["name/17", [22, 47.554]],
+      ["parent/17", [21, 3.759]],
+      ["name/18", [23, 47.554]],
+      ["parent/18", [21, 3.759]],
+      ["name/19", [24, 47.554]],
+      ["parent/19", [21, 3.759]],
+      ["name/20", [25, 47.554]],
+      ["parent/20", [18, 3.759]],
+      ["name/21", [26, 47.554]],
+      ["parent/21", [27, 4.441]],
+      ["name/22", [28, 47.554]],
+      ["parent/22", [27, 4.441]],
+      ["name/23", [29, 47.554]],
+      ["parent/23", [18, 3.759]],
+      ["name/24", [30, 47.554]],
+      ["parent/24", [31, 5.034]],
+      ["name/25", [32, 27.326]],
+      ["parent/25", []],
+      ["name/26", [33, 47.554]],
+      ["parent/26", [32, 2.893]],
+      ["name/27", [34, 47.554]],
+      ["parent/27", [35, 4.051]],
+      ["name/28", [36, 41.956]],
+      ["parent/28", [35, 4.051]],
+      ["name/29", [37, 47.554]],
+      ["parent/29", [35, 4.051]],
+      ["name/30", [38, 47.554]],
+      ["parent/30", [32, 2.893]],
+      ["name/31", [39, 47.554]],
+      ["parent/31", [40, 5.034]],
+      ["name/32", [41, 47.554]],
+      ["parent/32", [32, 2.893]],
+      ["name/33", [42, 41.956]],
+      ["parent/33", [43, 4.441]],
+      ["name/34", [44, 47.554]],
+      ["parent/34", [43, 4.441]],
+      ["name/35", [45, 47.554]],
+      ["parent/35", [32, 2.893]],
+      ["name/36", [42, 41.956]],
+      ["parent/36", [46, 3.759]],
+      ["name/37", [47, 47.554]],
+      ["parent/37", [46, 3.759]],
+      ["name/38", [48, 47.554]],
+      ["parent/38", [46, 3.759]],
+      ["name/39", [49, 47.554]],
+      ["parent/39", [46, 3.759]],
+      ["name/40", [50, 47.554]],
+      ["parent/40", [32, 2.893]],
+      ["name/41", [51, 47.554]],
+      ["parent/41", [52, 3.333]],
+      ["name/42", [53, 47.554]],
+      ["parent/42", [52, 3.333]],
+      ["name/43", [54, 47.554]],
+      ["parent/43", [52, 3.333]],
+      ["name/44", [55, 41.956]],
+      ["parent/44", [52, 3.333]],
+      ["name/45", [56, 38.269]],
+      ["parent/45", [52, 3.333]],
+      ["name/46", [57, 38.269]],
+      ["parent/46", [52, 3.333]],
+      ["name/47", [58, 47.554]],
+      ["parent/47", [32, 2.893]],
+      ["name/48", [59, 41.956]],
+      ["parent/48", [60, 3.022]],
+      ["name/49", [61, 47.554]],
+      ["parent/49", [60, 3.022]],
+      ["name/50", [62, 47.554]],
+      ["parent/50", [60, 3.022]],
+      ["name/51", [63, 47.554]],
+      ["parent/51", [60, 3.022]],
+      ["name/52", [64, 47.554]],
+      ["parent/52", [60, 3.022]],
+      ["name/53", [65, 47.554]],
+      ["parent/53", [60, 3.022]],
+      ["name/54", [56, 38.269]],
+      ["parent/54", [60, 3.022]],
+      ["name/55", [57, 38.269]],
+      ["parent/55", [60, 3.022]],
+      ["name/56", [66, 47.554]],
+      ["parent/56", [32, 2.893]],
+      ["name/57", [59, 41.956]],
+      ["parent/57", [67, 5.034]],
+      ["name/58", [68, 47.554]],
+      ["parent/58", [32, 2.893]],
+      ["name/59", [56, 38.269]],
+      ["parent/59", [69, 4.441]],
+      ["name/60", [57, 38.269]],
+      ["parent/60", [69, 4.441]],
+      ["name/61", [13, 16.028, 70, 9.434, 71, 13.769]],
+      ["parent/61", []],
+      ["name/62", [72, 47.554]],
+      ["parent/62", [13, 1.776, 70, 1.045, 71, 1.525]],
+      ["name/63", [13, 27.326]],
+      ["parent/63", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/64", [15, 33.316]],
+      ["parent/64", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/65", [74, 47.554]],
+      ["parent/65", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/66", [75, 47.554]],
+      ["parent/66", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/67", [76, 47.554]],
+      ["parent/67", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/68", [77, 47.554]],
+      ["parent/68", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/69", [78, 47.554]],
+      ["parent/69", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/70", [79, 47.554]],
+      ["parent/70", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/71", [80, 47.554]],
+      ["parent/71", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/72", [81, 47.554]],
+      ["parent/72", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/73", [82, 47.554]],
+      ["parent/73", [70, 1.045, 71, 1.525, 73, 1.64]],
+      ["name/74", [55, 20.393, 83, 23.114, 84, 23.114, 85, 23.114]],
+      ["parent/74", []],
+      ["name/75", [70, 9.434, 86, 16.743, 87, 22.446]],
+      ["parent/75", []],
+      ["name/76", [8, 14.264, 70, 9.434, 86, 16.743]],
+      ["parent/76", []],
+      ["name/77", [88, 47.554]],
+      ["parent/77", [8, 1.58, 70, 1.045, 86, 1.855]],
+      ["name/78", [89, 38.269]],
+      ["parent/78", [70, 1.045, 86, 1.855, 90, 2.726]],
+      ["name/79", [91, 38.269]],
+      ["parent/79", [70, 1.045, 86, 1.855, 90, 2.726]],
+      ["name/80", [92, 47.554]],
+      ["parent/80", [8, 1.58, 70, 1.045, 86, 1.855]],
+      ["name/81", [15, 33.316]],
+      ["parent/81", [70, 1.045, 86, 1.855, 93, 2.726]],
+      ["name/82", [94, 38.269]],
+      ["parent/82", [70, 1.045, 86, 1.855, 93, 2.726]],
+      ["name/83", [36, 24.609, 95, 27.892, 96, 27.892]],
+      ["parent/83", []],
+      ["name/84", [70, 9.434, 97, 27.892, 98, 27.892]],
+      ["parent/84", []],
+      ["name/85", [70, 7.818, 87, 18.601, 99, 23.114, 100, 23.114]],
+      ["parent/85", []],
+      ["name/86", [8, 17.981, 101, 22.12]],
+      ["parent/86", []],
+      ["name/87", [102, 47.554]],
+      ["parent/87", [8, 1.958, 101, 2.409]],
+      ["name/88", [89, 38.269]],
+      ["parent/88", [101, 2.409, 103, 3.379]],
+      ["name/89", [91, 38.269]],
+      ["parent/89", [101, 2.409, 103, 3.379]],
+      ["name/90", [104, 47.554]],
+      ["parent/90", [8, 1.958, 101, 2.409]],
+      ["name/91", [15, 33.316]],
+      ["parent/91", [101, 2.409, 105, 3.379]],
+      ["name/92", [94, 38.269]],
+      ["parent/92", [101, 2.409, 105, 3.379]],
+      ["name/93", [70, 9.434, 106, 27.892, 107, 24.609]],
+      ["parent/93", []],
+      ["name/94", [70, 9.434, 107, 24.609, 108, 27.892]],
+      ["parent/94", []],
+      ["name/95", [70, 7.818, 87, 18.601, 109, 23.114, 110, 23.114]],
+      ["parent/95", []],
+      ["name/96", [8, 17.981, 111, 14.805]],
+      ["parent/96", []],
+      ["name/97", [112, 47.554]],
+      ["parent/97", [8, 1.958, 111, 1.612]],
+      ["name/98", [113, 47.554]],
+      ["parent/98", [111, 1.612, 114, 2.535]],
+      ["name/99", [115, 47.554]],
+      ["parent/99", [111, 1.612, 114, 2.535]],
+      ["name/100", [116, 47.554]],
+      ["parent/100", [111, 1.612, 114, 2.535]],
+      ["name/101", [117, 47.554]],
+      ["parent/101", [111, 1.612, 114, 2.535]],
+      ["name/102", [89, 38.269]],
+      ["parent/102", [111, 1.612, 114, 2.535]],
+      ["name/103", [91, 38.269]],
+      ["parent/103", [111, 1.612, 114, 2.535]],
+      ["name/104", [118, 47.554]],
+      ["parent/104", [8, 1.958, 111, 1.612]],
+      ["name/105", [119, 47.554]],
+      ["parent/105", [111, 1.612, 120, 2.86]],
+      ["name/106", [121, 47.554]],
+      ["parent/106", [111, 1.612, 120, 2.86]],
+      ["name/107", [122, 47.554]],
+      ["parent/107", [111, 1.612, 120, 2.86]],
+      ["name/108", [123, 47.554]],
+      ["parent/108", [111, 1.612, 120, 2.86]],
+      ["name/109", [124, 47.554]],
+      ["parent/109", [8, 1.958, 111, 1.612]],
+      ["name/110", [125, 47.554]],
+      ["parent/110", [111, 1.612, 126, 3.082]],
+      ["name/111", [127, 47.554]],
+      ["parent/111", [111, 1.612, 128, 3.829]],
+      ["name/112", [15, 33.316]],
+      ["parent/112", [111, 1.612, 126, 3.082]],
+      ["name/113", [94, 38.269]],
+      ["parent/113", [111, 1.612, 126, 3.082]]
+    ],
+    "invertedIndex": [
+      ["__type", { "_index": 127, "name": { "111": {} }, "parent": {} }],
+      [
+        "action_execution",
+        { "_index": 23, "name": { "18": {} }, "parent": {} }
+      ],
+      [
+        "adminpermissions",
+        { "_index": 51, "name": { "41": {} }, "parent": {} }
+      ],
+      [
+        "aliases",
+        { "_index": 59, "name": { "48": {}, "57": {} }, "parent": {} }
+      ],
+      ["app", { "_index": 100, "name": { "85": {} }, "parent": {} }],
+      [
+        "approvalrequired",
+        { "_index": 57, "name": { "46": {}, "55": {}, "60": {} }, "parent": {} }
+      ],
+      [
+        "artifactssourcekey",
+        { "_index": 34, "name": { "27": {} }, "parent": {} }
+      ],
+      ["assetsaliases", { "_index": 65, "name": { "53": {} }, "parent": {} }],
+      ["assetstorages", { "_index": 125, "name": { "110": {} }, "parent": {} }],
+      ["aws", { "_index": 30, "name": { "24": {} }, "parent": {} }],
+      [
+        "backenddeployment",
+        { "_index": 104, "name": { "90": {} }, "parent": {} }
+      ],
+      ["bail", { "_index": 6, "name": { "4": {}, "12": {} }, "parent": {} }],
+      ["basedeployment", { "_index": 92, "name": { "80": {} }, "parent": {} }],
+      ["basedomainname", { "_index": 113, "name": { "98": {} }, "parent": {} }],
+      ["basehandler", { "_index": 2, "name": { "1": {} }, "parent": {} }],
+      ["blocks", { "_index": 10, "name": { "5": {} }, "parent": { "6": {} } }],
+      [
+        "buildspec",
+        { "_index": 55, "name": { "44": {}, "74": {} }, "parent": {} }
+      ],
+      ["cdn", { "_index": 110, "name": { "95": {} }, "parent": {} }],
+      [
+        "certificatearn",
+        { "_index": 116, "name": { "100": {} }, "parent": {} }
+      ],
+      ["channelid", { "_index": 49, "name": { "39": {} }, "parent": {} }],
+      ["channelname", { "_index": 47, "name": { "37": {} }, "parent": {} }],
+      ["channeltypes", { "_index": 48, "name": { "38": {} }, "parent": {} }],
+      [
+        "cloudfrontpriceclass",
+        { "_index": 61, "name": { "49": {} }, "parent": {} }
+      ],
+      [
+        "constructor",
+        {
+          "_index": 15,
+          "name": { "9": {}, "64": {}, "81": {}, "91": {}, "112": {} },
+          "parent": {}
+        }
+      ],
+      [
+        "constructs/assets",
+        { "_index": 108, "name": { "94": {} }, "parent": {} }
+      ],
+      [
+        "constructs/base",
+        {
+          "_index": 86,
+          "name": { "75": {}, "76": {} },
+          "parent": {
+            "77": {},
+            "78": {},
+            "79": {},
+            "80": {},
+            "81": {},
+            "82": {}
+          }
+        }
+      ],
+      ["constructs/cdk", { "_index": 99, "name": { "85": {} }, "parent": {} }],
+      [
+        "constructs/credential",
+        { "_index": 97, "name": { "84": {} }, "parent": {} }
+      ],
+      [
+        "constructs/frontend",
+        { "_index": 109, "name": { "95": {} }, "parent": {} }
+      ],
+      [
+        "constructs/slack",
+        {
+          "_index": 71,
+          "name": { "61": {} },
+          "parent": {
+            "62": {},
+            "63": {},
+            "64": {},
+            "65": {},
+            "66": {},
+            "67": {},
+            "68": {},
+            "69": {},
+            "70": {},
+            "71": {},
+            "72": {},
+            "73": {}
+          }
+        }
+      ],
+      ["constructs/web", { "_index": 106, "name": { "93": {} }, "parent": {} }],
+      [
+        "createdeploymentstatusblocks",
+        { "_index": 11, "name": { "6": {} }, "parent": {} }
+      ],
+      [
+        "createnotificationsubscription",
+        {
+          "_index": 94,
+          "name": { "82": {}, "92": {}, "113": {} },
+          "parent": {}
+        }
+      ],
+      ["credentials", { "_index": 85, "name": { "74": {} }, "parent": {} }],
+      [
+        "defaultrootobject",
+        { "_index": 62, "name": { "50": {} }, "parent": {} }
+      ],
+      [
+        "deployment",
+        {
+          "_index": 8,
+          "name": { "5": {}, "76": {}, "86": {}, "96": {} },
+          "parent": {
+            "6": {},
+            "77": {},
+            "80": {},
+            "87": {},
+            "90": {},
+            "97": {},
+            "104": {},
+            "109": {}
+          }
+        }
+      ],
+      [
+        "deployment\".backenddeployment",
+        { "_index": 105, "name": {}, "parent": { "91": {}, "92": {} } }
+      ],
+      [
+        "deployment\".basedeployment",
+        { "_index": 93, "name": {}, "parent": { "81": {}, "82": {} } }
+      ],
+      [
+        "deployment\".frontenddeployment",
+        {
+          "_index": 126,
+          "name": {},
+          "parent": { "110": {}, "112": {}, "113": {} }
+        }
+      ],
+      [
+        "deployment\".frontenddeployment.assetstorages",
+        { "_index": 128, "name": {}, "parent": { "111": {} } }
+      ],
+      [
+        "deployment\".ibackenddeploymentprops",
+        { "_index": 103, "name": {}, "parent": { "88": {}, "89": {} } }
+      ],
+      [
+        "deployment\".ibasedeploymentprops",
+        { "_index": 90, "name": {}, "parent": { "78": {}, "79": {} } }
+      ],
+      [
+        "deployment\".ifrontenddeploymentprops",
+        {
+          "_index": 114,
+          "name": {},
+          "parent": {
+            "98": {},
+            "99": {},
+            "100": {},
+            "101": {},
+            "102": {},
+            "103": {}
+          }
+        }
+      ],
+      [
+        "deployment\".iruntimeenvironmentprops",
+        {
+          "_index": 120,
+          "name": {},
+          "parent": { "105": {}, "106": {}, "107": {}, "108": {} }
+        }
+      ],
+      ["directory", { "_index": 119, "name": { "105": {} }, "parent": {} }],
+      [
+        "distribution",
+        { "_index": 107, "name": { "93": {}, "94": {} }, "parent": {} }
+      ],
+      [
+        "domain_name_registrar",
+        { "_index": 29, "name": { "23": {} }, "parent": {} }
+      ],
+      [
+        "domainnameregistrar",
+        { "_index": 64, "name": { "52": {} }, "parent": {} }
+      ],
+      ["email", { "_index": 26, "name": { "21": {} }, "parent": {} }],
+      ["emailaddress", { "_index": 44, "name": { "34": {} }, "parent": {} }],
+      [
+        "environments",
+        { "_index": 36, "name": { "28": {}, "83": {} }, "parent": {} }
+      ],
+      ["errorrootobject", { "_index": 63, "name": { "51": {} }, "parent": {} }],
+      ["fileextension", { "_index": 123, "name": { "108": {} }, "parent": {} }],
+      ["filename", { "_index": 121, "name": { "106": {} }, "parent": {} }],
+      [
+        "frontenddeployment",
+        { "_index": 124, "name": { "109": {} }, "parent": {} }
+      ],
+      [
+        "handler",
+        {
+          "_index": 1,
+          "name": { "0": {}, "7": {} },
+          "parent": { "1": {}, "8": {} }
+        }
+      ],
+      [
+        "handler\".basehandler",
+        { "_index": 4, "name": {}, "parent": { "2": {}, "3": {}, "4": {} } }
+      ],
+      [
+        "handler\".slacksubscriptionhandler",
+        {
+          "_index": 16,
+          "name": {},
+          "parent": { "9": {}, "10": {}, "11": {}, "12": {} }
+        }
+      ],
+      [
+        "handlers/helpers/base",
+        {
+          "_index": 0,
+          "name": { "0": {} },
+          "parent": { "1": {}, "2": {}, "3": {}, "4": {} }
+        }
+      ],
+      [
+        "handlers/helpers/create",
+        { "_index": 7, "name": { "5": {} }, "parent": { "6": {} } }
+      ],
+      [
+        "handlers/slack",
+        {
+          "_index": 12,
+          "name": { "7": {} },
+          "parent": { "8": {}, "9": {}, "10": {}, "11": {}, "12": {} }
+        }
+      ],
+      ["hostedzonename", { "_index": 115, "name": { "99": {} }, "parent": {} }],
+      [
+        "iassetsdistributionconfig",
+        { "_index": 66, "name": { "56": {} }, "parent": {} }
+      ],
+      [
+        "ibackenddeploymentprops",
+        { "_index": 102, "name": { "87": {} }, "parent": {} }
+      ],
+      [
+        "ibackendenvironment",
+        { "_index": 50, "name": { "40": {} }, "parent": {} }
+      ],
+      [
+        "ibasedeploymentprops",
+        { "_index": 88, "name": { "77": {} }, "parent": {} }
+      ],
+      [
+        "ibaseenvironment",
+        { "_index": 68, "name": { "58": {} }, "parent": {} }
+      ],
+      [
+        "ibasepipelineprops",
+        { "_index": 33, "name": { "26": {} }, "parent": {} }
+      ],
+      [
+        "ifrontenddeploymentprops",
+        { "_index": 112, "name": { "97": {} }, "parent": {} }
+      ],
+      [
+        "ifrontendenvironment",
+        { "_index": 58, "name": { "47": {} }, "parent": {} }
+      ],
+      [
+        "inotificationconfigprops",
+        { "_index": 38, "name": { "30": {} }, "parent": {} }
+      ],
+      [
+        "inotificationsemailtargetconfig",
+        { "_index": 41, "name": { "32": {} }, "parent": {} }
+      ],
+      [
+        "inotificationsslacktargetconfig",
+        { "_index": 45, "name": { "35": {} }, "parent": {} }
+      ],
+      [
+        "iruntimeenvironmentprops",
+        { "_index": 118, "name": { "104": {} }, "parent": {} }
+      ],
+      ["isconstruct", { "_index": 74, "name": { "65": {} }, "parent": {} }],
+      [
+        "name",
+        { "_index": 56, "name": { "45": {}, "54": {}, "59": {} }, "parent": {} }
+      ],
+      ["node", { "_index": 75, "name": { "66": {} }, "parent": {} }],
+      ["none", { "_index": 24, "name": { "19": {} }, "parent": {} }],
+      [
+        "notificationconfig",
+        {
+          "_index": 89,
+          "name": { "78": {}, "88": {}, "102": {} },
+          "parent": {}
+        }
+      ],
+      [
+        "notifications_target",
+        { "_index": 25, "name": { "20": {} }, "parent": {} }
+      ],
+      [
+        "notifications_type",
+        { "_index": 19, "name": { "15": {} }, "parent": {} }
+      ],
+      [
+        "notificationstargetconfig",
+        { "_index": 39, "name": { "31": {} }, "parent": {} }
+      ],
+      [
+        "notificationstype",
+        { "_index": 37, "name": { "29": {} }, "parent": {} }
+      ],
+      ["onprepare", { "_index": 77, "name": { "68": {} }, "parent": {} }],
+      ["onsynthesize", { "_index": 78, "name": { "69": {} }, "parent": {} }],
+      ["onvalidate", { "_index": 76, "name": { "67": {} }, "parent": {} }],
+      [
+        "pipeline",
+        { "_index": 87, "name": { "75": {}, "85": {}, "95": {} }, "parent": {} }
+      ],
+      [
+        "pipeline_execution",
+        { "_index": 20, "name": { "16": {} }, "parent": {} }
+      ],
+      [
+        "pipelineconfig",
+        {
+          "_index": 91,
+          "name": { "79": {}, "89": {}, "103": {} },
+          "parent": {}
+        }
+      ],
+      ["prepare", { "_index": 80, "name": { "71": {} }, "parent": {} }],
+      ["privilegedmode", { "_index": 53, "name": { "42": {} }, "parent": {} }],
+      [
+        "resources/constants",
+        { "_index": 17, "name": { "13": {} }, "parent": {} }
+      ],
+      [
+        "resources/constructs/backend",
+        {
+          "_index": 101,
+          "name": { "86": {} },
+          "parent": {
+            "87": {},
+            "88": {},
+            "89": {},
+            "90": {},
+            "91": {},
+            "92": {}
+          }
+        }
+      ],
+      [
+        "resources/constructs/frontend",
+        {
+          "_index": 111,
+          "name": { "96": {} },
+          "parent": {
+            "97": {},
+            "98": {},
+            "99": {},
+            "100": {},
+            "101": {},
+            "102": {},
+            "103": {},
+            "104": {},
+            "105": {},
+            "106": {},
+            "107": {},
+            "108": {},
+            "109": {},
+            "110": {},
+            "111": {},
+            "112": {},
+            "113": {}
+          }
+        }
+      ],
+      [
+        "resources/enums",
+        {
+          "_index": 18,
+          "name": { "14": {} },
+          "parent": { "15": {}, "20": {}, "23": {} }
+        }
+      ],
+      [
+        "resources/enums\".domain_name_registrar",
+        { "_index": 31, "name": {}, "parent": { "24": {} } }
+      ],
+      [
+        "resources/enums\".notifications_target",
+        { "_index": 27, "name": {}, "parent": { "21": {}, "22": {} } }
+      ],
+      [
+        "resources/enums\".notifications_type",
+        {
+          "_index": 21,
+          "name": {},
+          "parent": { "16": {}, "17": {}, "18": {}, "19": {} }
+        }
+      ],
+      [
+        "resources/helpers/create",
+        { "_index": 83, "name": { "74": {} }, "parent": {} }
+      ],
+      [
+        "resources/helpers/resolve",
+        { "_index": 95, "name": { "83": {} }, "parent": {} }
+      ],
+      [
+        "resources/interfaces",
+        {
+          "_index": 32,
+          "name": { "25": {} },
+          "parent": {
+            "26": {},
+            "30": {},
+            "32": {},
+            "35": {},
+            "40": {},
+            "47": {},
+            "56": {},
+            "58": {}
+          }
+        }
+      ],
+      [
+        "resources/interfaces\".iassetsdistributionconfig",
+        { "_index": 67, "name": {}, "parent": { "57": {} } }
+      ],
+      [
+        "resources/interfaces\".ibackendenvironment",
+        {
+          "_index": 52,
+          "name": {},
+          "parent": {
+            "41": {},
+            "42": {},
+            "43": {},
+            "44": {},
+            "45": {},
+            "46": {}
+          }
+        }
+      ],
+      [
+        "resources/interfaces\".ibaseenvironment",
+        { "_index": 69, "name": {}, "parent": { "59": {}, "60": {} } }
+      ],
+      [
+        "resources/interfaces\".ibasepipelineprops",
+        { "_index": 35, "name": {}, "parent": { "27": {}, "28": {}, "29": {} } }
+      ],
+      [
+        "resources/interfaces\".ifrontendenvironment",
+        {
+          "_index": 60,
+          "name": {},
+          "parent": {
+            "48": {},
+            "49": {},
+            "50": {},
+            "51": {},
+            "52": {},
+            "53": {},
+            "54": {},
+            "55": {}
+          }
+        }
+      ],
+      [
+        "resources/interfaces\".inotificationconfigprops",
+        { "_index": 40, "name": {}, "parent": { "31": {} } }
+      ],
+      [
+        "resources/interfaces\".inotificationsemailtargetconfig",
+        { "_index": 43, "name": {}, "parent": { "33": {}, "34": {} } }
+      ],
+      [
+        "resources/interfaces\".inotificationsslacktargetconfig",
+        {
+          "_index": 46,
+          "name": {},
+          "parent": { "36": {}, "37": {}, "38": {}, "39": {} }
+        }
+      ],
+      [
+        "resources/internal",
+        {
+          "_index": 70,
+          "name": {
+            "61": {},
+            "75": {},
+            "76": {},
+            "84": {},
+            "85": {},
+            "93": {},
+            "94": {},
+            "95": {}
+          },
+          "parent": {
+            "62": {},
+            "63": {},
+            "64": {},
+            "65": {},
+            "66": {},
+            "67": {},
+            "68": {},
+            "69": {},
+            "70": {},
+            "71": {},
+            "72": {},
+            "73": {},
+            "77": {},
+            "78": {},
+            "79": {},
+            "80": {},
+            "81": {},
+            "82": {}
+          }
+        }
+      ],
+      ["run", { "_index": 5, "name": { "3": {}, "11": {} }, "parent": {} }],
+      ["runexec", { "_index": 3, "name": { "2": {}, "10": {} }, "parent": {} }],
+      ["runtime", { "_index": 96, "name": { "83": {} }, "parent": {} }],
+      [
+        "runtimeenvironmentconfig",
+        { "_index": 117, "name": { "101": {} }, "parent": {} }
+      ],
+      [
+        "runtimevariables",
+        { "_index": 54, "name": { "43": {} }, "parent": {} }
+      ],
+      ["separator", { "_index": 122, "name": { "107": {} }, "parent": {} }],
+      ["slack", { "_index": 28, "name": { "22": {} }, "parent": {} }],
+      [
+        "slacksubscription",
+        { "_index": 72, "name": { "62": {} }, "parent": {} }
+      ],
+      [
+        "slacksubscriptionhandler",
+        { "_index": 14, "name": { "8": {} }, "parent": {} }
+      ],
+      ["stage_execution", { "_index": 22, "name": { "17": {} }, "parent": {} }],
+      ["status", { "_index": 9, "name": { "5": {} }, "parent": { "6": {} } }],
+      ["store", { "_index": 98, "name": { "84": {} }, "parent": {} }],
+      [
+        "subscription",
+        {
+          "_index": 13,
+          "name": { "7": {}, "61": {}, "63": {} },
+          "parent": { "8": {}, "9": {}, "10": {}, "11": {}, "12": {}, "62": {} }
+        }
+      ],
+      [
+        "subscription\".slacksubscription",
+        {
+          "_index": 73,
+          "name": {},
+          "parent": {
+            "63": {},
+            "64": {},
+            "65": {},
+            "66": {},
+            "67": {},
+            "68": {},
+            "69": {},
+            "70": {},
+            "71": {},
+            "72": {},
+            "73": {}
+          }
+        }
+      ],
+      ["synthesize", { "_index": 81, "name": { "72": {} }, "parent": {} }],
+      [
+        "targettype",
+        { "_index": 42, "name": { "33": {}, "36": {} }, "parent": {} }
+      ],
+      ["tostring", { "_index": 82, "name": { "73": {} }, "parent": {} }],
+      ["validate", { "_index": 79, "name": { "70": {} }, "parent": {} }],
+      ["with", { "_index": 84, "name": { "74": {} }, "parent": {} }]
+    ],
+    "pipeline": []
+  }
+}
