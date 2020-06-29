@@ -1,50 +1,48 @@
+import { pascalCase } from 'change-case';
 import { Construct } from '@aws-cdk/core';
 import { Bucket } from '@aws-cdk/aws-s3';
-import { pascalCase } from 'change-case';
 import {
   OriginAccessIdentity,
   CloudFrontWebDistribution,
+  PriceClass,
   ViewerProtocolPolicy,
   ViewerCertificate,
   SecurityPolicyProtocol,
   SSLMethod,
-  PriceClass,
+  CloudFrontAllowedMethods,
 } from '@aws-cdk/aws-cloudfront';
-import { CnameRecord, IHostedZone } from '@aws-cdk/aws-route53';
-import { DOMAIN_NAME_REGISTRAR } from '../enums';
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
+import { DOMAIN_NAME_REGISTRAR } from '../enums';
+import { CnameRecord, IHostedZone } from '@aws-cdk/aws-route53';
 
-interface IWebDistributionProps {
+interface IAssetsDistribution {
   aliases: string[];
-  hostedZone: IHostedZone;
   certificate: ICertificate;
-  domainNameRegistrar?: DOMAIN_NAME_REGISTRAR;
-  defaultRootObject?: string;
-  errorRootObject?: string;
+  hostedZone: IHostedZone;
   cloudfrontPriceClass?: PriceClass;
+  domainNameRegistrar?: DOMAIN_NAME_REGISTRAR;
 }
 
 /**
  * @hidden
  */
-export class WebDistribution extends Construct {
-  public readonly s3BucketSource: Bucket;
-  constructor(scope: Construct, id: string, props: IWebDistributionProps) {
-    super(scope, id);
-
-    const {
+export class AssetsDistribution extends Construct {
+  readonly assetStorage: Bucket;
+  constructor(
+    scope: Construct,
+    id: string,
+    {
       aliases,
       cloudfrontPriceClass,
-      defaultRootObject,
-      errorRootObject,
+      certificate,
       domainNameRegistrar,
       hostedZone,
-      certificate,
-    } = props;
+    }: IAssetsDistribution
+  ) {
+    super(scope, id);
 
-    this.s3BucketSource = new Bucket(this, 'OriginBucket', {
-      websiteIndexDocument: defaultRootObject || 'index.html',
-      websiteErrorDocument: errorRootObject || 'index.html',
+    this.assetStorage = new Bucket(this, 'Bucket', {
+      versioned: true,
     });
 
     const originAccessIdentity = new OriginAccessIdentity(
@@ -57,33 +55,20 @@ export class WebDistribution extends Construct {
 
     const distribution = new CloudFrontWebDistribution(
       this,
-      'CloudFrontWebDistribution',
+      'CloudFrontResource',
       {
         originConfigs: [
           {
             s3OriginSource: {
-              s3BucketSource: this.s3BucketSource,
+              s3BucketSource: this.assetStorage,
               originAccessIdentity,
             },
             behaviors: [
               {
                 isDefaultBehavior: true,
-                forwardedValues: {
-                  queryString: true,
-                  cookies: {
-                    forward: 'none',
-                  },
-                },
+                allowedMethods: CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
               },
             ],
-          },
-        ],
-        errorConfigurations: [
-          // routes will be handled by SPA, so redirect to default page path
-          {
-            errorCode: 404,
-            responsePagePath: `/${defaultRootObject || 'index.html'}`,
-            responseCode: 200,
           },
         ],
         comment: `Cloudfront Distribution for ${aliases[0]}`,

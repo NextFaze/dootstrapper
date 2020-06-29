@@ -11,6 +11,7 @@ import {
   IBaseDeploymentProps,
   BaseDeployment,
 } from '../internal-constructs/base-deployment';
+import { Bucket } from '@aws-cdk/aws-s3';
 
 /**
  * @param - __baseDomainName__: Base Domain name to serve application on. <br />
@@ -68,6 +69,7 @@ export interface IRuntimeEnvironmentProps {
  *
  */
 export class FrontendDeployment extends BaseDeployment {
+  readonly assetStorages: { [key: string]: Bucket };
   constructor(scope: Construct, id: string, props: IFrontendDeploymentProps) {
     super(scope, id);
     const {
@@ -116,6 +118,8 @@ export class FrontendDeployment extends BaseDeployment {
         hostedZone,
       }
     );
+
+    this.assetStorages = pipelineConstruct.assetStorages;
 
     this.createNotificationSubscription(
       pipelineConstruct,

@@ -18,6 +18,8 @@ import {
   BuildEnvironmentVariableType,
 } from '@aws-cdk/aws-codebuild';
 import { IRuntimeEnvironmentProps } from '../constructs/frontend-deployment';
+import { AssetsDistribution } from './assets-distribution';
+import { Bucket } from '@aws-cdk/aws-s3';
 
 interface IFrontendCDNPipelineProps
   extends IBasePipelineProps<IFrontendEnvironment> {
@@ -30,6 +32,7 @@ interface IFrontendCDNPipelineProps
  * @hidden
  */
 export class FrontendCDNPipeline extends BasePipeline {
+  public readonly assetStorages: { [key: string]: Bucket } = {};
   constructor(scope: Construct, id: string, props: IFrontendCDNPipelineProps) {
     super(scope, id, {
       artifactSourceKey: props.artifactsSourceKey,
@@ -59,6 +62,7 @@ export class FrontendCDNPipeline extends BasePipeline {
     environments.forEach((environment) => {
       const {
         name,
+        assetsAliases,
         approvalRequired,
         aliases,
         cloudfrontPriceClass,
@@ -66,6 +70,7 @@ export class FrontendCDNPipeline extends BasePipeline {
         domainNameRegistrar,
         errorRootObject,
       } = environment;
+      // web distribution
       const distribution = new WebDistribution(
         this,
         pascalCase(`${name}WebDistribution`),
@@ -79,6 +84,23 @@ export class FrontendCDNPipeline extends BasePipeline {
           hostedZone,
         }
       );
+
+      // asset distribution
+      if (assetsAliases && assetsAliases.length) {
+        const assetsDistribution = new AssetsDistribution(
+          this,
+          pascalCase(`${name}AssetsDistribution`),
+          {
+            aliases: assetsAliases,
+            cloudfrontPriceClass,
+            hostedZone,
+            certificate,
+            domainNameRegistrar,
+          }
+        );
+        this.assetStorages[environment.name] = assetsDistribution.assetStorage;
+      }
+
       // create deploy actions
       const actions = [];
       let runOrder = 0;
