@@ -1347,6 +1347,132 @@
           }
         }
       }
+    },
+    "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionBucket4A33D5A3": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionBucketPolicy3B2B5105": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionBucket4A33D5A3"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": ["s3:GetObject*", "s3:GetBucket*", "s3:List*"],
+              "Effect": "Allow",
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionOriginAccessIdentity29A403B6",
+                    "S3CanonicalUserId"
+                  ]
+                }
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionBucket4A33D5A3",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionBucket4A33D5A3",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionOriginAccessIdentity29A403B6": {
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+      "Properties": {
+        "CloudFrontOriginAccessIdentityConfig": {
+          "Comment": "Origin Access Identity for assets.example.com"
+        }
+      }
+    },
+    "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionCloudFrontResourceCFDistribution764946EF": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": ["assets.example.com"],
+          "Comment": "Cloudfront Distribution for assets.example.com",
+          "DefaultCacheBehavior": {
+            "AllowedMethods": ["GET", "HEAD", "OPTIONS"],
+            "CachedMethods": ["GET", "HEAD"],
+            "Compress": true,
+            "ForwardedValues": {
+              "Cookies": {
+                "Forward": "none"
+              },
+              "QueryString": false
+            },
+            "TargetOriginId": "origin1",
+            "ViewerProtocolPolicy": "redirect-to-https"
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": [
+            {
+              "DomainName": {
+                "Fn::GetAtt": [
+                  "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionBucket4A33D5A3",
+                  "RegionalDomainName"
+                ]
+              },
+              "Id": "origin1",
+              "S3OriginConfig": {
+                "OriginAccessIdentity": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "origin-access-identity/cloudfront/",
+                      {
+                        "Ref": "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionOriginAccessIdentity29A403B6"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": {
+            "AcmCertificateArn": {
+              "Fn::GetAtt": [
+                "FrontendDeploymentCertificateCertificateRequestorResource3AAE567F",
+                "Arn"
+              ]
+            },
+            "MinimumProtocolVersion": "TLSv1.2_2018",
+            "SslSupportMethod": "sni-only"
+          }
+        }
+      }
     }
   },
   "Parameters": {
