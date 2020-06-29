@@ -48,7 +48,6 @@
     "build": "bazel build ${TARGET:-//...}",
     "check": "bazel version",
     "test": "bazel test //...",
-    "install:all": "bazel run @nodejs//:npm_node_repositories install",
     "build:docs": "typedoc",
     "pack": "bazel run //package:dootstrapper.pack",
     "publish": "bazel run //package:dootstrapper.publish",

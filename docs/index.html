@@ -1,239 +1,402 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Dootstrapper</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">Dootstrapper</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
-			<h1>Dootstrapper</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#dootstrapper" id="dootstrapper" style="color: inherit; text-decoration: none;">
-					<h1><div align="center">Dootstrapper</div></h1>
-				</a>
-				<p><a href="https://www.npmjs.com/package/@nf-tools/dootstrapper"><img src="https://img.shields.io/npm/v/@nf-tools/dootstrapper?style=for-the-badge" alt="NPM Release"></a> <a href="https://www.npmjs.com/package/@nf-tools/dootstrapper"><img src="https://img.shields.io/bundlephobia/min/@nf-tools/dootstrapper?style=for-the-badge" alt="Package Size"></a> <a href="https://github.com/NextFaze/dootstrapper"><img src="https://img.shields.io/github/issues-raw/nextfaze/dootstrapper?style=for-the-badge" alt="Github Issues"></a> <a href="https://github.com/aws/aws-cdk"><img src="https://img.shields.io/npm/dependency-version/@nf-tools/dootstrapper/peer/@aws-cdk/core?style=for-the-badge" alt="AWS CDK"></a> <a href="https://github.com/NextFaze/dootstrapper/stargazers"><img src="https://img.shields.io/github/stars/nextfaze/dootstrapper?color=orange&style=for-the-badge" alt="Dootstrapper stars"></a></p>
-				<p>Dootstrapper is a library for bootstrapping deployment resources. It creates a continuous delivery | continuous deployment pipeline to deploy modern web and serverless (AWS) apps. It uses highly declarative buildspec syntax to configure deployment steps, generating highly customizable multiple environment pipeline. Additionally, it also configures notification channels to publish deployment notifications to.</p>
-				<p>Dootstrapper uses modern JavaScript, is built with <a href="https://www.typescriptlang.org/">Typescript</a> (Provides optional types for JavaScript). At it&#39;s core, there is a <a href="https://docs.aws.amazon.com/cdk/">AWS Cloud Development Kit</a> which makes all magic possible.</p>
-				<p>Here is a small list of features it offers:</p>
-				<p>✔️ Ease of use</p>
-				<p>✔️ Minimum Effort to go from development to production</p>
-				<p>✔️ Automated deployment notifications</p>
-				<p>✔️ Support for deploying SPA apps</p>
-				<p>✔️ Support for deploying serverless apps without pain</p>
-				<p>✔️ Out of the box support for continuous delivery and continuous deployment on both platforms</p>
-				<p>✔️ Rich typing and documentation</p>
-				<p>✔️ Built with modern tools like bazel🍃️</p>
-				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
-					<h2>Getting Started</h2>
-				</a>
-				<a href="#prerequisite" id="prerequisite" style="color: inherit; text-decoration: none;">
-					<h3>Prerequisite</h3>
-				</a>
-				<p><code>aws-cli</code>: installed and configured <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">Install it from here</a></p>
-				<p><code>aws-cdk</code>: installed globally <a href="https://www.npmjs.com/package/aws-cdk">Install is from here</a></p>
-				<a href="#scaffolding-project" id="scaffolding-project" style="color: inherit; text-decoration: none;">
-					<h3>Scaffolding project</h3>
-				</a>
-				<p>We will need CDK environment setup to be able to run cdk deploy commands
-				Initialize environment with</p>
-				<pre><code class="language-sh">cdk init --language typescript</code></pre>
-				<a href="#install-it-with" id="install-it-with" style="color: inherit; text-decoration: none;">
-					<h3>Install it with</h3>
-				</a>
-				<pre><code class="language-sh">npm i @nf-tools/dootstrapper</code></pre>
-				<a href="#installing-dependencies" id="installing-dependencies" style="color: inherit; text-decoration: none;">
-					<h4>Installing dependencies</h4>
-				</a>
-				<p>Since, Dootstrapper doesn&#39;t ship with existing aws-cdk modules, these all needs to be manually installed</p>
-				<p>Install cdk packages with</p>
-				<pre><code class="language-sh">npm i @aws-cdk/aws-sns-subscriptions @aws-cdk/aws-sns @aws-cdk/aws-s3 @aws-cdk/aws-iam @aws-cdk/aws-events-targets @aws-cdk/aws-events @aws-cdk/aws-codepipeline-actions @aws-cdk/aws-codepipeline @aws-cdk/aws-codebuild @aws-cdk/aws-cloudtrail @aws-cdk/aws-ssm @aws-cdk/aws-route53 @aws-cdk/aws-cloudfront @aws-cdk/aws-certificatemanager</code></pre>
-				<a href="#creating-your-first-pipeline-project" id="creating-your-first-pipeline-project" style="color: inherit; text-decoration: none;">
-					<h3>Creating your first pipeline project</h3>
-				</a>
-				<p>Now inside <code>{project-dir}/bin</code> locate line with <code>const app = new cdk.App()</code>. Just below, add</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">new</span> FrontendDeployment(app, <span class="hljs-string">'FrontendDeployment'</span>, {
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dootstrapper</title>
+    <meta name="description" content="Documentation for Dootstrapper" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body>
+    <header>
+      <div class="tsd-page-toolbar">
+        <div class="container">
+          <div class="table-wrap">
+            <div
+              class="table-cell"
+              id="tsd-search"
+              data-index="assets/js/search.json"
+              data-base="."
+            >
+              <div class="field">
+                <label
+                  for="tsd-search-field"
+                  class="tsd-widget search no-caption"
+                  >Search</label
+                >
+                <input id="tsd-search-field" type="text" />
+              </div>
+              <ul class="results">
+                <li class="state loading">Preparing search index...</li>
+                <li class="state failure">The search index is not available</li>
+              </ul>
+              <a href="index.html" class="title">Dootstrapper</a>
+            </div>
+            <div class="table-cell" id="tsd-widgets">
+              <div id="tsd-filter">
+                <a
+                  href="#"
+                  class="tsd-widget options no-caption"
+                  data-toggle="options"
+                  >Options</a
+                >
+                <div class="tsd-filter-group">
+                  <div class="tsd-select" id="tsd-filter-visibility">
+                    <span class="tsd-select-label">All</span>
+                    <ul class="tsd-select-list">
+                      <li data-value="public">Public</li>
+                      <li data-value="protected">Public/Protected</li>
+                      <li data-value="private" class="selected">All</li>
+                    </ul>
+                  </div>
+                  <input type="checkbox" id="tsd-filter-inherited" checked />
+                  <label class="tsd-widget" for="tsd-filter-inherited"
+                    >Inherited</label
+                  >
+                </div>
+              </div>
+              <a href="#" class="tsd-widget menu no-caption" data-toggle="menu"
+                >Menu</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tsd-page-title">
+        <div class="container">
+          <ul class="tsd-breadcrumb">
+            <li>
+              <a href="globals.html">Globals</a>
+            </li>
+          </ul>
+          <h1>Dootstrapper</h1>
+        </div>
+      </div>
+    </header>
+    <div class="container container-main">
+      <div class="row">
+        <div class="col-8 col-content">
+          <div class="tsd-panel tsd-typography">
+            <a
+              href="#dootstrapper"
+              id="dootstrapper"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h1><div align="center">Dootstrapper</div></h1>
+            </a>
+            <p>
+              <a href="https://www.npmjs.com/package/@nf-tools/dootstrapper"
+                ><img
+                  src="https://img.shields.io/npm/v/@nf-tools/dootstrapper?style=for-the-badge"
+                  alt="NPM Release"
+              /></a>
+              <a href="https://www.npmjs.com/package/@nf-tools/dootstrapper"
+                ><img
+                  src="https://img.shields.io/bundlephobia/min/@nf-tools/dootstrapper?style=for-the-badge"
+                  alt="Package Size"
+              /></a>
+              <a href="https://github.com/NextFaze/dootstrapper"
+                ><img
+                  src="https://img.shields.io/github/issues-raw/nextfaze/dootstrapper?style=for-the-badge"
+                  alt="Github Issues"
+              /></a>
+              <a href="https://github.com/aws/aws-cdk"
+                ><img
+                  src="https://img.shields.io/npm/dependency-version/@nf-tools/dootstrapper/peer/@aws-cdk/core?style=for-the-badge"
+                  alt="AWS CDK"
+              /></a>
+              <a href="https://github.com/NextFaze/dootstrapper/stargazers"
+                ><img
+                  src="https://img.shields.io/github/stars/nextfaze/dootstrapper?color=orange&style=for-the-badge"
+                  alt="Dootstrapper stars"
+              /></a>
+            </p>
+            <p>
+              Dootstrapper is a library for bootstrapping deployment resources.
+              It creates a continuous delivery | continuous deployment pipeline
+              to deploy modern web and serverless (AWS) apps. It uses highly
+              declarative buildspec syntax to configure deployment steps,
+              generating highly customizable multiple environment pipeline.
+              Additionally, it also configures notification channels to publish
+              deployment notifications to.
+            </p>
+            <p>
+              Dootstrapper uses modern JavaScript, is built with
+              <a href="https://www.typescriptlang.org/">Typescript</a> (Provides
+              optional types for JavaScript). At it&#39;s core, there is a
+              <a href="https://docs.aws.amazon.com/cdk/"
+                >AWS Cloud Development Kit</a
+              >
+              which makes all magic possible.
+            </p>
+            <p>Here is a small list of features it offers:</p>
+            <p>✔️ Ease of use</p>
+            <p>✔️ Minimum Effort to go from development to production</p>
+            <p>✔️ Automated deployment notifications</p>
+            <p>✔️ Support for deploying SPA apps</p>
+            <p>✔️ Support for deploying serverless apps without pain</p>
+            <p>
+              ✔️ Out of the box support for continuous delivery and continuous
+              deployment on both platforms
+            </p>
+            <p>✔️ Rich typing and documentation</p>
+            <p>✔️ Built with modern tools like bazel🍃️</p>
+            <a
+              href="#getting-started"
+              id="getting-started"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h2>Getting Started</h2>
+            </a>
+            <a
+              href="#prerequisite"
+              id="prerequisite"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h3>Prerequisite</h3>
+            </a>
+            <p>
+              <code>aws-cli</code>: installed and configured
+              <a
+                href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html"
+                >Install it from here</a
+              >
+            </p>
+            <p>
+              <code>aws-cdk</code>: installed globally
+              <a href="https://www.npmjs.com/package/aws-cdk"
+                >Install is from here</a
+              >
+            </p>
+            <a
+              href="#scaffolding-project"
+              id="scaffolding-project"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h3>Scaffolding project</h3>
+            </a>
+            <p>
+              We will need CDK environment setup to be able to run cdk deploy
+              commands Initialize environment with
+            </p>
+            <pre><code class="language-sh">cdk init --language typescript</code></pre>
+            <a
+              href="#install-it-with"
+              id="install-it-with"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h3>Install it with</h3>
+            </a>
+            <pre><code class="language-sh">npm i @nf-tools/dootstrapper</code></pre>
+            <a
+              href="#installing-dependencies"
+              id="installing-dependencies"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h4>Installing dependencies</h4>
+            </a>
+            <p>
+              Since, Dootstrapper doesn&#39;t ship with existing aws-cdk
+              modules, these all needs to be manually installed
+            </p>
+            <p>Install cdk packages with</p>
+            <pre><code class="language-sh">npm i @aws-cdk/aws-sns-subscriptions @aws-cdk/aws-sns @aws-cdk/aws-s3 @aws-cdk/aws-iam @aws-cdk/aws-events-targets @aws-cdk/aws-events @aws-cdk/aws-codepipeline-actions @aws-cdk/aws-codepipeline @aws-cdk/aws-codebuild @aws-cdk/aws-cloudtrail @aws-cdk/aws-ssm @aws-cdk/aws-route53 @aws-cdk/aws-cloudfront @aws-cdk/aws-certificatemanager</code></pre>
+            <a
+              href="#creating-your-first-pipeline-project"
+              id="creating-your-first-pipeline-project"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h3>Creating your first pipeline project</h3>
+            </a>
+            <p>
+              Now inside <code>{project-dir}/bin</code> locate line with
+              <code>const app = new cdk.App()</code>. Just below, add
+            </p>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> App();
+
+<span class="hljs-keyword">const</span> deploymentStack = <span class="hljs-keyword">new</span> Stack(app, <span class="hljs-string">&#x27;DeploymentToolsStack&#x27;</span>, {
+  stackName: <span class="hljs-string">&#x27;Frontend and Backend Deployment Tools&#x27;</span>,
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
   },
+});
+
+<span class="hljs-keyword">new</span> FrontendDeployment(deploymentStack, <span class="hljs-string">&#x27;FrontendDeployment&#x27;</span>, {
   pipelineConfig: <span class="hljs-comment">// pipeline config option,</span>
   baseDomainName: <span class="hljs-comment">// base domain name,</span>
   notificationConfig: <span class="hljs-comment">// notification config option</span>
 });</code></pre>
-				<p>(Optional) Remove any other auto generated stack configs from <code>{project-dir}/lib</code></p>
-				<a href="#deploying" id="deploying" style="color: inherit; text-decoration: none;">
-					<h3>Deploying</h3>
-				</a>
-				<p>Run <code>cdk deploy</code> and all the required resources will be created in region specified in <code>~/.aws/config</code></p>
-				<p><strong>Note</strong>: <em>This entire process of building and deploying is likely to get much simple when dootstrapper cli comes out</em></p>
-				<a href="#more-examples" id="more-examples" style="color: inherit; text-decoration: none;">
-					<h3>More examples</h3>
-				</a>
-				<p>Checkout more detailed examples in dootstrapper repository <a href="https://github.com/NextFaze/dootstrapper/blob/develop/example/index.ts">here</a></p>
-				<a href="#motivation" id="motivation" style="color: inherit; text-decoration: none;">
-					<h2>Motivation</h2>
-				</a>
-				<p>To be able to create awesome softwares, we need a solid version control system and development styles, that has been Git and GitFlow traditionally. GitFlow has very effective development model but it is not efficient especially when we need frequent releases. With git flow each changes needs to go through entire merge life cycle: <code>feature -&gt; develop -&gt; master -&gt; release</code>, also it takes a lot of good practice to get good at GitFlow, and mostly with small/medium projects it is really not required. Thus, use <code>Trunk Based Development</code>.</p>
-				<p>Wait but now with <code>TBD</code> (sort for <code>Trunk Based Development</code>), there is going to be a lot of configuration required to release an application into multiple environment since it does not have that different branch for different environment niceness. To address this problem, Introducing Dootstrapper.</p>
-				<p>With Dootstrapper, it is easy to setup multiple environment based release cycle. It also takes care of sending notifications to teams, when human involvement is required. Under the hood it creates all key resources required (on aws cloud) for you.</p>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_handlers_helpers_base_handler_.html">&quot;handlers/helpers/base-<wbr>handler&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_handlers_helpers_create_deployment_status_blocks_.html">&quot;handlers/helpers/create-<wbr>deployment-<wbr>status-<wbr>blocks&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_handlers_slack_subscription_handler_.html">&quot;handlers/slack-<wbr>subscription-<wbr>handler&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_resources_backend_deployment_.html">&quot;resources/backend-<wbr>deployment&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_resources_base_deployment_.html">&quot;resources/base-<wbr>deployment&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_resources_constructs_slack_subscription_.html">&quot;resources/constructs/slack-<wbr>subscription&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_resources_enums_.html">&quot;resources/enums&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_resources_frontend_deployment_.html">&quot;resources/frontend-<wbr>deployment&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_resources_interfaces_.html">&quot;resources/interfaces&quot;</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer>
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
-</body>
+            <p>
+              (Optional) Remove any other auto generated stack configs from
+              <code>{project-dir}/lib</code>
+            </p>
+            <a
+              href="#deploying"
+              id="deploying"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h3>Deploying</h3>
+            </a>
+            <p>
+              Run <code>cdk deploy</code> and all the required resources will be
+              created in region specified in <code>~/.aws/config</code>
+            </p>
+            <p>
+              <strong>Note</strong>:
+              <em
+                >This entire process of building and deploying is likely to get
+                much simple when dootstrapper cli comes out</em
+              >
+            </p>
+            <a
+              href="#more-examples"
+              id="more-examples"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h3>More examples</h3>
+            </a>
+            <p>
+              Checkout more detailed examples in dootstrapper repository
+              <a
+                href="https://github.com/NextFaze/dootstrapper/blob/develop/example/index.ts"
+                >here</a
+              >
+            </p>
+            <a
+              href="#motivation"
+              id="motivation"
+              style="color: inherit; text-decoration: none;"
+            >
+              <h2>Motivation</h2>
+            </a>
+            <p>
+              To be able to create awesome softwares, we need a solid version
+              control system and development styles, that has been Git and
+              GitFlow traditionally. GitFlow has very effective development
+              model but it is not efficient especially when we need frequent
+              releases. With git flow each changes needs to go through entire
+              merge life cycle:
+              <code>feature -&gt; develop -&gt; master -&gt; release</code>,
+              also it takes a lot of good practice to get good at GitFlow, and
+              mostly with small/medium projects it is really not required. Thus,
+              use <code>Trunk Based Development</code>.
+            </p>
+            <p>
+              Wait but now with <code>TBD</code> (sort for
+              <code>Trunk Based Development</code>), there is going to be a lot
+              of configuration required to release an application into multiple
+              environment since it does not have that different branch for
+              different environment niceness. To address this problem,
+              Introducing Dootstrapper.
+            </p>
+            <p>
+              With Dootstrapper, it is easy to setup multiple environment based
+              release cycle. It also takes care of sending notifications to
+              teams, when human involvement is required. Under the hood it
+              creates all key resources required (on aws cloud) for you.
+            </p>
+          </div>
+        </div>
+        <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+          <nav class="tsd-navigation primary">
+            <ul>
+              <li class="globals">
+                <a href="globals.html"><em>Globals</em></a>
+              </li>
+              <li class="tsd-kind-module">
+                <a href="modules/_handlers_helpers_base_handler_.html"
+                  >&quot;handlers/helpers/base-<wbr />handler&quot;</a
+                >
+              </li>
+              <li class="tsd-kind-module">
+                <a
+                  href="modules/_handlers_helpers_create_deployment_status_blocks_.html"
+                  >&quot;handlers/helpers/create-<wbr />deployment-<wbr />status-<wbr />blocks&quot;</a
+                >
+              </li>
+              <li class="tsd-kind-module">
+                <a href="modules/_handlers_slack_subscription_handler_.html"
+                  >&quot;handlers/slack-<wbr />subscription-<wbr />handler&quot;</a
+                >
+              </li>
+              <li class="tsd-kind-module">
+                <a href="modules/_resources_constructs_backend_deployment_.html"
+                  >&quot;resources/constructs/backend-<wbr />deployment&quot;</a
+                >
+              </li>
+              <li class="tsd-kind-module">
+                <a
+                  href="modules/_resources_constructs_frontend_deployment_.html"
+                  >&quot;resources/constructs/frontend-<wbr />deployment&quot;</a
+                >
+              </li>
+              <li class="tsd-kind-module">
+                <a href="modules/_resources_enums_.html"
+                  >&quot;resources/enums&quot;</a
+                >
+              </li>
+              <li class="tsd-kind-module">
+                <a href="modules/_resources_interfaces_.html"
+                  >&quot;resources/interfaces&quot;</a
+                >
+              </li>
+              <li class="tsd-kind-module">
+                <a
+                  href="modules/_resources_internal_constructs_base_deployment_.html"
+                  >&quot;resources/internal-<wbr />constructs/base-<wbr />deployment&quot;</a
+                >
+              </li>
+              <li class="tsd-kind-module">
+                <a
+                  href="modules/_resources_internal_constructs_slack_subscription_.html"
+                  >&quot;resources/internal-<wbr />constructs/slack-<wbr />subscription&quot;</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <nav class="tsd-navigation secondary menu-sticky">
+            <ul class="before-current"></ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <h2>Legend</h2>
+        <div class="tsd-legend-group">
+          <ul class="tsd-legend">
+            <li class="tsd-kind-interface">
+              <span class="tsd-kind-icon">Interface</span>
+            </li>
+            <li class="tsd-kind-interface tsd-has-type-parameter">
+              <span class="tsd-kind-icon">Interface with type parameter</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li class="tsd-kind-function">
+              <span class="tsd-kind-icon">Function</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li class="tsd-kind-enum">
+              <span class="tsd-kind-icon">Enumeration</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li class="tsd-kind-class">
+              <span class="tsd-kind-icon">Class</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <div class="overlay"></div>
+    <script src="assets/js/main.js"></script>
+    <script>
+      if (location.protocol == 'file:')
+        document.write('<script src="assets/js/search.js"><' + '/script>');
+    </script>
+  </body>
 </html>

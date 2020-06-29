@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>IBasePipelineProps | Dootstrapper</title>
+    <title>IRuntimeEnvironmentProps | Dootstrapper</title>
     <meta name="description" content="Documentation for Dootstrapper" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
@@ -70,17 +70,19 @@
               <a href="../globals.html">Globals</a>
             </li>
             <li>
-              <a href="../modules/_resources_interfaces_.html"
-                >&quot;resources/interfaces&quot;</a
+              <a
+                href="../modules/_resources_constructs_frontend_deployment_.html"
+                >&quot;resources/constructs/frontend-deployment&quot;</a
               >
             </li>
             <li>
-              <a href="_resources_interfaces_.ibasepipelineprops.html"
-                >IBasePipelineProps</a
+              <a
+                href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html"
+                >IRuntimeEnvironmentProps</a
               >
             </li>
           </ul>
-          <h1>Interface IBasePipelineProps&lt;T&gt;</h1>
+          <h1>Interface IRuntimeEnvironmentProps</h1>
         </div>
       </div>
     </header>
@@ -93,54 +95,40 @@
                 <dt>param</dt>
                 <dd>
                   <p>
-                    <strong>artifactsSourceKey</strong>: Fully qualified s3 path
-                    to target artifact (i.e path/to/some/file.zip)
+                    <strong>directory</strong>: Directory where configs for all
+                    environment live i.e this can be <code>assets/config</code>
                   </p>
                 </dd>
                 <dt>param</dt>
                 <dd>
                   <p>
-                    <strong>environments</strong>: List of environments to setup
-                    in a pipeline
+                    <strong>fileName</strong>: Original config file name without
+                    i.e config.json (so the config location as per earlier
+                    directory be, assets/config/config.json )
                   </p>
                 </dd>
                 <dt>param</dt>
                 <dd>
                   <p>
-                    <strong>notificationsType</strong>: Type of deployment
-                    notifications to receive
+                    <strong>separator</strong>: Key used to differentiate
+                    configs among environments i.e for file config.dev.json,
+                    this value will be &quot;.&quot;
+                  </p>
+                </dd>
+                <dt>param</dt>
+                <dd>
+                  <p>
+                    <strong>fileExtension</strong>: Config file&#39;s extension
                   </p>
                 </dd>
               </dl>
             </div>
           </section>
-          <section class="tsd-panel tsd-type-parameters">
-            <h3>Type parameters</h3>
-            <ul class="tsd-type-parameters">
-              <li>
-                <h4>T</h4>
-                <div class="tsd-comment tsd-typography">
-                  <div class="lead">
-                    <p>
-                      value for this type will be either
-                      <a href="_resources_interfaces_.ifrontendenvironment.html"
-                        >IFrontendEnvironment</a
-                      >
-                      or
-                      <a href="_resources_interfaces_.ibackendenvironment.html"
-                        >IBackendEnvironment</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </section>
           <section class="tsd-panel tsd-hierarchy">
             <h3>Hierarchy</h3>
             <ul class="tsd-hierarchy">
               <li>
-                <span class="target">IBasePipelineProps</span>
+                <span class="target">IRuntimeEnvironmentProps</span>
               </li>
             </ul>
           </section>
@@ -153,23 +141,30 @@
                   <ul class="tsd-index-list">
                     <li class="tsd-kind-property tsd-parent-kind-interface">
                       <a
-                        href="_resources_interfaces_.ibasepipelineprops.html#artifactssourcekey"
+                        href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#directory"
                         class="tsd-kind-icon"
-                        >artifacts<wbr />Source<wbr />Key</a
+                        >directory</a
                       >
                     </li>
                     <li class="tsd-kind-property tsd-parent-kind-interface">
                       <a
-                        href="_resources_interfaces_.ibasepipelineprops.html#environments"
+                        href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#fileextension"
                         class="tsd-kind-icon"
-                        >environments</a
+                        >file<wbr />Extension</a
                       >
                     </li>
                     <li class="tsd-kind-property tsd-parent-kind-interface">
                       <a
-                        href="_resources_interfaces_.ibasepipelineprops.html#notificationstype"
+                        href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#filename"
                         class="tsd-kind-icon"
-                        >notifications<wbr />Type</a
+                        >file<wbr />Name</a
+                      >
+                    </li>
+                    <li class="tsd-kind-property tsd-parent-kind-interface">
+                      <a
+                        href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#separator"
+                        class="tsd-kind-icon"
+                        >separator</a
                       >
                     </li>
                   </ul>
@@ -182,13 +177,10 @@
             <section
               class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
             >
-              <a name="artifactssourcekey" class="tsd-anchor"></a>
-              <h3>artifacts<wbr />Source<wbr />Key</h3>
+              <a name="directory" class="tsd-anchor"></a>
+              <h3>directory</h3>
               <div class="tsd-signature tsd-kind-icon">
-                artifacts<wbr />Source<wbr />Key<span
-                  class="tsd-signature-symbol"
-                  >:</span
-                >
+                directory<span class="tsd-signature-symbol">:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
@@ -196,8 +188,8 @@
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/interfaces.ts#L15"
-                      >package/resources/interfaces.ts:15</a
+                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/constructs/frontend-deployment.ts#L55"
+                      >package/resources/constructs/frontend-deployment.ts:55</a
                     >
                   </li>
                 </ul>
@@ -206,50 +198,24 @@
             <section
               class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
             >
-              <a name="environments" class="tsd-anchor"></a>
-              <h3>environments</h3>
-              <div class="tsd-signature tsd-kind-icon">
-                environments<span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">T</span
-                ><span class="tsd-signature-symbol">[]</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/interfaces.ts#L16"
-                      >package/resources/interfaces.ts:16</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section
-              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
-            >
-              <a name="notificationstype" class="tsd-anchor"></a>
+              <a name="fileextension" class="tsd-anchor"></a>
               <h3>
                 <span class="tsd-flag ts-flagOptional">Optional</span>
-                notifications<wbr />Type
+                file<wbr />Extension
               </h3>
               <div class="tsd-signature tsd-kind-icon">
-                notifications<wbr />Type<span class="tsd-signature-symbol"
-                  >:</span
-                >
-                <a
-                  href="../enums/_resources_enums_.notifications_type.html"
-                  class="tsd-signature-type"
-                  >NOTIFICATIONS_TYPE</a
-                >
+                file<wbr />Extension<span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">undefined</span
+                ><span class="tsd-signature-symbol"> | </span
+                ><span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/interfaces.ts#L20"
-                      >package/resources/interfaces.ts:20</a
+                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/constructs/frontend-deployment.ts#L64"
+                      >package/resources/constructs/frontend-deployment.ts:64</a
                     >
                   </li>
                 </ul>
@@ -258,10 +224,63 @@
                 <dl class="tsd-comment-tags">
                   <dt>default</dt>
                   <dd>
-                    <ul>
-                      <li>Pipeline Execution events</li>
-                    </ul>
+                    <p>
+                      json config files are expected to have &quot;json&quot;
+                      extension
+                    </p>
                   </dd>
+                </dl>
+              </div>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
+            >
+              <a name="filename" class="tsd-anchor"></a>
+              <h3>file<wbr />Name</h3>
+              <div class="tsd-signature tsd-kind-icon">
+                file<wbr />Name<span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">string</span>
+              </div>
+              <aside class="tsd-sources">
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/constructs/frontend-deployment.ts#L56"
+                      >package/resources/constructs/frontend-deployment.ts:56</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
+            >
+              <a name="separator" class="tsd-anchor"></a>
+              <h3>
+                <span class="tsd-flag ts-flagOptional">Optional</span> separator
+              </h3>
+              <div class="tsd-signature tsd-kind-icon">
+                separator<span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">undefined</span
+                ><span class="tsd-signature-symbol"> | </span
+                ><span class="tsd-signature-type">string</span>
+              </div>
+              <aside class="tsd-sources">
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/NextFaze/dootstrapper/blob/a4c58eb/package/resources/constructs/frontend-deployment.ts#L60"
+                      >package/resources/constructs/frontend-deployment.ts:60</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+              <div class="tsd-comment tsd-typography">
+                <dl class="tsd-comment-tags">
+                  <dt>default</dt>
+                  <dd><p>. &quot;dot&quot; is used by default</p></dd>
                 </dl>
               </div>
             </section>
@@ -295,7 +314,7 @@
                   >&quot;resources/constructs/backend-<wbr />deployment&quot;</a
                 >
               </li>
-              <li class="tsd-kind-module">
+              <li class="current tsd-kind-module">
                 <a
                   href="../modules/_resources_constructs_frontend_deployment_.html"
                   >&quot;resources/constructs/frontend-<wbr />deployment&quot;</a
@@ -306,7 +325,7 @@
                   >&quot;resources/enums&quot;</a
                 >
               </li>
-              <li class="current tsd-kind-module">
+              <li class="tsd-kind-module">
                 <a href="../modules/_resources_interfaces_.html"
                   >&quot;resources/interfaces&quot;</a
                 >
@@ -327,92 +346,61 @@
           </nav>
           <nav class="tsd-navigation secondary menu-sticky">
             <ul class="before-current">
-              <li class="tsd-kind-interface tsd-parent-kind-module">
+              <li class="tsd-kind-class tsd-parent-kind-module">
                 <a
-                  href="_resources_interfaces_.iassetsdistributionconfig.html"
+                  href="../classes/_resources_constructs_frontend_deployment_.frontenddeployment.html"
                   class="tsd-kind-icon"
-                  >IAssets<wbr />Distribution<wbr />Config</a
+                  >Frontend<wbr />Deployment</a
                 >
               </li>
               <li class="tsd-kind-interface tsd-parent-kind-module">
                 <a
-                  href="_resources_interfaces_.ibackendenvironment.html"
+                  href="_resources_constructs_frontend_deployment_.ifrontenddeploymentprops.html"
                   class="tsd-kind-icon"
-                  >IBackend<wbr />Environment</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.ibaseenvironment.html"
-                  class="tsd-kind-icon"
-                  >IBase<wbr />Environment</a
+                  >IFrontend<wbr />Deployment<wbr />Props</a
                 >
               </li>
             </ul>
             <ul class="current">
-              <li
-                class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"
-              >
+              <li class="current tsd-kind-interface tsd-parent-kind-module">
                 <a
-                  href="_resources_interfaces_.ibasepipelineprops.html"
+                  href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html"
                   class="tsd-kind-icon"
-                  >IBase<wbr />Pipeline<wbr />Props</a
+                  >IRuntime<wbr />Environment<wbr />Props</a
                 >
                 <ul>
                   <li class="tsd-kind-property tsd-parent-kind-interface">
                     <a
-                      href="_resources_interfaces_.ibasepipelineprops.html#artifactssourcekey"
+                      href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#directory"
                       class="tsd-kind-icon"
-                      >artifacts<wbr />Source<wbr />Key</a
+                      >directory</a
                     >
                   </li>
                   <li class="tsd-kind-property tsd-parent-kind-interface">
                     <a
-                      href="_resources_interfaces_.ibasepipelineprops.html#environments"
+                      href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#fileextension"
                       class="tsd-kind-icon"
-                      >environments</a
+                      >file<wbr />Extension</a
                     >
                   </li>
                   <li class="tsd-kind-property tsd-parent-kind-interface">
                     <a
-                      href="_resources_interfaces_.ibasepipelineprops.html#notificationstype"
+                      href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#filename"
                       class="tsd-kind-icon"
-                      >notifications<wbr />Type</a
+                      >file<wbr />Name</a
+                    >
+                  </li>
+                  <li class="tsd-kind-property tsd-parent-kind-interface">
+                    <a
+                      href="_resources_constructs_frontend_deployment_.iruntimeenvironmentprops.html#separator"
+                      class="tsd-kind-icon"
+                      >separator</a
                     >
                   </li>
                 </ul>
               </li>
             </ul>
-            <ul class="after-current">
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.ifrontendenvironment.html"
-                  class="tsd-kind-icon"
-                  >IFrontend<wbr />Environment</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.inotificationconfigprops.html"
-                  class="tsd-kind-icon"
-                  >INotification<wbr />Config<wbr />Props</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.inotificationsemailtargetconfig.html"
-                  class="tsd-kind-icon"
-                  >INotifications<wbr />Email<wbr />Target<wbr />Config</a
-                >
-              </li>
-              <li class="tsd-kind-interface tsd-parent-kind-module">
-                <a
-                  href="_resources_interfaces_.inotificationsslacktargetconfig.html"
-                  class="tsd-kind-icon"
-                  >INotifications<wbr />Slack<wbr />Target<wbr />Config</a
-                >
-              </li>
-            </ul>
+            <ul class="after-current"></ul>
           </nav>
         </div>
       </div>

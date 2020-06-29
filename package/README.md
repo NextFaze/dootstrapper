@@ -62,11 +62,17 @@ npm i @aws-cdk/aws-sns-subscriptions @aws-cdk/aws-sns @aws-cdk/aws-s3 @aws-cdk/a
 Now inside `{project-dir}/bin` locate line with `const app = new cdk.App()`. Just below, add
 
 ```typescript
-new FrontendDeployment(app, 'FrontendDeployment', {
+const app = new App();
+
+const deploymentStack = new Stack(app, 'DeploymentToolsStack', {
+  stackName: 'Frontend and Backend Deployment Tools',
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
   },
+});
+
+new FrontendDeployment(deploymentStack, 'FrontendDeployment', {
   pipelineConfig: // pipeline config option,
   baseDomainName: // base domain name,
   notificationConfig: // notification config option
