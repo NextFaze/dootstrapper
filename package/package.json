@@ -24,7 +24,7 @@
     "@slack/web-api": "^5.8.0"
   },
   "scripts": {
-    "postinstall": "if [-d \"./handlers\"]; then cd ./handlers && npm i --prod; fi"
+    "postinstall": "if [ -d \"./handlers\" ]; then cd ./handlers && npm i --prod; fi"
   },
   "peerDependencies": {
     "aws-cdk": "^1.46.0",

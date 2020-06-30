@@ -12,7 +12,7 @@ exports_files(
 
 setup_ts_build(
     name = "library",
-    module_name = "@dootstrapper/dootstrapper",
+    module_name = "@nf-tools/dootstrapper",
     deps = [
         "//package/handlers:library",
         "//package/resources:library",
@@ -28,7 +28,7 @@ pkg_npm(
     ],
     replace_with_version = "0.0.0-PLACEHOLDER",
     substitutions = {
-        "dootstrapper/package": "dootstrapper",
+        "dootstrapper/package": "@nf-tools/dootstrapper",
     },
     deps = [
         ":library",

@@ -21,7 +21,7 @@
     "typeRoots": ["./node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "@dootstrapper/dootstrapper": ["package/index.ts"]
+      "@nf-tools/dootstrapper": ["package/index.ts"]
     }
   },
   "exclude": ["cdk.out", "dist", "bazel-out", "node_modules"]

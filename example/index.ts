@@ -3,9 +3,9 @@ import {
   BackendDeployment,
   NOTIFICATIONS_TARGET,
   NOTIFICATIONS_TYPE,
-} from '@dootstrapper/dootstrapper';
-import { FrontendDeployment } from '@dootstrapper/dootstrapper';
-import { DOMAIN_NAME_REGISTRAR } from '@dootstrapper/dootstrapper';
+} from '@nf-tools/dootstrapper';
+import { FrontendDeployment } from '@nf-tools/dootstrapper';
+import { DOMAIN_NAME_REGISTRAR } from '@nf-tools/dootstrapper';
 
 const buildSpec = {
   version: 0.2,
