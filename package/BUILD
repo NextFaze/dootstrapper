@@ -14,7 +14,6 @@ setup_ts_build(
     name = "library",
     module_name = "@nf-tools/dootstrapper",
     deps = [
-        "//package/handlers:library",
         "//package/resources:library",
     ],
 )
@@ -30,7 +29,8 @@ pkg_npm(
     substitutions = {
         "dootstrapper/package": "@nf-tools/dootstrapper",
     },
-    deps = [
+    deps = [        
+        "//package/handlers:bundle",
         ":library",
     ],
 )
