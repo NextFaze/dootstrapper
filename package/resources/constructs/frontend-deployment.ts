@@ -16,6 +16,7 @@ import { Bucket } from '@aws-cdk/aws-s3';
 /**
  * @param - __baseDomainName__: Base Domain name to serve application on. <br />
  * i.e For application `app.example.com` this value will be `example.com`.
+ * @param - __hostedZoneId__: Hosted zone id to register dns records
  * @param - __hostedZoneName__: Hosted Zone name to lookup for when `baseDomainName` is different
  *  than the hostedZoneName
  * @param - __certificateArn__: Certificate to use when delivering content over cdn
@@ -31,6 +32,7 @@ export interface IFrontendDeploymentProps
   /**
    * @default baseDomainName When hostedZoneName is not defined, baseDomainName is used instead
    */
+  hostedZoneId: string;
   hostedZoneName?: string;
   /**
    * @default none A certificate is requested and validated using route53
@@ -78,12 +80,13 @@ export class FrontendDeployment extends BaseDeployment {
       certificateArn,
       runtimeEnvironmentConfig,
       baseDomainName,
+      hostedZoneId,
       notificationConfig: { notificationsTargetConfig },
     } = props;
 
-    const hostedZone = HostedZone.fromLookup(this, 'HostedZone', {
-      domainName: hostedZoneName || baseDomainName,
-      privateZone: false,
+    const hostedZone = HostedZone.fromHostedZoneAttributes(this, 'HostedZone', {
+      zoneName: hostedZoneName || baseDomainName,
+      hostedZoneId,
     });
 
     if (!HostedZone.isConstruct(hostedZone)) {

@@ -67,10 +67,7 @@
                     {
                       "Ref": "AWS::Partition"
                     },
-                    ":route53:::hostedzone/",
-                    {
-                      "Ref": "HostedZoneDB99F866"
-                    }
+                    ":route53:::hostedzone/ZONE_ID"
                   ]
                 ]
               }
@@ -153,9 +150,7 @@
         },
         "DomainName": "example.com",
         "SubjectAlternativeNames": ["*.example.com"],
-        "HostedZoneId": {
-          "Ref": "HostedZoneDB99F866"
-        },
+        "HostedZoneId": "ZONE_ID",
         "Region": "us-east-1"
       },
       "UpdateReplacePolicy": "Delete",

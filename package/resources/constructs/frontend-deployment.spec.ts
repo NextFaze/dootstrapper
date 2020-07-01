@@ -19,6 +19,7 @@ describe('FrontendDeployment', () => {
 
     new FrontendDeployment(stack, 'FrontendDeployment', {
       baseDomainName: 'example.com',
+      hostedZoneId: 'ZONE_ID',
       notificationConfig: {
         notificationsTargetConfig: {
           emailAddress: 'support@example.com',

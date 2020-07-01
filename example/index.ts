@@ -32,6 +32,7 @@ const deploymentStack = new Stack(app, 'DeploymentTools', {
 });
 
 new FrontendDeployment(deploymentStack, 'FrontendDeployment', {
+  hostedZoneId: '123123123',
   pipelineConfig: {
     artifactsSourceKey: 'artifacts/app.zip',
     environments: [
@@ -53,6 +54,7 @@ new FrontendDeployment(deploymentStack, 'FrontendDeployment', {
 });
 
 new FrontendDeployment(deploymentStack, 'FrontendDeploymentWithRuntimeConfig', {
+  hostedZoneId: '123123123',
   pipelineConfig: {
     artifactsSourceKey: 'artifacts/app.zip',
     environments: [
