@@ -24,7 +24,7 @@ const buildSpec = {
 const app = new App();
 
 const deploymentStack = new Stack(app, 'DeploymentTools', {
-  stackName: 'Frontend and Backend Deployment Tools',
+  stackName: 'deployment-tools',
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
