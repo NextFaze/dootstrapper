@@ -1,10 +1,10 @@
 import { BaseHandler } from './helpers/base-handler';
 import { SNSEvent } from 'aws-lambda';
-import { WebClient } from '@slack/web-api';
+import * as Slack from '@slack/web-api/dist/WebClient';
 import { createDeploymentStatusBlocks } from './helpers/create-deployment-status-blocks';
 
 export class SlackSubscriptionHandler extends BaseHandler {
-  constructor(private webClient: WebClient) {
+  constructor(private webClient: Slack.WebClient) {
     super();
   }
   protected async runExec(event: SNSEvent): Promise<any> {

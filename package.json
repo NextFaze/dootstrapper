@@ -42,7 +42,8 @@
     "tslint-plugin-prettier": "^2.3.0",
     "typedoc": "^0.17.7",
     "typedoc-plugin-no-inherit": "^1.1.10",
-    "typescript": "~3.9.5"
+    "typescript": "~3.9.5",
+    "@slack/web-api": "^5.10.0"
   },
   "scripts": {
     "build": "bazel build ${TARGET:-//...}",
@@ -81,7 +82,6 @@
     "@aws-cdk/aws-sns-subscriptions": "^1.46.0",
     "@aws-cdk/aws-ssm": "^1.46.0",
     "@aws-cdk/core": "^1.46.0",
-    "@slack/web-api": "^5.10.0",
     "aws-cdk": "^1.46.0",
     "change-case": "^4.1.1"
   },

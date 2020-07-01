@@ -20,11 +20,7 @@
   "module": "ES6",
   "license": "MIT",
   "dependencies": {
-    "change-case": "^4.1.1",
-    "@slack/web-api": "^5.8.0"
-  },
-  "scripts": {
-    "postinstall": "if [ -d \"./handlers\" ]; then cd ./handlers && npm i --prod; fi"
+    "change-case": "^4.1.1"
   },
   "peerDependencies": {
     "aws-cdk": "^1.46.0",

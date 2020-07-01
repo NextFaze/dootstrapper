@@ -6,7 +6,7 @@ load("@rules_pkg//:pkg.bzl", "pkg_tar")
 package(default_visibility = ["//visibility:public"])
 
 setup_ts_build(
-    name = "library",
+    name = "library"
 )
 
 setup_ts_specs(
@@ -18,6 +18,7 @@ setup_ts_specs(
 
 rollup_bundle(
     name = "bundle",
+    sourcemap = 'hidden',
     config_file = "rollup.config.js",
     entry_point = ":index.ts",
     format = "cjs",
@@ -30,8 +31,6 @@ pkg_tar(
     name = "handlers",
     srcs = [
         ":bundle",
-        "//package:package.json",
-        "//package:package-lock.json"
     ],
     extension = "tar.gz",
     package_dir = "handlers",
