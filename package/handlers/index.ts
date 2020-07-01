@@ -1,7 +1,7 @@
 import { SNSEvent } from 'aws-lambda';
 import { SlackSubscriptionHandler } from './slack-subscription-handler';
 import { SSM } from 'aws-sdk';
-import { WebClient } from '@slack/web-api';
+import * as Slack from '@slack/web-api/dist/WebClient';
 
 export const handler = async (event: SNSEvent, ctx?: any) => {
   // This wil almost never happen, mainly because aws guarantees that sns will always have single message instance
@@ -27,7 +27,7 @@ export const handler = async (event: SNSEvent, ctx?: any) => {
     })
     .promise();
 
-  const webClient = new WebClient(response.Parameter?.Value);
+  const webClient = new Slack.WebClient(response.Parameter?.Value);
 
   const slackSubscriptionHandler = new SlackSubscriptionHandler(webClient);
   return slackSubscriptionHandler.run(event, ctx);
