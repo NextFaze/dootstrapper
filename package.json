@@ -61,6 +61,7 @@
     "format:write": "prettier --write ./**/*.ts",
     "synth": "cdk synth",
     "deploy": "cdk deploy",
+    "cdk": "cdk",
     "lint": "tslint --project ./",
     "clean": "bazel clean",
     "clean:deep": "bazel clean --expunge"

@@ -1,7 +1,11 @@
 import { HostedZone } from '@aws-cdk/aws-route53';
 import { Stack, App } from '@aws-cdk/core';
 import { FrontendDeployment } from './frontend-deployment';
-import { NOTIFICATIONS_TARGET, NOTIFICATIONS_TYPE } from '../enums';
+import {
+  NOTIFICATIONS_TARGET,
+  NOTIFICATIONS_TYPE,
+  DOMAIN_NAME_REGISTRAR,
+} from '../enums';
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 const frontEndMinConfig = require('./test/frontend-stack.json');
 
@@ -34,6 +38,7 @@ describe('FrontendDeployment', () => {
             aliases: ['app.example.com'],
             name: 'prod',
             assetsAliases: ['assets.example.com'],
+            domainNameRegistrar: DOMAIN_NAME_REGISTRAR.AWS,
           },
         ],
       },

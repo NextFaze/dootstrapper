@@ -1,6 +1,6 @@
 import { App, Construct } from '@aws-cdk/core';
 import { IFrontendEnvironment } from '../interfaces';
-import { HostedZone } from '@aws-cdk/aws-route53';
+import { HostedZone, IHostedZone } from '@aws-cdk/aws-route53';
 import {
   DnsValidatedCertificate,
   Certificate,
@@ -33,6 +33,7 @@ export interface IFrontendDeploymentProps
    * @default baseDomainName When hostedZoneName is not defined, baseDomainName is used instead
    */
   hostedZoneId: string;
+  hostedZone?: IHostedZone;
   hostedZoneName?: string;
   /**
    * @default none A certificate is requested and validated using route53
@@ -74,20 +75,23 @@ export class FrontendDeployment extends BaseDeployment {
   readonly assetStorages: { [key: string]: Bucket };
   constructor(scope: Construct, id: string, props: IFrontendDeploymentProps) {
     super(scope, id);
-    const {
+    let {
       pipelineConfig,
       hostedZoneName,
       certificateArn,
       runtimeEnvironmentConfig,
       baseDomainName,
       hostedZoneId,
+      hostedZone,
       notificationConfig: { notificationsTargetConfig },
     } = props;
 
-    const hostedZone = HostedZone.fromHostedZoneAttributes(this, 'HostedZone', {
-      zoneName: hostedZoneName || baseDomainName,
-      hostedZoneId,
-    });
+    if (!hostedZone) {
+      hostedZone = HostedZone.fromHostedZoneAttributes(this, 'HostedZone', {
+        zoneName: hostedZoneName || baseDomainName,
+        hostedZoneId,
+      });
+    }
 
     if (!HostedZone.isConstruct(hostedZone)) {
       throw new Error('No Hosted Zone found for given domain name!');

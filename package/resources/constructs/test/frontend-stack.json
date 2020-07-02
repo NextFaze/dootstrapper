@@ -1343,6 +1343,23 @@
         }
       }
     },
+    "FrontendDeploymentFrontendCDNPipelineProdWebDistributionAppExampleComCnameRecord5745025D": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Name": "app.example.com.",
+        "Type": "CNAME",
+        "HostedZoneId": "ZONE_ID",
+        "ResourceRecords": [
+          {
+            "Fn::GetAtt": [
+              "FrontendDeploymentFrontendCDNPipelineProdWebDistributionCloudFrontWebDistributionCFDistribution864770D1",
+              "DomainName"
+            ]
+          }
+        ],
+        "TTL": "1800"
+      }
+    },
     "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionBucket4A33D5A3": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
@@ -1467,6 +1484,23 @@
             "SslSupportMethod": "sni-only"
           }
         }
+      }
+    },
+    "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionAssetsExampleComCnameRecord37E68A73": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Name": "assets.example.com.",
+        "Type": "CNAME",
+        "HostedZoneId": "ZONE_ID",
+        "ResourceRecords": [
+          {
+            "Fn::GetAtt": [
+              "FrontendDeploymentFrontendCDNPipelineProdAssetsDistributionCloudFrontResourceCFDistribution764946EF",
+              "DomainName"
+            ]
+          }
+        ],
+        "TTL": "1800"
       }
     }
   },
