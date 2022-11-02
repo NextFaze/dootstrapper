@@ -17,7 +17,7 @@
     "@bazel/bazel": "^2.1.0",
     "@bazel/buildifier": "^3.2.1",
     "@bazel/ibazel": "^0.13.1",
-    "@bazel/jasmine": "^1.7.0",
+    "@bazel/jasmine": "^5.7.1",
     "@bazel/rollup": "^1.7.0",
     "@bazel/typescript": "^1.7.0",
     "@commitlint/cli": "^9.0.1",
